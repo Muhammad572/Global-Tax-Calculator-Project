@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Income Tax Guide 2025/2026 – Brackets, Personal Allowance & VAT | GlobalTaxEstimator.world</title>
+    
+    <meta name="description" content="A detailed breakdown of the 2025/2026 UK Income Tax brackets, Personal Allowance, National Insurance, and Value Added Tax (VAT) for England, Wales, and Northern Ireland.">
+    
+    <style>
+        /* 1. Global Styles (From index.html) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5; 
+            color: #333;
+            /* Added min-height and display:flex to ensure sticky footer behavior */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 2. Header and Footer (From index.html) */
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        header nav {
+            margin-top: 10px;
+            padding: 0 10px;
+        }
+        header nav a {
+            color: #cce0ff;
+            text-decoration: none;
+            margin: 0 5px;
+            font-weight: 500;
+        }
+        header nav a:hover {
+            color: white;
+        }
+        
+        /* CORRECTED FOOTER STYLING */
+        footer {
+            background-color: #333;
+            color: #ccc;
+            text-align: center;
+            padding: 15px 0;
+            /* Important: Push the footer to the bottom and ensure full width */
+            margin-top: auto; 
+            width: 100%;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        /* 3. Main Layout Containers (From global-tax-guide.html template) */
+        .main-content {
+            /* flex: 1 0 auto ensures content takes up remaining vertical space */
+            flex: 1 0 auto; 
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .content-container { /* Consistent container style */
+            flex-grow: 1; 
+            max-width: 900px; 
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+        }
+
+        /* 4. Guide-Specific Styles (Same as before) */
+        .guide-section h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .guide-section h3 {
+            color: #28a745; /* Success Green */
+        }
+        
+        /* Table Styling for Tax Brackets */
+        .tax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1em;
+            text-align: left;
+        }
+        .tax-table th, .tax-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        .tax-table thead tr {
+            background-color: #007bff;
+            color: white;
+            text-align: left;
+        }
+        .tax-table tbody tr:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+        .tax-table tbody tr:hover {
+            background-color: #e2f0d9; /* Light green on hover */
+        }
+        
+        /* Highlighted Block (for Disclaimers/Key Info) */
+        .disclaimer-note {
+            background-color: #f8d7da; 
+            border-left: 5px solid #dc3545; 
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        /* Standard List Styling for Allowances/VAT */
+        .guide-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .guide-section ul li {
+            background: #e9ecef;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-left: 5px solid #007bff;
+            border-radius: 3px;
+        }
+
+        .source-note {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: -10px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="../index.html">← Back to Tax Calculator</a> | 
+            <a href="us-tax-guide.html">U.S. Guide</a> | 
+            <a href="canada-tax-guide.html">Canada Guide</a> |
+            <a href="global-tax-guide.html">Global Guide</a>
+        </nav>
+        <h1>🇬🇧 U.K. Income Tax Guide: 2025/2026 Tax Year</h1>
+    </header>
+
+    <div class="main-content">
+        <div class="content-container">
+
+            <section id="tax-overview" class="guide-section">
+                <h2>Tax System Overview</h2>
+                <p>The UK Income Tax system is managed by **HM Revenue and Customs (HMRC)** and applies to all earnings above the Personal Allowance. The tax year runs from **6 April to 5 April**. The rates below apply to England, Wales, and Northern Ireland (Scottish rates are different).</p>
+                <p class="disclaimer-note">
+                    ⚠️ **Official Tax Advice Disclaimer:** This guide provides estimates and educational information only. Tax law is complex, and we strongly advise consulting a qualified UK tax advisor or the official HMRC documentation for final guidance.
+                </p>
+            </section>
+
+            <hr>
+
+            <section id="brackets-table" class="guide-section">
+                <h2>2025/2026 Income Tax Rates (England, Wales, N. Ireland)</h2>
+                <p>Your **taxable income** is your income after deducting your Personal Allowance (and any other tax reliefs you may be entitled to).</p>
+                
+                <table class="tax-table">
+                    <thead>
+                        <tr>
+                            <th>Tax Rate</th>
+                            <th>Taxable Income Band (GBP)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0%</td><td>£0 to £12,570 (Personal Allowance)</td></tr>
+                        <tr><td>20% (Basic Rate)</td><td>£12,571 to £50,270</td></tr>
+                        <tr><td>40% (Higher Rate)</td><td>£50,271 to £125,140</td></tr>
+                        <tr><td>45% (Additional Rate)</td><td>Over £125,140</td></tr>
+                    </tbody>
+                </table>
+                <p class="source-note"><em>Source: HMRC rates for the 2025/2026 tax year.</em></p>
+            </section>
+
+            <hr>
+
+            <section id="allowances" class="guide-section">
+                <h2>Key Allowances and National Insurance</h2>
+                <ul>
+                    <li><strong>Standard Personal Allowance:</strong> **£12,570** (The amount of income you can earn before paying any tax).</li>
+                    <li><strong>Allowance Taper:</strong> The Personal Allowance is reduced by £1 for every £2 of income over £100,000, meaning it is **£0** if your income is £125,140 or more.</li>
+                    <li><strong>National Insurance (NI):</strong> This is a separate mandatory contribution (like Social Security in the US) paid by employees, employers, and the self-employed to qualify for certain state benefits. It is a key factor in calculating net income.</li>
+                </ul>
+            </section>
+
+            <hr>
+
+            <section id="vat" class="guide-section">
+                <h2>Consumption Tax: Value Added Tax (VAT)</h2>
+                <p>The main consumption tax in the UK is VAT, which is applied at different rates to most goods and services:</p>
+                <ul>
+                    <li><strong>Standard Rate:</strong> **20%** (Applies to the majority of goods and services).</li>
+                    <li><strong>Reduced Rate:</strong> 5% (Applies to some items like domestic fuel and power).</li>
+                    <li><strong>Zero Rate:</strong> 0% (Applies to essential items like most food, books, and children's clothes).</li>
+                </ul>
+            </section>
+            
+            <hr>
+
+            <section id="official-resources" class="guide-section">
+                <h2>Official HMRC Resources</h2>
+                <p>For the most current and official information, please refer to the UK Government website:</p>
+                <p><a href="https://www.gov.uk/income-tax-rates" target="_blank">GOV.UK: Income Tax rates and Personal Allowances</a></p>
+            </section>
+        
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright &copy; <span id="currentYear"></span> GlobalTaxEstimator.world | 
+        <a href="../privacy-policy.html">Privacy Policy</a> | 
+        <a href="../contact.html">Contact Us</a> |
+        <a href="../about.html">About Us</a></p>
+    </footer>
+
+    <script>
+        // Set the current year in the footer dynamically
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

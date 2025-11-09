@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Global Tax & Salary Calculator</title>
+    
+    <meta name="description" content="Learn about the mission, data sources, and team behind the Global Tax & Salary Calculator website.">
+    
+    <style>
+        /* Shared Styles (CSS is identical to privacy-policy.html for consistency) */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; color: #333; }
+        header { background-color: #007bff; color: white; padding: 20px 0; text-align: center; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        header h1 { margin: 0; font-size: 2em; }
+        header nav { margin-top: 10px; padding: 0 10px; }
+        header nav a { color: #cce0ff; text-decoration: none; margin: 0 10px; font-weight: 500; }
+        header nav a:hover { color: white; }
+        footer { background-color: #333; color: #ccc; text-align: center; padding: 15px 0; margin-top: 40px; font-size: 0.9em; }
+        footer a { color: #ccc; text-decoration: none; margin: 0 10px; }
+        .main-content { display: flex; justify-content: center; padding: 20px; }
+        .content-container { flex-grow: 1; max-width: 900px; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); line-height: 1.6; }
+
+        /* About-Specific Styles */
+        .content-container h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .mission-box {
+            background-color: #f8f9fa;
+            border: 1px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .mission-box h3 {
+            color: #28a745; /* Success Green */
+            margin-top: 0;
+        }
+        .disclaimer-final {
+            background-color: #fff3cd; /* Yellow for strong warning */
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html">← Back to Calculator</a> | 
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="contact.html">Contact Us</a>
+        </nav>
+        <h1>💡 About GlobalTaxEstimator.world</h1>
+        <p>Our Mission and Data Integrity.</p>
+    </header>
+
+    <div class="main-content">
+        <div class="content-container">
+
+            <div class="mission-box">
+                <h3>Our Mission</h3>
+                <p>To provide clear, fast, and easily accessible income and sales tax estimates for individuals and businesses operating internationally. We aim to be a helpful first-reference tool for understanding global tax liabilities.</p>
+            </div>
+
+            <h2>Who We Are (Expertise & Trust)</h2>
+            <p>GlobalTaxEstimator.world was developed by a team of web developers and financial analysts with a passion for simplifying complex international tax structures. Our goal is not to replace professional advice, but to provide a quick, transparent, and accurate estimation tool.</p>
+
+            <h2>Data Integrity and Sources</h2>
+            <p>The core of our tool relies on published official government tax data, simplified for easy calculation. We categorize our data as follows:</p>
+            <ul>
+                <li><strong>Detailed Data (US, UK, CA):</strong> Tax brackets are actively maintained and updated annually using official government sources (e.g., CRA, HMRC, IRS).</li>
+                <li><strong>Sales/VAT Data:</strong> Based on the standard VAT, GST, or Sales Tax rates published by national tax authorities.</li>
+                <li><strong>Default Data (Global):</strong> For countries where detailed progressive bracket data is too volatile or unavailable, we apply a standard **15% flat income tax rate** as a neutral, high-level estimate.</li>
+            </ul>
+
+            <h2 style="color: #dc3545;">Disclaimer: Not Financial Advice</h2>
+            <div class="disclaimer-final">
+                <p><strong>IMPORTANT:</strong> The information provided by this calculator and our guides is for **estimation purposes only** and should never be used as a substitute for professional tax, legal, or financial advice. Tax laws are complex, frequently change, and depend on personal circumstances (residency, deductions, etc.) that our simplified calculator cannot account for. Consult a qualified professional for accurate figures.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        &copy; <span id="currentYear"></span> Global Tax Calculator.
+        <br>
+        <a href="privacy-policy.html">Privacy Policy</a> | <a href="contact.html">Contact Us</a> | <a href="about.html">About Us</a>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

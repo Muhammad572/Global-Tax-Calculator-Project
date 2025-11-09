@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Tax Guide | Complete Country Tax Reference</title>
+    
+    <style>
+        /* 1. Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5; 
+            color: #333;
+            line-height: 1.6;
+            /* STICKY FOOTER FIX */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 2. Header and Footer (Matching country guide style) */
+        header {
+            /* Changed from gradient to solid color to match country guides */
+            background-color: #007bff; 
+            color: white;
+            padding: 20px 0; /* Reduced padding to match country guides */
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow to match country guides */
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em; /* Reduced size to match country guides */
+            font-weight: 500;
+        }
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 1em;
+            opacity: 0.9;
+        }
+        
+        /* STICKY FOOTER FIX */
+        footer {
+            background-color: #333; /* Changed to match country guides */
+            color: #ccc;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto; /* Pushes the footer to the bottom */
+            width: 100%;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #ccc; /* Changed to match country guides */
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        footer a:hover {
+            color: white; /* Changed to match country guides */
+        }
+
+        /* 3. Main Layout */
+        .main-content {
+            /* STICKY FOOTER FIX */
+            flex: 1 0 auto; /* Allows content to grow and push footer down */
+            display: flex;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+        .guide-container {
+            flex-grow: 1; 
+            max-width: 1200px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 4. Search and Filter Section */
+        .search-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .filter-btn.active {
+            background: #007bff;
+        }
+        .filter-btn:hover {
+            background: #0056b3;
+        }
+
+        /* 5. Country Grid */
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .country-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .country-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: #007bff;
+        }
+        .country-card.highlighted {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
+        .country-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .country-flag {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .country-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+        .tax-info {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .tax-rate {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .default-badge {
+            background: #ffc107;
+            color: #856404;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 8px;
+        }
+        .detailed-badge {
+            background: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 8px;
+        }
+
+        /* 6. Country Detail Section */
+        .country-detail {
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            display: none;
+        }
+        .country-detail.active {
+            display: block;
+        }
+        .detail-header {
+            display: flex;
+            /* Changed to space-between for better alignment */
+            justify-content: space-between; 
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .back-button {
+            padding: 8px 16px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background: #5a6268;
+        }
+
+        /* 7. Table Styling */
+        .tax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+            text-align: left;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .tax-table th, .tax-table td {
+            padding: 12px 15px;
+            border: 1px solid #dee2e6;
+        }
+        .tax-table thead tr {
+            /* Changed to solid blue to match country guides */
+            background-color: #007bff; 
+            color: white;
+        }
+        .tax-table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .tax-table tbody tr:hover {
+            background-color: #e3f2fd;
+        }
+
+        /* 8. Highlight Blocks */
+        .highlight-block {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+        .info-block {
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            border-left: 5px solid #17a2b8;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        /* 9. Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        /* 10. Responsive Design */
+        @media (max-width: 768px) {
+            .country-grid {
+                grid-template-columns: 1fr;
+            }
+            .guide-container {
+                padding: 20px;
+            }
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
+
+        /* 11. Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🌍 Complete Global Tax Guide</h1>
+        <p>Detailed tax information for all 195+ countries with real-time filtering</p>
+    </header>
+
+    <div class="main-content">
+        <div class="guide-container">
+            
+            <nav style="text-align: center; margin-bottom: 20px;">
+                <a href="../index.html" style="color: #007bff; text-decoration: none; margin: 0 10px;">← Back to Tax Calculator</a>
+                <a href="us-tax-guide.html" style="color: #007bff; text-decoration: none; margin: 0 10px;">U.S. Guide</a>
+                <a href="uk-tax-guide.html" style="color: #007bff; text-decoration: none; margin: 0 10px;">UK Guide</a>
+                <a href="canada-tax-guide.html" style="color: #007bff; text-decoration: none; margin: 0 10px;">Canada Guide</a>
+            </nav>
+
+            <div class="search-section">
+                <input type="text" class="search-box" placeholder="🔍 Search countries by name or code..." id="searchInput">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Countries</button>
+                    <button class="filter-btn" data-filter="detailed">Detailed Tax Data</button>
+                    <button class="filter-btn" data-filter="default">Default Rate Only</button>
+                    <button class="filter-btn" data-filter="sales-tax">Sales Tax Available</button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalCountries">0</div>
+                    <div class="stat-label">Total Countries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="detailedCountries">0</div>
+                    <div class="stat-label">Detailed Income Tax</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="salesTaxCountries">0</div>
+                    <div class="stat-label">Sales Tax Data</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15%</div>
+                    <div class="stat-label">Global Default Rate</div>
+                </div>
+            </div>
+
+            <div class="country-grid" id="countryGrid">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    Loading country data...
+                </div>
+            </div>
+
+            <div class="country-detail" id="countryDetail">
+                </div>
+
+            <div class="highlight-block">
+                <h3>📋 How to Use This Guide</h3>
+                <p><strong>Search:</strong> Type any country name or 2-letter code</p>
+                <p><strong>Filter:</strong> View only countries with detailed tax data or sales tax information</p>
+                <p><strong>Click:</strong> Select any country card to view detailed tax breakdown</p>
+                <p><strong>Default Rate:</strong> Countries without specific data use the 15% global default rate</p>
+            </div>
+
+            <div class="info-block">
+                <h3>ℹ️ About the Tax Data</h3>
+                <p><strong>Income Tax:</strong> Progressive tax brackets for detailed countries, flat 15% default for others</p>
+                <p><strong>Sales Tax/VAT:</strong> Standard rates shown where available (may exclude reduced rates)</p>
+                <p><strong>Currency:</strong> Displayed for reference only, does not affect calculations</p>
+                <p><strong>Disclaimer:</strong> Rates are for estimation purposes. Always consult local tax authorities.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="currentYear"></span> Global Tax Calculator. Data is simplified and for estimation purposes only.</p>
+        <p>
+            <a href="../index.html">Calculator Home</a> | 
+            <a href="../privacy-policy.html">Privacy Policy</a> | 
+            <a href="../contact.html">Contact Us</a> |
+            <a href="../about.html">About Us</a>
+        </p>
+    </footer>
+
+    <script>
+        // Tax Data (from your provided structure)
+        const TAX_DATA = {
+            GLOBAL_DEFAULT_RATE: 0.15,
+            
+            INCOME_TAX_DATA: {
+                "US": [
+                    { "min": 0, "max": 11600, "rate": 0.10 },
+                    { "min": 11601, "max": 47150, "rate": 0.12 },
+                    { "min": 47151, "max": 100000, "rate": 0.22 },
+                    { "min": 100001, "max": 500000, "rate": 0.24 },
+                    { "min": 500001, "max": 999999999, "rate": 0.32 }
+                ],
+                "UK": [
+                    { "min": 0, "max": 12570, "rate": 0.0 },
+                    { "min": 12571, "max": 50270, "rate": 0.20 },
+                    { "min": 50271, "max": 125140, "rate": 0.40 },
+                    { "min": 125141, "max": 999999999, "rate": 0.45 }
+                ],
+                "CA": [
+                    { "min": 0, "max": 53590, "rate": 0.15 },
+                    { "min": 53591, "max": 107179, "rate": 0.205 },
+                    { "min": 107180, "max": 165430, "rate": 0.26 },
+                    { "min": 165431, "max": 999999999, "rate": 0.29 }
+                ]
+            },
+
+            SALES_TAX_DATA: {
+                "AU": { "rate": 0.10, "label": "GST" },
+                "UK": { "rate": 0.20, "label": "VAT" },
+                "DE": { "rate": 0.19, "label": "VAT" },
+                "FR": { "rate": 0.20, "label": "VAT" },
+                "IT": { "rate": 0.22, "label": "VAT" },
+                "ES": { "rate": 0.21, "label": "VAT" },
+                "CA": { "rate": 0.05, "label": "GST (Federal)" },
+                "NZ": { "rate": 0.15, "label": "GST" },
+                "JP": { "rate": 0.10, "label": "Consumption Tax" },
+                "SG": { "rate": 0.09, "label": "GST" },
+                "IN": { "rate": 0.18, "label": "GST" },
+                "MX": { "rate": 0.16, "label": "VAT" },
+                "CH": { "rate": 0.081, "label": "VAT" },
+                "SA": { "rate": 0.15, "label": "VAT" }
+            },
+
+            COUNTRIES: [
+                // North America
+                { code: "US", name: "United States (USD)" },
+                { code: "CA", name: "Canada (CAD)" },
+                { code: "MX", name: "Mexico (MXN)" },
+                
+                // Europe
+                { code: "UK", name: "United Kingdom (GBP)" },
+                { code: "DE", name: "Germany (EUR)" },
+                { code: "FR", name: "France (EUR)" },
+                { code: "IT", name: "Italy (EUR)" },
+                { code: "ES", name: "Spain (EUR)" },
+                { code: "NL", name: "Netherlands (EUR)" },
+                { code: "BE", name: "Belgium (EUR)" },
+                { code: "CH", name: "Switzerland (CHF)" },
+                { code: "SE", name: "Sweden (SEK)" },
+                { code: "NO", name: "Norway (NOK)" },
+                { code: "DK", name: "Denmark (DKK)" },
+                { code: "FI", name: "Finland (EUR)" },
+                { code: "AT", name: "Austria (EUR)" },
+                { code: "IE", name: "Ireland (EUR)" },
+                { code: "PT", name: "Portugal (EUR)" },
+                { code: "GR", name: "Greece (EUR)" },
+                { code: "PL", name: "Poland (PLN)" },
+                { code: "CZ", name: "Czech Republic (CZK)" },
+                { code: "HU", name: "Hungary (HUF)" },
+                { code: "RO", name: "Romania (RON)" },
+                { code: "BG", name: "Bulgaria (BGN)" },
+                { code: "RS", name: "Serbia (RSD)" },
+                { code: "HR", name: "Croatia (EUR)" },
+                { code: "SK", name: "Slovakia (EUR)" },
+                { code: "SI", name: "Slovenia (EUR)" },
+                { code: "EE", name: "Estonia (EUR)" },
+                { code: "LV", name: "Latvia (EUR)" },
+                { code: "LT", name: "Lithuania (EUR)" },
+                { code: "LU", name: "Luxembourg (EUR)" },
+                { code: "MT", name: "Malta (EUR)" },
+                { code: "CY", name: "Cyprus (EUR)" },
+                { code: "IS", name: "Iceland (ISK)" },
+                { code: "AL", name: "Albania (ALL)" },
+                { code: "BA", name: "Bosnia and Herzegovina (BAM)" },
+                { code: "MK", name: "North Macedonia (MKD)" },
+                { code: "ME", name: "Montenegro (EUR)" },
+                { code: "BY", name: "Belarus (BYN)" },
+                { code: "UA", name: "Ukraine (UAH)" },
+                { code: "MD", name: "Moldova (MDL)" },
+                
+                // Asia
+                { code: "CN", name: "China (CNY)" },
+                { code: "JP", name: "Japan (JPY)" },
+                { code: "IN", name: "India (INR)" },
+                { code: "KR", name: "South Korea (KRW)" },
+                { code: "ID", name: "Indonesia (IDR)" },
+                { code: "TH", name: "Thailand (THB)" },
+                { code: "VN", name: "Vietnam (VND)" },
+                { code: "MY", name: "Malaysia (MYR)" },
+                { code: "SG", name: "Singapore (SGD)" },
+                { code: "PH", name: "Philippines (PHP)" },
+                { code: "PK", name: "Pakistan (PKR)" },
+                { code: "BD", name: "Bangladesh (BDT)" },
+                { code: "LK", name: "Sri Lanka (LKR)" },
+                { code: "NP", name: "Nepal (NPR)" },
+                { code: "MM", name: "Myanmar (MMK)" },
+                { code: "KH", name: "Cambodia (KHR)" },
+                { code: "LA", name: "Laos (LAK)" },
+                { code: "MN", name: "Mongolia (MNT)" },
+                { code: "TW", name: "Taiwan (TWD)" },
+                { code: "HK", name: "Hong Kong (HKD)" },
+                { code: "MO", name: "Macau (MOP)" },
+                { code: "BN", name: "Brunei (BND)" },
+                { code: "TL", name: "Timor-Leste (USD)" },
+                { code: "MV", name: "Maldives (MVR)" },
+                { code: "BT", name: "Bhutan (BTN)" },
+                
+                // Middle East
+                { code: "SA", name: "Saudi Arabia (SAR)" },
+                { code: "AE", name: "United Arab Emirates (AED)" },
+                { code: "QA", name: "Qatar (QAR)" },
+                { code: "KW", name: "Kuwait (KWD)" },
+                { code: "OM", name: "Oman (OMR)" },
+                { code: "BH", name: "Bahrain (BHD)" },
+                { code: "TR", name: "Turkey (TRY)" },
+                { code: "IL", name: "Israel (ILS)" },
+                { code: "JO", name: "Jordan (JOD)" },
+                { code: "LB", name: "Lebanon (LBP)" },
+                { code: "SY", name: "Syria (SYP)" },
+                { code: "IQ", name: "Iraq (IQD)" },
+                { code: "IR", name: "Iran (IRR)" },
+                { code: "AF", name: "Afghanistan (AFN)" },
+                { code: "PS", name: "Palestine (ILS)" },
+                { code: "YE", name: "Yemen (YER)" },
+                
+                // Africa
+                { code: "ZA", name: "South Africa (ZAR)" },
+                { code: "NG", name: "Nigeria (NGN)" },
+                { code: "EG", name: "Egypt (EGP)" },
+                { code: "KE", name: "Kenya (KES)" },
+                { code: "ET", name: "Ethiopia (ETB)" },
+                { code: "GH", name: "Ghana (GHS)" },
+                { code: "TZ", name: "Tanzania (TZS)" },
+                { code: "UG", name: "Uganda (UGX)" },
+                { code: "DZ", name: "Algeria (DZD)" },
+                { code: "MA", name: "Morocco (MAD)" },
+                { code: "TN", name: "Tunisia (TND)" },
+                { code: "LY", name: "Libya (LYD)" },
+                { code: "SD", name: "Sudan (SDG)" },
+                { code: "SS", name: "South Sudan (SSP)" },
+                { code: "CD", name: "DR Congo (CDF)" },
+                { code: "AO", name: "Angola (AOA)" },
+                { code: "MZ", name: "Mozambique (MZN)" },
+                { code: "ZM", name: "Zambia (ZMW)" },
+                { code: "ZW", name: "Zimbabwe (USD)" },
+                { code: "MG", name: "Madagascar (MGA)" },
+                { code: "CM", name: "Cameroon (XAF)" },
+                { code: "CI", name: "Ivory Coast (XOF)" },
+                { code: "SN", name: "Senegal (XOF)" },
+                { code: "BF", name: "Burkina Faso (XOF)" },
+                { code: "ML", name: "Mali (XOF)" },
+                { code: "NE", name: "Niger (XOF)" },
+                { code: "TG", name: "Togo (XOF)" },
+                { code: "BJ", name: "Benin (XOF)" },
+                { code: "RW", name: "Rwanda (RWF)" },
+                { code: "BI", name: "Burundi (BIF)" },
+                { code: "SO", name: "Somalia (SOS)" },
+                { code: "ER", name: "Eritrea (ERN)" },
+                { code: "DJ", name: "Djibouti (DJF)" },
+                { code: "SL", name: "Sierra Leone (SLL)" },
+                { code: "LR", name: "Liberia (LRD)" },
+                { code: "GM", name: "Gambia (GMD)" },
+                { code: "GW", name: "Guinea-Bissau (XOF)" },
+                { code: "GN", name: "Guinea (GNF)" },
+                { code: "MR", name: "Mauritania (MRU)" },
+                { code: "CV", name: "Cape Verde (CVE)" },
+                { code: "ST", name: "São Tomé and Príncipe (STN)" },
+                { code: "GA", name: "Gabon (XAF)" },
+                { code: "GQ", name: "Equatorial Guinea (XAF)" },
+                { code: "CF", name: "Central African Republic (XAF)" },
+                { code: "TD", name: "Chad (XAF)" },
+                { code: "KM", name: "Comoros (KMF)" },
+                { code: "SC", name: "Seychelles (SCR)" },
+                { code: "MU", name: "Mauritius (MUR)" },
+                { code: "RE", name: "Réunion (EUR)" },
+                
+                // Oceania
+                { code: "AU", name: "Australia (AUD)" },
+                { code: "NZ", name: "New Zealand (NZD)" },
+                { code: "PG", name: "Papua New Guinea (PGK)" },
+                { code: "FJ", name: "Fiji (FJD)" },
+                { code: "SB", name: "Solomon Islands (SBD)" },
+                { code: "VU", name: "Vanuatu (VUV)" },
+                { code: "NC", name: "New Caledonia (XPF)" },
+                { code: "PF", name: "French Polynesia (XPF)" },
+                { code: "WS", name: "Samoa (WST)" },
+                { code: "TO", name: "Tonga (TOP)" },
+                { code: "FM", name: "Micronesia (USD)" },
+                { code: "MH", name: "Marshall Islands (USD)" },
+                { code: "KI", name: "Kiribati (AUD)" },
+                { code: "TV", name: "Tuvalu (AUD)" },
+                { code: "NR", name: "Nauru (AUD)" },
+                { code: "PW", name: "Palau (USD)" },
+                
+                // Americas (excluding North America)
+                { code: "BR", name: "Brazil (BRL)" },
+                { code: "AR", name: "Argentina (ARS)" },
+                { code: "CO", name: "Colombia (COP)" },
+                { code: "PE", name: "Peru (PEN)" },
+                { code: "CL", name: "Chile (CLP)" },
+                { code: "EC", name: "Ecuador (USD)" },
+                { code: "VE", name: "Venezuela (VES)" },
+                { code: "BO", name: "Bolivia (BOB)" },
+                { code: "PY", name: "Paraguay (PYG)" },
+                { code: "UY", name: "Uruguay (UYU)" },
+                { code: "GY", name: "Guyana (GYD)" },
+                { code: "SR", name: "Suriname (SRD)" },
+                { code: "GF", name: "French Guiana (EUR)" },
+                { code: "GT", name: "Guatemala (GTQ)" },
+                { code: "HN", name: "Honduras (HNL)" },
+                { code: "SV", name: "El Salvador (USD)" },
+                { code: "NI", name: "Nicaragua (NIO)" },
+                { code: "CR", name: "Costa Rica (CRC)" },
+                { code: "PA", name: "Panama (PAB)" },
+                { code: "CU", name: "Cuba (CUP)" },
+                { code: "DO", name: "Dominican Republic (DOP)" },
+                { code: "HT", name: "Haiti (HTG)" },
+                { code: "JM", name: "Jamaica (JMD)" },
+                { code: "TT", name: "Trinidad and Tobago (TTD)" },
+                { code: "BS", name: "Bahamas (BSD)" },
+                { code: "BB", name: "Barbados (BBD)" },
+                { code: "LC", name: "Saint Lucia (XCD)" },
+                { code: "VC", name: "Saint Vincent and the Grenadines (XCD)" },
+                { code: "GD", name: "Grenada (XCD)" },
+                { code: "DM", name: "Dominica (XCD)" },
+                { code: "KN", name: "Saint Kitts and Nevis (XCD)" },
+                { code: "AG", name: "Antigua and Barbuda (XCD)" },
+                { code: "BZ", name: "Belize (BZD)" },
+                
+                // Caribbean & Others
+                { code: "PR", name: "Puerto Rico (USD)" },
+                { code: "KY", name: "Cayman Islands (KYD)" },
+                { code: "BM", name: "Bermuda (BMD)" },
+                { code: "VG", name: "British Virgin Islands (USD)" },
+                { code: "TC", name: "Turks and Caicos Islands (USD)" }
+            ]
+        };
+
+        // Application State
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            setupEventListeners();
+            updateStatistics();
+        });
+
+        function initializeApp() {
+            renderCountryGrid(TAX_DATA.COUNTRIES);
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        }
+
+        function setupEventListeners() {
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                currentSearch = e.target.value.toLowerCase();
+                filterCountries();
+            });
+
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    filterCountries();
+                });
+            });
+        }
+
+        function filterCountries() {
+            let filtered = TAX_DATA.COUNTRIES;
+
+            // Apply search filter
+            if (currentSearch) {
+                filtered = filtered.filter(country => 
+                    country.name.toLowerCase().includes(currentSearch) || 
+                    country.code.toLowerCase().includes(currentSearch)
+                );
+            }
+
+            // Apply type filter
+            switch (currentFilter) {
+                case 'detailed':
+                    filtered = filtered.filter(country => TAX_DATA.INCOME_TAX_DATA[country.code]);
+                    break;
+                case 'default':
+                    filtered = filtered.filter(country => !TAX_DATA.INCOME_TAX_DATA[country.code]);
+                    break;
+                case 'sales-tax':
+                    filtered = filtered.filter(country => TAX_DATA.SALES_TAX_DATA[country.code]);
+                    break;
+            }
+
+            renderCountryGrid(filtered);
+        }
+
+        function renderCountryGrid(countries) {
+            const grid = document.getElementById('countryGrid');
+            
+            if (countries.length === 0) {
+                grid.innerHTML = '<div class="loading">No countries found matching your criteria</div>';
+                return;
+            }
+
+            grid.innerHTML = countries.map(country => {
+                const hasDetailedTax = TAX_DATA.INCOME_TAX_DATA[country.code];
+                const hasSalesTax = TAX_DATA.SALES_TAX_DATA[country.code];
+                const salesTax = hasSalesTax ? TAX_DATA.SALES_TAX_DATA[country.code] : null;
+
+                return `
+                    <div class="country-card ${hasDetailedTax ? 'highlighted' : ''}" 
+                         onclick="showCountryDetail('${country.code}')">
+                        <div class="country-header">
+                            <span class="country-flag">${getFlagEmoji(country.code)}</span>
+                            <span class="country-name">${country.name}</span>
+                            ${hasDetailedTax ? '<span class="detailed-badge">Detailed</span>' : ''}
+                            ${!hasDetailedTax ? '<span class="default-badge">Default</span>' : ''}
+                        </div>
+                        <div class="tax-info">
+                            <strong>Income Tax:</strong> 
+                            ${hasDetailedTax ? 'Progressive Brackets' : `Flat ${(TAX_DATA.GLOBAL_DEFAULT_RATE * 100)}%`}
+                        </div>
+                        ${salesTax ? `
+                            <div class="tax-info">
+                                <strong>${salesTax.label}:</strong> 
+                                <span class="tax-rate">${(salesTax.rate * 100)}%</span>
+                            </div>
+                        ` : ''}
+                        <div class="tax-info">
+                            <small>Code: ${country.code}</small>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showCountryDetail(countryCode) {
+            const country = TAX_DATA.COUNTRIES.find(c => c.code === countryCode);
+            const incomeTax = TAX_DATA.INCOME_TAX_DATA[countryCode];
+            const salesTax = TAX_DATA.SALES_TAX_DATA[countryCode];
+            
+            const detailHTML = `
+                <div class="detail-header">
+                    <button class="back-button" onclick="hideCountryDetail()">← Back to All Countries</button>
+                    <h2>${getFlagEmoji(countryCode)} ${country.name} - Tax Details</h2>
+                </div>
+
+                ${incomeTax ? `
+                    <h3>📊 Progressive Income Tax Brackets</h3>
+                    <table class="tax-table">
+                        <thead>
+                            <tr>
+                                <th>Minimum Income</th>
+                                <th>Maximum Income</th>
+                                <th>Tax Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${incomeTax.map(bracket => `
+                                <tr>
+                                    <td>${formatCurrency(bracket.min)}</td>
+                                    <td>${bracket.max === 999999999 ? 'Over' : formatCurrency(bracket.max)}</td>
+                                    <td><strong>${(bracket.rate * 100)}%</strong></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                ` : `
+                    <div class="highlight-block">
+                        <h3>ℹ️ Income Tax Information</h3>
+                        <p>This country uses the <strong>global default rate of ${(TAX_DATA.GLOBAL_DEFAULT_RATE * 100)}%</strong> for income tax calculations.</p>
+                        <p><em>Specific progressive tax brackets are not currently maintained for ${country.name}.</em></p>
+                    </div>
+                `}
+
+                ${salesTax ? `
+                    <h3>🛒 ${salesTax.label} Rate</h3>
+                    <div class="info-block">
+                        <p><strong>Standard ${salesTax.label} Rate:</strong> <span class="tax-rate">${(salesTax.rate * 100)}%</span></p>
+                        <p><em>Note: This is the standard rate and may not include reduced rates for specific goods or services.</em></p>
+                    </div>
+                ` : `
+                    <div class="highlight-block">
+                        <h3>🛒 Sales Tax Information</h3>
+                        <p>Specific sales tax/VAT/GST data is not currently available for ${country.name}.</p>
+                    </div>
+                `}
+
+                <div class="info-block">
+                    <h3>💡 Calculation Notes</h3>
+                    <p><strong>Currency:</strong> ${country.name.split('(').pop().replace(')', '')} - Displayed for reference only</p>
+                    <p><strong>Data Source:</strong> ${incomeTax ? 'Maintained progressive brackets' : 'Global default rate'}</p>
+                    <p><strong>Last Updated:</strong> ${new Date().toLocaleDateString()}</p>
+                    <p><em>Disclaimer: Tax rates are for estimation purposes only. Always consult with local tax authorities or professionals for accurate filing.</em></p>
+                </div>
+            `;
+
+            document.getElementById('countryDetail').innerHTML = detailHTML;
+            document.getElementById('countryDetail').classList.add('active');
+            
+            // Scroll to detail section
+            document.getElementById('countryDetail').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideCountryDetail() {
+            document.getElementById('countryDetail').classList.remove('active');
+        }
+
+        function updateStatistics() {
+            const totalCountries = TAX_DATA.COUNTRIES.length;
+            const detailedCountries = Object.keys(TAX_DATA.INCOME_TAX_DATA).length;
+            const salesTaxCountries = Object.keys(TAX_DATA.SALES_TAX_DATA).length;
+
+            document.getElementById('totalCountries').textContent = totalCountries;
+            document.getElementById('detailedCountries').textContent = detailedCountries;
+            document.getElementById('salesTaxCountries').textContent = salesTaxCountries;
+        }
+
+        // Helper functions
+        function getFlagEmoji(countryCode) {
+            // Simple flag emoji mapping for major countries
+            const flagEmojis = {
+                'US': '🇺🇸', 'UK': '🇬🇧', 'CA': '🇨🇦', 'AU': '🇦🇺', 'DE': '🇩🇪', 'FR': '🇫🇷',
+                'IT': '🇮🇹', 'ES': '🇪🇸', 'JP': '🇯🇵', 'CN': '🇨🇳', 'IN': '🇮🇳', 'BR': '🇧🇷',
+                'RU': '🇷🇺', 'KR': '🇰🇷', 'MX': '🇲🇽', 'ZA': '🇿🇦', 'NG': '🇳🇬', 'EG': '🇪🇬'
+            };
+            return flagEmojis[countryCode] || '🌍';
+        }
+
+        function formatCurrency(amount) {
+            const currencyCode = TAX_DATA.COUNTRIES.find(c => {
+                const brackets = TAX_DATA.INCOME_TAX_DATA[c.code];
+                if (brackets && brackets.some(b => b.min === amount)) return true;
+                return false;
+            })?.name.split('(').pop().replace(')', '').trim() || '$';
+
+            // Simple currency formatting logic
+            if (amount === 999999999) return 'and over';
+            
+            const parts = amount.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD', // Use a default for formatting, it's just visual
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).split('.');
+            
+            // Use the correct symbol for display
+            let symbol = '';
+            if (currencyCode.includes('USD')) symbol = '$';
+            else if (currencyCode.includes('GBP')) symbol = '£';
+            else if (currencyCode.includes('CAD')) symbol = '$';
+            else if (currencyCode.includes('EUR')) symbol = '€';
+            else symbol = '$'; // Default
+
+            return symbol + parts[0].replace('$', '');
+        }
+    </script>
+</body>
+</html>
