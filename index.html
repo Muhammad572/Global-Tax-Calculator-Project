@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8653293678103388"
-     crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4GTPKLDCL7"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-4GTPKLDCL7');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Income & VAT Calculator | Accurate Tax & Salary Estimates | tinytools.live</title>
@@ -29,7 +19,8 @@
 
         /* 2. Header and Footer */
         header {
-            background-color: #007bff;
+            /* Accessibility Fix: Darker blue for better white text contrast (was #007bff) */
+            background-color: #0056b3; 
             color: white;
             padding: 20px 0;
             text-align: center;
@@ -85,7 +76,8 @@
             padding: 15px;
             margin: 10px 0;
             font-size: 0.9em;
-            color: #6c757d;
+            /* Accessibility Fix: Darker text for better contrast (was #6c757d) */
+            color: #495057; 
         }
         .top-ad {
             max-width: 900px;
@@ -234,74 +226,74 @@
         <br>
         Place your AdSense code snippet here.
     </div>
-
-    <div class="main-content">
-        
-        <div class="calculator-container">
-            <div class="input-group">
-                <label for="taxType">Select Calculation Type:</label>
-                <select id="taxType">
-                    <option value="Income">Income Tax (Annual Salary)</option>
-                    <option value="Sales">Sales/VAT Tax (Purchase Price)</option>
-                </select>
-            </div>
-        
-            <div class="input-group">
-                <label id="countryLabel" for="country">Select Country:</label>
-                <select id="country">
-                    <option value="">-- Loading Countries --</option>
-                </select>
-            </div>
-        
-            <div class="input-group">
-                <label id="amountLabel" for="amount">Annual Income / Pre-Tax Amount:</label>
-                <input type="number" id="amount" value="50000" min="0" step="any">
-            </div>
-            
-            <button id="calculateBtn">Calculate Tax</button>
-            <div id="error-message" class="error-message"></div>
-        
-            <div id="results" class="results-group" style="display:none;">
-                <h2>Calculation Results</h2>
-                <div class="result-item">
-                    <span>Amount Entered:</span>
-                    <span id="resultAmount"></span>
-                </div>
-                <div class="result-item">
-                    <span id="taxLabel">Effective Rate:</span>
-                    <span id="resultRate"></span>
-                </div>
-                <div class="result-item">
-                    <span>Calculated Tax Due:</span>
-                    <span id="resultTaxAmount"></span>
-                </div>
-                <div class="result-item">
-                    <span id="netTotalLabel">Net Total:</span>
-                    <span id="resultNetTotal"></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="side-ad ad-unit">
-            **[AdSense Ad Unit 2: Skyscraper (160x600)]**
-            <br>
-            Place your AdSense code snippet here.
-        </div>
-
-    </div>
     
-    <section class="tax-guides">
-        <h2>📚 In-Depth Tax Guides & Data</h2>
-        <p>Explore detailed breakdowns of tax laws and brackets for key economies, or view our complete global data source.</p>
-        <div class="tax-guides-links">
-            <a href="docs/us-tax-guide.html">🇺🇸 U.S. Tax Guide</a>
-            <a href="docs/uk-tax-guide.html">🇬🇧 U.K. Tax Guide</a>
-            <a href="docs/canada-tax-guide.html">🇨🇦 Canada Tax Guide</a>
-            <a href="docs/global-tax-guide.html">🌍 All Countries/Default Data</a>
-        </div>
-    </section>
+    <main>
+        <div class="main-content">
+            
+            <div class="calculator-container">
+                <div class="input-group">
+                    <label for="taxType">Select Calculation Type:</label>
+                    <select id="taxType">
+                        <option value="Income">Income Tax (Annual Salary)</option>
+                        <option value="Sales">Sales/VAT Tax (Purchase Price)</option>
+                    </select>
+                </div>
+            
+                <div class="input-group">
+                    <label id="countryLabel" for="country">Select Country:</label>
+                    <select id="country">
+                        <option value="">-- Loading Countries --</option>
+                    </select>
+                </div>
+            
+                <div class="input-group">
+                    <label id="amountLabel" for="amount">Annual Income / Pre-Tax Amount:</label>
+                    <input type="number" id="amount" value="50000" min="0" step="any">
+                </div>
+                
+                <button id="calculateBtn">Calculate Tax</button>
+                <div id="error-message" class="error-message"></div>
+            
+                <div id="results" class="results-group" style="display:none;">
+                    <h2>Calculation Results</h2>
+                    <div class="result-item">
+                        <span>Amount Entered:</span>
+                        <span id="resultAmount"></span>
+                    </div>
+                    <div class="result-item">
+                        <span id="taxLabel">Effective Rate:</span>
+                        <span id="resultRate"></span>
+                    </div>
+                    <div class="result-item">
+                        <span>Calculated Tax Due:</span>
+                        <span id="resultTaxAmount"></span>
+                    </div>
+                    <div class="result-item">
+                        <span id="netTotalLabel">Net Total:</span>
+                        <span id="resultNetTotal"></span>
+                    </div>
+                </div>
+            </div>
 
-    <footer>
+            <div class="side-ad ad-unit">
+                **[AdSense Ad Unit 2: Skyscraper (160x600)]**
+                <br>
+                Place your AdSense code snippet here.
+            </div>
+
+        </div>
+        
+        <section class="tax-guides">
+            <h2>📚 In-Depth Tax Guides & Data</h2>
+            <p>Explore detailed breakdowns of tax laws and brackets for key economies, or view our complete global data source.</p>
+            <div class="tax-guides-links">
+                <a href="docs/us-tax-guide.html">🇺🇸 U.S. Tax Guide</a>
+                <a href="docs/uk-tax-guide.html">🇬🇧 U.K. Tax Guide</a>
+                <a href="docs/canada-tax-guide.html">🇨🇦 Canada Tax Guide</a>
+                <a href="docs/global-tax-guide.html">🌍 All Countries/Default Data</a>
+            </div>
+        </section>
+    </main> <footer>
         &copy; <span id="currentYear"></span> Tiny Tools Live. Data is simplified and for estimation purposes only. Consult a tax professional for exact figures.
         <br>
         <a href="privacy-policy.html">Privacy Policy</a> | <a href="contact.html">Contact Us</a> | <a href="about.html">About Us</a>
@@ -552,5 +544,18 @@
             document.getElementById('currentYear').textContent = new Date().getFullYear();
         });
     </script>
+    
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-4GTPKLDCL7"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-4GTPKLDCL7');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8653293678103388"
+     crossorigin="anonymous"></script>
+
 </body>
 </html>
