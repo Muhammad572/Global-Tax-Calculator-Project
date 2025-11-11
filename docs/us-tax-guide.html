@@ -17,6 +17,9 @@
     
     <meta name="description" content="A detailed breakdown of the 2025 U.S. Federal Income Tax brackets, Standard Deduction amounts for all filing statuses, Payroll Taxes (FICA), and the U.S. Sales Tax system.">
     
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png"> 
+    <link rel="shortcut icon" type="image/png" sizes="32x32" href="../favicon.png">
+    
     <style>
         /* 1. Global Styles (From index.html) */
         body {
@@ -255,71 +258,86 @@
         <a href="../about.html">About Us</a></p>
     </footer>
 
-    <script src="../taxdata.js"></script> 
-    
-    <script>
+    <script type="module">
+        // Import data objects. The user must add and export STANDARD_DEDUCTIONS in taxdata.js
+        import { STANDARD_DEDUCTIONS } from '../taxdata.js';
+
+        // Hardcoded 2025 IRS Bracket Data (used here for the detailed table)
+        const US_BRACKETS_2025 = [
+            // { rate, single_max, joint_max, hoh_max }
+            { rate: 0.10, single_max: 11925, joint_max: 23850, hoh_max: 17000 },
+            { rate: 0.12, single_max: 48475, joint_max: 96950, hoh_max: 64850 },
+            { rate: 0.22, single_max: 103350, joint_max: 206700, hoh_max: 103350 },
+            { rate: 0.24, single_max: 197300, joint_max: 394600, hoh_max: 197300 },
+            { rate: 0.32, single_max: 250525, joint_max: 501050, hoh_max: 250500 },
+            { rate: 0.35, single_max: 626350, joint_max: 751600, hoh_max: 626350 },
+            { rate: 0.37, single_max: Infinity, joint_max: Infinity, hoh_max: Infinity }
+        ];
+
         // Helper function for USD formatting
         function formatUSD(amount) {
-            return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            if (amount === Infinity) return null;
+            
+            // Format without cents for whole dollar amounts
+            return amount.toLocaleString('en-US', { 
+                style: 'currency', 
+                currency: 'USD', 
+                minimumFractionDigits: 0, 
+                maximumFractionDigits: 0 
+            });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             // Set the current year in the footer dynamically
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-            // --- 1. Load Income Tax Brackets (Assuming 'US' data is detailed) ---
             const incomeTaxBody = document.getElementById('income-tax-body');
             const countryCode = "US"; 
             
-            // NOTE: The US Income Tax Data in taxdata.js is simplified for single filers.
-            // For a complete page like this, we should use the full IRS table data (which I looked up for 2025).
-            // However, to stick to the data structure you provided:
-            // INCOME_TAX_DATA["US"] = [ {min:0, max:11600, rate:0.10}, ... ] - This is the simplified data.
-            // The IRS table is more complex (7 tiers for 4 statuses).
-            
-            // OPTION A: If you want to use the full IRS 2025 data (recommended for correctness):
-            const full2025Brackets = [
-                { rate: 0.10, single_max: 11925, joint_max: 23850, hoh_max: 17000 },
-                { rate: 0.12, single_max: 48475, joint_max: 96950, hoh_max: 64850 },
-                { rate: 0.22, single_max: 103350, joint_max: 206700, hoh_max: 103350 },
-                { rate: 0.24, single_max: 197300, joint_max: 394600, hoh_max: 197300 },
-                { rate: 0.32, single_max: 250525, joint_max: 501050, hoh_max: 250500 },
-                { rate: 0.35, single_max: 626350, joint_max: 751600, hoh_max: 626350 },
-                { rate: 0.37, single_max: Infinity, joint_max: Infinity, hoh_max: Infinity }
-            ];
-
+            // --- 1. Load Income Tax Brackets ---
             let prevSingleMax = 0;
             let prevJointMax = 0;
             let prevHohMax = 0;
             
-            full2025Brackets.forEach(bracket => {
+            US_BRACKETS_2025.forEach(bracket => {
                 const row = incomeTaxBody.insertRow();
                 
                 // Rate
-                row.insertCell().textContent = `${(bracket.rate * 100).toFixed(0)}%`;
+                const rateText = `${(bracket.rate * 100).toFixed(0)}%`;
+                row.insertCell().textContent = rateText;
                 
-                // Single
-                const singleMin = formatUSD(prevSingleMax + 1);
-                const singleMax = bracket.single_max === Infinity ? "Over " + formatUSD(prevSingleMax) : formatUSD(bracket.single_max);
-                row.insertCell().textContent = bracket.single_max === 0 ? formatUSD(0) : `${singleMin} to ${singleMax}`;
+                // Helper to generate the range text for a column
+                function generateRangeText(currentMax, previousMax) {
+                    if (currentMax === Infinity) {
+                        // The final bracket
+                        return `Over ${formatUSD(previousMax)}`;
+                    } else if (previousMax === 0) {
+                        // The first bracket (starts at 0)
+                        return `Up to ${formatUSD(currentMax)}`;
+                    } else {
+                        // Middle brackets (starts at previous_max + 1)
+                        const minVal = formatUSD(previousMax + 1);
+                        const maxVal = formatUSD(currentMax);
+                        return `${minVal} to ${maxVal}`;
+                    }
+                }
+
+                // Single Filers
+                row.insertCell().textContent = generateRangeText(bracket.single_max, prevSingleMax);
                 prevSingleMax = bracket.single_max;
 
-                // Married Jointly
-                const jointMin = formatUSD(prevJointMax + 1);
-                const jointMax = bracket.joint_max === Infinity ? "Over " + formatUSD(prevJointMax) : formatUSD(bracket.joint_max);
-                row.insertCell().textContent = bracket.joint_max === 0 ? formatUSD(0) : `${jointMin} to ${jointMax}`;
+                // Married Filing Jointly
+                row.insertCell().textContent = generateRangeText(bracket.joint_max, prevJointMax);
                 prevJointMax = bracket.joint_max;
                 
                 // Head of Household
-                const hohMin = formatUSD(prevHohMax + 1);
-                const hohMax = bracket.hoh_max === Infinity ? "Over " + formatUSD(prevHohMax) : formatUSD(bracket.hoh_max);
-                row.insertCell().textContent = bracket.hoh_max === 0 ? formatUSD(0) : `${hohMin} to ${hohMax}`;
+                row.insertCell().textContent = generateRangeText(bracket.hoh_max, prevHohMax);
                 prevHohMax = bracket.hoh_max;
             });
 
 
-            // --- 2. Load Standard Deductions ---
-            // This relies on the new STANDARD_DEDUCTIONS object you must add to taxdata.js
+            // --- 2. Load Standard Deductions (Requires external data) ---
+            // NOTE: This relies on the user adding and exporting the STANDARD_DEDUCTIONS object in ../taxdata.js
             if (typeof STANDARD_DEDUCTIONS !== 'undefined' && STANDARD_DEDUCTIONS[countryCode]) {
                 const sd = STANDARD_DEDUCTIONS[countryCode];
 
@@ -328,12 +346,11 @@
                 document.getElementById('sd-head-of-household').textContent = formatUSD(sd.HEAD_OF_HOUSEHOLD);
                 document.getElementById('sd-married-separately').textContent = formatUSD(sd.MARRIED_SEPARATELY);
             } else {
-                console.error('STANDARD_DEDUCTIONS data not found in taxdata.js');
-                // Fallback to static text if the new data wasn't added:
-                document.getElementById('sd-single').textContent = '$15,750';
-                document.getElementById('sd-married-jointly').textContent = '$31,500';
-                document.getElementById('sd-head-of-household').textContent = '$23,625';
-                document.getElementById('sd-married-separately').textContent = '$15,750';
+                console.error('STANDARD_DEDUCTIONS data not found or not exported from taxdata.js');
+                // Fallback display if the external data fails
+                document.getElementById('deduction-list').innerHTML = `
+                    <li>⚠️ **Error:** Standard Deduction data could not be loaded from <code>taxdata.js</code>.</li>
+                `;
             }
         });
     </script>

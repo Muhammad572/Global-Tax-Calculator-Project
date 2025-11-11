@@ -17,6 +17,9 @@
     
     <meta name="description" content="A guide to 2025 Canadian Income Tax, including Federal and Provincial tax brackets (using Ontario as an example), the Basic Personal Amount (BPA), and the GST/HST.">
     
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png"> 
+    <link rel="shortcut icon" type="image/png" sizes="32x32" href="../favicon.png">
+    
     <style>
         /* 1. Global Styles (From index.html) */
         body {
@@ -323,6 +326,11 @@
             const countryCode = "CA"; 
             
             try {
+                // Ensure global data objects are available
+                if (typeof INCOME_TAX_DATA === 'undefined' || typeof BASIC_PERSONAL_AMOUNT === 'undefined') {
+                    throw new Error("Tax data objects (INCOME_TAX_DATA or BASIC_PERSONAL_AMOUNT) not defined. Ensure they are correctly exported in ../taxdata.js");
+                }
+                
                 // 1. Load Federal Brackets
                 const federalBrackets = INCOME_TAX_DATA[countryCode]["FEDERAL"];
                 renderBrackets('federal-tax-body', federalBrackets);
@@ -336,7 +344,7 @@
                 document.getElementById('bpa-value').textContent = formatCAD(bpaValue);
 
             } catch (e) {
-                console.error("Error loading tax data. Ensure INCOME_TAX_DATA and BASIC_PERSONAL_AMOUNT objects are correctly defined and exported in taxdata.js:", e);
+                console.error("Error loading tax data:", e);
                 // Fallback to static data if JS variables are not defined, for robustness
                 document.getElementById('federal-tax-body').innerHTML = `
                     <tr><td>15%</td><td>Up to $57,375</td></tr>

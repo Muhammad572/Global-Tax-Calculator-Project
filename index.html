@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8653293678103388"
+     crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4GTPKLDCL7"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-4GTPKLDCL7');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Income & VAT Calculator | Accurate Tax & Salary Estimates | tinytools.live</title>
@@ -8,7 +18,7 @@
     <meta name="description" content="Calculate estimated annual income tax and global VAT/Sales tax for over 180 countries. Your essential tool for international financial planning.">
 
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png"> 
-<link rel="shortcut icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="shortcut icon" type="image/png" sizes="32x32" href="favicon.png">
 
     <style>
         /* 1. Global Styles */
@@ -400,12 +410,15 @@
                 brackets.sort((a, b) => a.min - b.min);
 
                 for (const bracket of brackets) {
+                    // Check if the income is high enough to enter this bracket
                     if (taxedIncome > bracket.min) {
+                        // Calculate the portion of income that falls within this bracket
                         const taxableAmountInBracket = Math.min(taxedIncome, bracket.max) - bracket.min;
                         totalTax += taxableAmountInBracket * bracket.rate;
                     }
                 }
-                effectiveRate = totalTax / annualIncome;
+                // Effective rate is total tax divided by total income (must handle division by zero)
+                effectiveRate = annualIncome > 0 ? totalTax / annualIncome : 0;
 
             } else {
                 // Flat Default Rate Calculation
@@ -480,6 +493,7 @@
 
             // Get currency code for formatting
             const countryInfo = getCountryData(countryCode);
+            // Example: "United States (USD)" -> extracts "USD"
             const currencyMatch = countryInfo.name.match(/\((.*?)\)/);
             const currencyCode = currencyMatch ? currencyMatch[1].trim() : '$';
             
@@ -522,7 +536,8 @@
         function updateUIOnTaxTypeChange() {
             const taxType = document.getElementById('taxType').value;
             const amountLabel = document.getElementById('amountLabel');
-            const countrySelect = document.getElementById('country');
+            // const countrySelect = document.getElementById('country'); // Not strictly needed here
+            // const amountInput = document.getElementById('amount'); // Not strictly needed here
 
             if (taxType === 'Income') {
                 amountLabel.textContent = 'Annual Income (Pre-Tax):';
@@ -547,18 +562,5 @@
             document.getElementById('currentYear').textContent = new Date().getFullYear();
         });
     </script>
-    
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-4GTPKLDCL7"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-4GTPKLDCL7');
-    </script>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8653293678103388"
-     crossorigin="anonymous"></script>
-
 </body>
 </html>
