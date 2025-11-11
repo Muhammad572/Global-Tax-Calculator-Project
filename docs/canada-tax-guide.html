@@ -194,13 +194,8 @@
                             <th>Taxable Income Range (CAD)</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr><td>15%</td><td>Up to $57,375</td></tr>
-                        <tr><td>20.5%</td><td>$57,375.01 to $114,750</td></tr>
-                        <tr><td>26%</td><td>$114,750.01 to $177,882</td></tr>
-                        <tr><td>29%</td><td>$177,882.01 to $253,414</td></tr>
-                        <tr><td>33%</td><td>Over $253,414</td></tr>
-                    </tbody>
+                    <tbody id="federal-tax-body">
+                        </tbody>
                 </table>
             </section>
             
@@ -217,13 +212,8 @@
                             <th>Taxable Income Range (CAD)</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr><td>5.05%</td><td>Up to $52,886</td></tr>
-                        <tr><td>9.15%</td><td>$52,886.01 to $105,775</td></tr>
-                        <tr><td>11.16%</td><td>$105,775.01 to $150,000</td></tr>
-                        <tr><td>12.16%</td><td>$150,000.01 to $220,000</td></tr>
-                        <tr><td>13.16%</td><td>Over $220,000</td></tr>
-                    </tbody>
+                    <tbody id="ontario-tax-body">
+                        </tbody>
                 </table>
                 <p class="note"><em>Your total marginal rate is the sum of the applicable Federal and Provincial/Territorial rate.</em></p>
             </section>
@@ -234,7 +224,7 @@
                 <h2>Basic Personal Amount (BPA) & Consumption Tax (GST/HST)</h2>
                 <ul>
                     <li>
-                        **Basic Personal Amount (BPA):** This is the most important tax credit. For 2025, the estimated maximum BPA is around **$16,500**. It is claimed as a non-refundable tax credit, which effectively makes this portion of your income tax-free.
+                        **Basic Personal Amount (BPA):** This is the most important tax credit. For 2025, the estimated maximum BPA is around <strong id="bpa-value">$16,500</strong>. It is claimed as a non-refundable tax credit, which effectively makes this portion of your income tax-free.
                     </li>
                     <li>
                         **Goods and Services Tax (GST) / Harmonized Sales Tax (HST):** This is Canada's consumption tax. The GST rate is **5%** federally. Many provinces combine this with a provincial sales tax to form the HST, which can range from **5% to 15%** depending on the province (e.g., Ontario's HST is 13%).
@@ -260,9 +250,111 @@
         <a href="../about.html">About Us</a></p>
     </footer>
 
+    <script src="../taxdata.js"></script>
+
     <script>
-        // Set the current year in the footer dynamically
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // Helper function for Canadian currency formatting
+        function formatCAD(amount) {
+            // Standard Canadian currency formatting
+            const formatter = new Intl.NumberFormat('en-CA', {
+                style: 'currency',
+                currency: 'CAD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
+            // For whole dollar amounts, use no cents for cleaner display
+            if (amount % 1 === 0) {
+                return new Intl.NumberFormat('en-CA', {
+                    style: 'currency',
+                    currency: 'CAD',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(amount).replace('CA', '');
+            }
+
+            // Return with cents for values like X.01
+            return formatter.format(amount).replace('CA', '').trim();
+        }
+
+        /**
+         * Renders the tax brackets into the specified table body.
+         * @param {string} containerId - The ID of the <tbody> element.
+         * @param {Array<Object>} brackets - The array of tax brackets.
+         */
+        function renderBrackets(containerId, brackets) {
+            const tableBody = document.getElementById(containerId);
+            if (!tableBody || !brackets) {
+                console.error(`Cannot render brackets. Container ID: ${containerId} or data is missing.`);
+                return;
+            }
+            tableBody.innerHTML = ''; // Clear static content
+
+            brackets.forEach((bracket, index) => {
+                const row = tableBody.insertRow();
+                
+                // Rate Cell: Use toFixed(2) to ensure two decimal places, then clean up trailing zeros (e.g., 20.50 -> 20.5)
+                row.insertCell().textContent = `${(bracket.rate * 100).toFixed(2).replace(/\.?0+$/, '')}%`;
+
+                // Income Band Cell
+                let bandText;
+                if (bracket.min === 0) {
+                    // "Up to" for the first band
+                    bandText = `Up to ${formatCAD(bracket.max)}`;
+                } else if (bracket.max >= 999999999) {
+                    // "Over" for the final band. Use the previous bracket's max as the threshold.
+                    const previousMax = brackets[index - 1].max;
+                    bandText = `Over ${formatCAD(previousMax)}`;
+                } else {
+                    // Standard band (X.01 to Y)
+                    const minVal = formatCAD(bracket.min);
+                    const maxVal = formatCAD(bracket.max);
+                    bandText = `${minVal} to ${maxVal}`;
+                }
+                
+                row.insertCell().textContent = bandText;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set the current year in the footer dynamically
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            const countryCode = "CA"; 
+            
+            try {
+                // 1. Load Federal Brackets
+                const federalBrackets = INCOME_TAX_DATA[countryCode]["FEDERAL"];
+                renderBrackets('federal-tax-body', federalBrackets);
+
+                // 2. Load Ontario Provincial Brackets (Example)
+                const ontarioBrackets = INCOME_TAX_DATA[countryCode]["ONTARIO"];
+                renderBrackets('ontario-tax-body', ontarioBrackets);
+
+                // 3. Load Basic Personal Amount (BPA)
+                const bpaValue = BASIC_PERSONAL_AMOUNT[countryCode];
+                document.getElementById('bpa-value').textContent = formatCAD(bpaValue);
+
+            } catch (e) {
+                console.error("Error loading tax data. Ensure INCOME_TAX_DATA and BASIC_PERSONAL_AMOUNT objects are correctly defined and exported in taxdata.js:", e);
+                // Fallback to static data if JS variables are not defined, for robustness
+                document.getElementById('federal-tax-body').innerHTML = `
+                    <tr><td>15%</td><td>Up to $57,375</td></tr>
+                    <tr><td>20.5%</td><td>$57,375.01 to $114,750</td></tr>
+                    <tr><td>26%</td><td>$114,750.01 to $177,882</td></tr>
+                    <tr><td>29%</td><td>$177,882.01 to $253,414</td></tr>
+                    <tr><td>33%</td><td>Over $253,414</td></tr>
+                `;
+                document.getElementById('ontario-tax-body').innerHTML = `
+                    <tr><td>5.05%</td><td>Up to $52,886</td></tr>
+                    <tr><td>9.15%</td><td>$52,886.01 to $105,775</td></tr>
+                    <tr><td>11.16%</td><td>$105,775.01 to $150,000</td></tr>
+                    <tr><td>12.16%</td><td>$150,000.01 to $220,000</td></tr>
+                    <tr><td>13.16%</td><td>Over $220,000</td></tr>
+                `;
+                document.getElementById('bpa-value').textContent = '$16,500';
+            }
+        });
     </script>
 
 </body>

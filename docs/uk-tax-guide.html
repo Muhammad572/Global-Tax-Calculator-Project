@@ -193,12 +193,8 @@
                             <th>Taxable Income Band (GBP)</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr><td>0%</td><td>£0 to £12,570 (Personal Allowance)</td></tr>
-                        <tr><td>20% (Basic Rate)</td><td>£12,571 to £50,270</td></tr>
-                        <tr><td>40% (Higher Rate)</td><td>£50,271 to £125,140</td></tr>
-                        <tr><td>45% (Additional Rate)</td><td>Over £125,140</td></tr>
-                    </tbody>
+                    <tbody id="income-tax-body">
+                        </tbody>
                 </table>
                 <p class="source-note"><em>Source: HMRC rates for the 2025/2026 tax year.</em></p>
             </section>
@@ -208,7 +204,7 @@
             <section id="allowances" class="guide-section">
                 <h2>Key Allowances and National Insurance</h2>
                 <ul>
-                    <li><strong>Standard Personal Allowance:</strong> **£12,570** (The amount of income you can earn before paying any tax).</li>
+                    <li><strong>Standard Personal Allowance:</strong> <strong id="pa-value">...</strong> (The amount of income you can earn before paying any tax).</li>
                     <li><strong>Allowance Taper:</strong> The Personal Allowance is reduced by £1 for every £2 of income over £100,000, meaning it is **£0** if your income is £125,140 or more.</li>
                     <li><strong>National Insurance (NI):</strong> This is a separate mandatory contribution (like Social Security in the US) paid by employees, employers, and the self-employed to qualify for certain state benefits. It is a key factor in calculating net income.</li>
                 </ul>
@@ -244,9 +240,84 @@
         <a href="../about.html">About Us</a></p>
     </footer>
 
+    <script src="../taxdata.js"></script>
+
     <script>
-        // Set the current year in the footer dynamically
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // Helper function for GBP formatting
+        function formatGBP(amount) {
+            // Use Intl.NumberFormat for correct locale-specific formatting
+            if (amount === 999999999) return 'Over £' + (INCOME_TAX_DATA["UK"].slice(-2)[0].max.toLocaleString('en-GB'));
+            
+            return new Intl.NumberFormat('en-GB', {
+                style: 'currency',
+                currency: 'GBP',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set the current year in the footer dynamically
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            const countryCode = "UK"; 
+            
+            // --- 1. Load Income Tax Brackets ---
+            const incomeTaxBody = document.getElementById('income-tax-body');
+
+            // Use a try/catch block to ensure global objects are defined before accessing them
+            try {
+                const brackets = INCOME_TAX_DATA[countryCode];
+                if (brackets) {
+                    brackets.forEach(bracket => {
+                        const row = incomeTaxBody.insertRow();
+                        
+                        // Tax Rate Cell
+                        let rateText = `${(bracket.rate * 100).toFixed(0)}%`;
+                        if (bracket.rate === 0.0) rateText += ` (${bracket.name})`;
+                        row.insertCell().textContent = rateText;
+
+                        // Income Band Cell
+                        let bandText;
+                        if (bracket.min === 0 && bracket.max === 12570) {
+                            // Special case for the 0% band (Personal Allowance)
+                            bandText = `${formatGBP(bracket.min)} to ${formatGBP(bracket.max)} (${bracket.name})`;
+                        } else if (bracket.max >= 999999999) {
+                            // Special case for 'Over' the threshold
+                            const actualMin = formatGBP(bracket.min - 1) === '£0' ? formatGBP(bracket.min) : formatGBP(bracket.min);
+                            bandText = `Over ${actualMin}`;
+                        } else {
+                            // Standard band
+                            const minVal = formatGBP(bracket.min);
+                            const maxVal = formatGBP(bracket.max);
+                            bandText = `${minVal} to ${maxVal}`;
+                        }
+                        
+                        row.insertCell().textContent = bandText;
+                    });
+                } else {
+                    console.error(`Tax data not found for country code ${countryCode}`);
+                }
+            } catch (e) {
+                console.error("Error loading INCOME_TAX_DATA or PERSONAL_ALLOWANCE:", e);
+                // Fallback to static data if JS variables are not defined
+                incomeTaxBody.innerHTML = `
+                    <tr><td>0% (Personal Allowance)</td><td>£0 to £12,570 (Personal Allowance)</td></tr>
+                    <tr><td>20% (Basic Rate)</td><td>£12,571 to £50,270</td></tr>
+                    <tr><td>40% (Higher Rate)</td><td>£50,271 to £125,140</td></tr>
+                    <tr><td>45% (Additional Rate)</td><td>Over £125,140</td></tr>
+                `;
+            }
+
+
+            // --- 2. Load Personal Allowance Value ---
+            try {
+                document.getElementById('pa-value').textContent = formatGBP(PERSONAL_ALLOWANCE[countryCode]);
+            } catch(e) {
+                console.error("Error loading PERSONAL_ALLOWANCE:", e);
+                document.getElementById('pa-value').textContent = '£12,570'; // Fallback
+            }
+        });
     </script>
 </body>
 </html>
