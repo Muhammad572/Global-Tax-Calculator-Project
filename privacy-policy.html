@@ -28,6 +28,10 @@
             padding: 0;
             background-color: #f0f2f5; 
             color: #333;
+            /* Sticky Footer Fix */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* 2. Header and Footer (From index.html) */
@@ -61,7 +65,9 @@
             color: #ccc;
             text-align: center;
             padding: 15px 0;
-            margin-top: 40px;
+            /* Corrected for sticky footer */
+            margin-top: auto; 
+            width: 100%;
             font-size: 0.9em;
         }
         footer a {
@@ -70,8 +76,9 @@
             margin: 0 10px;
         }
 
-        /* 3. Main Layout Containers (From global-tax-guide.html template) */
+        /* 3. Main Layout Containers */
         .main-content {
+            flex: 1 0 auto; /* Ensures content pushes footer down */
             display: flex;
             justify-content: center;
             padding: 20px;
@@ -161,7 +168,7 @@
 
             <h2>6. Contacting Us</h2>
             <p>If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at:</p>
-            <p><strong>[Your Contact Email Address Here]</strong> or visit our <a href="contact.html">Contact Us page</a>.</p>
+            <p>**muhammadwajih572@gmail.com** or visit our <a href="contact.html">Contact Us page</a>.</p>
             
             <p style="text-align: right; margin-top: 30px;"><em>Policy Last Updated: November 2025</em></p>
 

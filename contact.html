@@ -21,17 +21,77 @@
     <link rel="shortcut icon" type="image/png" sizes="32x32" href="../favicon.png">
     
     <style>
-        /* Shared Styles (CSS is identical to privacy-policy.html for consistency) */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; color: #333; }
-        header { background-color: #007bff; color: white; padding: 20px 0; text-align: center; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
-        header h1 { margin: 0; font-size: 2em; }
-        header nav { margin-top: 10px; padding: 0 10px; }
-        header nav a { color: #cce0ff; text-decoration: none; margin: 0 10px; font-weight: 500; }
-        header nav a:hover { color: white; }
-        footer { background-color: #333; color: #ccc; text-align: center; padding: 15px 0; margin-top: 40px; font-size: 0.9em; }
-        footer a { color: #ccc; text-decoration: none; margin: 0 10px; }
-        .main-content { display: flex; justify-content: center; padding: 20px; }
-        .content-container { flex-grow: 1; max-width: 900px; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); line-height: 1.6; }
+        /* 1. Global Styles (From index.html) */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f0f2f5; 
+            color: #333; 
+            /* Sticky Footer Fix */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 2. Header and Footer (From index.html) */
+        header { 
+            background-color: #007bff; 
+            color: white; 
+            padding: 20px 0; 
+            text-align: center; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+        }
+        header h1 { 
+            margin: 0; 
+            font-size: 2em; 
+        }
+        header nav { 
+            margin-top: 10px; 
+            padding: 0 10px; 
+        }
+        header nav a { 
+            color: #cce0ff; 
+            text-decoration: none; 
+            margin: 0 10px; 
+            font-weight: 500; 
+        }
+        header nav a:hover { 
+            color: white; 
+        }
+        
+        footer { 
+            background-color: #333; 
+            color: #ccc; 
+            text-align: center; 
+            padding: 15px 0; 
+            /* Corrected for sticky footer */
+            margin-top: auto; 
+            width: 100%;
+            font-size: 0.9em; 
+        }
+        footer a { 
+            color: #ccc; 
+            text-decoration: none; 
+            margin: 0 10px; 
+        }
+
+        /* 3. Main Layout Containers */
+        .main-content { 
+            flex: 1 0 auto; /* Ensures content pushes footer down */
+            display: flex; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        .content-container { 
+            flex-grow: 1; 
+            max-width: 900px; 
+            background: #fff; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); 
+            line-height: 1.6; 
+        }
         
         /* Contact-Specific Styles */
         .content-container h2 {
