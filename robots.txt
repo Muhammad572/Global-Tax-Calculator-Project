@@ -1,0 +1,11 @@
+# robots.txt for tinytools.live
+
+# Directives for all search engine bots (Googlebot, Bingbot, etc.)
+User-agent: *
+
+# By default, allow access to all content on the site.
+# Since you have no private sections (like /admin/), allowing all is correct.
+Allow: /
+
+# Direct all bots to the location of your sitemap.xml
+Sitemap: https://tinytools.live/sitemap.xml
