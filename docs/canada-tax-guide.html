@@ -15,10 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canada Income Tax Guide 2025 – Federal & Provincial Brackets | tinytools.live</title>
     
+    <link rel="canonical" href="https://tinytools.live/canada-tax-guide.html" />
+
     <meta name="description" content="A guide to 2025 Canadian Income Tax, including Federal and Provincial tax brackets (using Ontario as an example), the Basic Personal Amount (BPA), and the GST/HST.">
     
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png"> 
-    <link rel="shortcut icon" type="image/png" sizes="32x32" href="../favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png"> 
+    <link rel="shortcut icon" type="image/png" sizes="32x32" href="/favicon.png">
     
     <style>
         /* 1. Global Styles (From index.html) */
@@ -172,9 +174,9 @@
     <header>
         <nav>
             <a href="/">← Back to Tax Calculator</a> | 
-            <a href="us-tax-guide.html">U.S. Guide</a> | 
-            <a href="uk-tax-guide.html">UK Guide</a> |
-            <a href="global-tax-guide.html">Global Guide</a>
+            <a href="/us-tax-guide.html">U.S. Guide</a> | 
+            <a href="/uk-tax-guide.html">UK Guide</a> |
+            <a href="/global-tax-guide.html">Global Guide</a>
         </nav>
         <h1>🇨🇦 Canada Income Tax Guide: 2025 Tax Year</h1>
     </header>
@@ -265,12 +267,12 @@
 
     <footer>
         <p>Copyright &copy; <span id="currentYear"></span> tinytools.live | 
-        <a href="../privacy-policy.html">Privacy Policy</a> | 
-        <a href="../contact.html">Contact Us</a> |
-        <a href="../about.html">About Us</a></p>
+        <a href="/privacy-policy.html">Privacy Policy</a> | 
+        <a href="/contact.html">Contact Us</a> |
+        <a href="/about.html">About Us</a></p>
     </footer>
 
-    <script src="../taxdata.js"></script>
+    <script src="/taxdata.js"></script>
 
     <script>
         // Helper function for Canadian currency formatting
@@ -323,7 +325,8 @@
                     bandText = `Up to ${formatCAD(bracket.max)}`;
                 } else if (bracket.max >= 999999999) {
                     // "Over" for the final band. Use the previous bracket's max as the threshold.
-                    const previousMax = brackets[index - 1].max;
+                    // This relies on the previous bracket existing, which it should for the last band.
+                    const previousMax = brackets[index - 1] ? brackets[index - 1].max : 0;
                     bandText = `Over ${formatCAD(previousMax)}`;
                 } else {
                     // Standard band (X.01 to Y)
@@ -345,7 +348,7 @@
             try {
                 // Ensure global data objects are available
                 if (typeof INCOME_TAX_DATA === 'undefined' || typeof BASIC_PERSONAL_AMOUNT === 'undefined') {
-                    throw new Error("Tax data objects (INCOME_TAX_DATA or BASIC_PERSONAL_AMOUNT) not defined. Ensure they are correctly exported in ../taxdata.js");
+                    throw new Error("Tax data objects (INCOME_TAX_DATA or BASIC_PERSONAL_AMOUNT) not defined. Ensure they are correctly exported in /taxdata.js");
                 }
                 
                 // 1. Load Federal Brackets

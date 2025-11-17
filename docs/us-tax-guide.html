@@ -15,10 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>U.S. Federal Income Tax Guide 2025 – Brackets, Deductions & Sales Tax | tinytools.live</title>
     
+    <link rel="canonical" href="https://tinytools.live/us-tax-guide.html" />
+    
     <meta name="description" content="A detailed breakdown of the 2025 U.S. Federal Income Tax brackets, Standard Deduction amounts for all filing statuses, Payroll Taxes (FICA), and the U.S. Sales Tax system.">
     
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png"> 
-    <link rel="shortcut icon" type="image/png" sizes="32x32" href="../favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png"> 
+    <link rel="shortcut icon" type="image/png" sizes="32x32" href="/favicon.png">
     
     <style>
         /* 1. Global Styles (From index.html) */
@@ -179,9 +181,9 @@
     <header>
         <nav>
             <a href="/">← Back to Tax Calculator</a> | 
-            <a href="uk-tax-guide.html">UK Guide</a> | 
-            <a href="canada-tax-guide.html">Canada Guide</a> |
-            <a href="global-tax-guide.html">Global Guide</a>
+            <a href="/uk-tax-guide.html">UK Guide</a> | 
+            <a href="/canada-tax-guide.html">Canada Guide</a> |
+            <a href="/global-tax-guide.html">Global Guide</a>
         </nav>
         <h1>🇺🇸 U.S. Federal Income Tax Guide: 2025 Tax Year</h1>
     </header>
@@ -271,14 +273,14 @@
 
     <footer>
         <p>Copyright &copy; <span id="currentYear">2025</span> tinytools.live | 
-        <a href="../privacy-policy.html">Privacy Policy</a> | 
-        <a href="../contact.html">Contact Us</a> |
-        <a href="../about.html">About Us</a></p>
+        <a href="/privacy-policy.html">Privacy Policy</a> | 
+        <a href="/contact.html">Contact Us</a> |
+        <a href="/about.html">About Us</a></p>
     </footer>
 
     <script type="module">
         // Import data objects. The user must add and export STANDARD_DEDUCTIONS in taxdata.js
-        import { STANDARD_DEDUCTIONS } from '../taxdata.js';
+        import { STANDARD_DEDUCTIONS } from '/taxdata.js';
 
         // Hardcoded 2025 IRS Bracket Data (used here for the detailed table)
         const US_BRACKETS_2025 = [
@@ -355,7 +357,7 @@
 
 
             // --- 2. Load Standard Deductions (Requires external data) ---
-            // NOTE: This relies on the user adding and exporting the STANDARD_DEDUCTIONS object in ../taxdata.js
+            // NOTE: This relies on the user adding and exporting the STANDARD_DEDUCTIONS object in /taxdata.js
             if (typeof STANDARD_DEDUCTIONS !== 'undefined' && STANDARD_DEDUCTIONS[countryCode]) {
                 const sd = STANDARD_DEDUCTIONS[countryCode];
 

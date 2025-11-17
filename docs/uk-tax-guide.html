@@ -15,10 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UK Income Tax Guide 2025/2026 – Brackets, Personal Allowance & VAT | tinytools.live</title>
     
+    <link rel="canonical" href="https://tinytools.live/uk-tax-guide.html" />
+
     <meta name="description" content="A detailed breakdown of the 2025/2026 UK Income Tax brackets, Personal Allowance, National Insurance, and Value Added Tax (VAT) for England, Wales, and Northern Ireland.">
     
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png"> 
-    <link rel="shortcut icon" type="image/png" sizes="32x32" href="../favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png"> 
+    <link rel="shortcut icon" type="image/png" sizes="32x32" href="/favicon.png">
     
     <style>
         /* 1. Global Styles (From index.html) */
@@ -172,9 +174,9 @@
     <header>
         <nav>
             <a href="/">← Back to Tax Calculator</a> | 
-            <a href="us-tax-guide.html">U.S. Guide</a> | 
-            <a href="canada-tax-guide.html">Canada Guide</a> |
-            <a href="global-tax-guide.html">Global Guide</a>
+            <a href="/us-tax-guide.html">U.S. Guide</a> | 
+            <a href="/canada-tax-guide.html">Canada Guide</a> |
+            <a href="/global-tax-guide.html">Global Guide</a>
         </nav>
         <h1>🇬🇧 U.K. Income Tax Guide: 2025/2026 Tax Year</h1>
     </header>
@@ -256,12 +258,12 @@
 
     <footer>
         <p>Copyright &copy; <span id="currentYear"></span> tinytools.live | 
-        <a href="../privacy-policy.html">Privacy Policy</a> | 
-        <a href="../contact.html">Contact Us</a> |
-        <a href="../about.html">About Us</a></p>
+        <a href="/privacy-policy.html">Privacy Policy</a> | 
+        <a href="/contact.html">Contact Us</a> |
+        <a href="/about.html">About Us</a></p>
     </footer>
 
-    <script src="../taxdata.js"></script>
+    <script src="/taxdata.js"></script>
 
     <script>
         // Helper function for GBP formatting
@@ -288,9 +290,9 @@
 
             // Use a try/catch block to ensure global objects are defined before accessing them
             try {
-                // Ensure INCOME_TAX_DATA is available (must be defined in ../taxdata.js)
+                // Ensure INCOME_TAX_DATA is available (must be defined in /taxdata.js)
                 if (typeof INCOME_TAX_DATA === 'undefined') {
-                    throw new Error("INCOME_TAX_DATA is not defined. Ensure it's in ../taxdata.js");
+                    throw new Error("INCOME_TAX_DATA is not defined. Ensure it's in /taxdata.js");
                 }
                 
                 const brackets = INCOME_TAX_DATA[countryCode];
@@ -343,9 +345,9 @@
 
             // --- 2. Load Personal Allowance Value ---
             try {
-                // Ensure PERSONAL_ALLOWANCE is available (must be defined in ../taxdata.js)
+                // Ensure PERSONAL_ALLOWANCE is available (must be defined in /taxdata.js)
                 if (typeof PERSONAL_ALLOWANCE === 'undefined') {
-                    throw new Error("PERSONAL_ALLOWANCE is not defined. Ensure it's in ../taxdata.js");
+                    throw new Error("PERSONAL_ALLOWANCE is not defined. Ensure it's in /taxdata.js");
                 }
                 document.getElementById('pa-value').textContent = formatGBP(PERSONAL_ALLOWANCE[countryCode]);
             } catch(e) {
