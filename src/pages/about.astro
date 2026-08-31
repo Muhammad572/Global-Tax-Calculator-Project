@@ -1,0 +1,72 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/data/site";
+---
+
+<BaseLayout
+  title="About"
+  description="TinyTools builds free, accurate calculators for work hours, overtime, and pay, for the US, Canada, the UK, and Australia. How the tools work and how they're kept accurate."
+  path="/about/"
+>
+  <div class="container prose">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
+    <h1>About {SITE.name}</h1>
+
+    <p>
+      {SITE.name} is a small, focused collection of calculators for one topic:
+      turning work hours into pay. Time cards, hours worked, overtime, salary and
+      hourly conversions, and take-home pay estimates for the United States,
+      Canada, the United Kingdom, and Australia.
+    </p>
+
+    <h2>What we're trying to do</h2>
+    <p>
+      Most "work hours" and "pay" searches are answered by pages that bury a thin
+      calculator under a wall of text, or by generic tools that ignore the messy
+      parts — overnight shifts, multiple breaks, an overtime threshold that isn't
+      40 hours where you live. We build each calculator as a proper tool first:
+      clear inputs, sensible defaults, a visible formula, and a result you can
+      copy, print, or share.
+    </p>
+
+    <h2>How the calculators work</h2>
+    <ul>
+      <li>
+        <strong>Everything runs in your browser.</strong> There is no server doing
+        the maths and nothing you enter is sent anywhere. The tools keep working
+        offline once the page has loaded.
+      </li>
+      <li>
+        <strong>One shared calculation engine.</strong> All the tools use the same
+        tested TypeScript library, so a time card and the overtime calculator
+        agree with each other. Money is handled in whole cents to avoid rounding
+        drift.
+      </li>
+      <li>
+        <strong>Sources are cited.</strong> Overtime thresholds and 2026 tax
+        figures reference the relevant statute or agency publication. Where a
+        rule is simplified or a jurisdiction isn't supported, the page says so
+        rather than guessing.
+      </li>
+    </ul>
+
+    <h2>Accuracy and limits</h2>
+    <p>
+      Results are estimates, not official figures or advice. Paycheck estimates
+      currently cover US tax year 2026 and a limited set of states. See the
+      <a href="/disclaimer/">Disclaimer</a> for exactly what is and isn't
+      modelled, and <a href="/contact/">get in touch</a> if you spot something
+      wrong — corrections are welcome.
+    </p>
+
+    <h2>How the site is funded</h2>
+    <p>
+      {SITE.name} is free and supported by advertising. Ads are clearly labelled
+      and kept away from the calculator controls and results so they can't be
+      mistaken for part of a tool. See our
+      <a href="/privacy/">Privacy Policy</a> for how analytics and advertising
+      cookies are handled.
+    </p>
+  </div>
+</BaseLayout>

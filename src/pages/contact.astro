@@ -1,0 +1,37 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/data/site";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with TinyTools — report a calculation error, suggest a calculator, or ask about how a tool works."
+  path="/contact/"
+>
+  <div class="container prose">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
+    <h1>Contact</h1>
+
+    <p>
+      {SITE.name} is run by a small team. We read every message, especially:
+    </p>
+    <ul>
+      <li><strong>Corrections</strong> — a result that looks wrong, an outdated rate, a broken link. Please include the calculator name and the numbers you entered.</li>
+      <li><strong>Suggestions</strong> — a calculator or feature you'd find useful.</li>
+      <li><strong>Questions</strong> — how a particular tool calculates its result.</li>
+    </ul>
+
+    <p>
+      Email us at
+      <a href={`mailto:${SITE.org.email}`}>{SITE.org.email}</a>.
+    </p>
+
+    <p>
+      We can't give personalised financial, tax, or legal advice, and we can't
+      tell you what your specific employer owes you — for that, talk to your
+      employer's payroll team or a qualified professional. See the
+      <a href="/disclaimer/">Disclaimer</a>.
+    </p>
+  </div>
+</BaseLayout>

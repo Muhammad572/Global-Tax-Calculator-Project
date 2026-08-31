@@ -1,0 +1,67 @@
+---
+import { SITE } from "@/data/site";
+
+interface Props {
+  title: string; // page title without brand suffix
+  description: string;
+  /** Path (with leading + trailing slash) or absolute URL. Defaults to current. */
+  path?: string;
+  /** Set true on redirect stubs, thank-you pages, etc. */
+  noindex?: boolean;
+  ogType?: "website" | "article";
+  /** Extra JSON-LD objects to embed (already plain objects). */
+  jsonLd?: Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  path,
+  noindex = false,
+  ogType = "website",
+  jsonLd = [],
+} = Astro.props;
+
+const canonicalPath = path ?? Astro.url.pathname;
+const canonical = new URL(canonicalPath, SITE.url).href;
+const fullTitle =
+  title === SITE.name
+    ? `${SITE.name} — ${SITE.descriptor}`
+    : `${title} — ${SITE.descriptor} | ${SITE.name}`;
+
+const org = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE.name,
+  url: SITE.url + "/",
+  description: SITE.org.description,
+};
+const website = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.name,
+  url: SITE.url + "/",
+};
+const graphs = [org, website, ...jsonLd];
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+
+{
+  graphs.map((g) => (
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(g)} />
+  ))
+}

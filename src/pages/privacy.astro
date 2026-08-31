@@ -1,0 +1,103 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/data/site";
+const updated = "2026-08-31";
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="How TinyTools handles data: calculator inputs stay in your browser, analytics and advertising cookies require your consent, and you can change your choice at any time."
+  path="/privacy/"
+>
+  <div class="container prose">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]} />
+    <h1>Privacy Policy</h1>
+    <p>Last updated: <time datetime={updated}>31 August 2026</time></p>
+
+    <p>
+      This policy explains what information {SITE.name} ("we", "us") collects when
+      you use <a href={SITE.url}>{SITE.url}</a>, why, and the choices you have.
+    </p>
+
+    <h2>The short version</h2>
+    <ul>
+      <li>The numbers you type into a calculator are processed entirely in your browser. We never receive or store them.</li>
+      <li>We use Google Analytics to understand which pages and tools are useful. Analytics and advertising cookies are only set after you accept them.</li>
+      <li>We intend to show ads from Google AdSense. When ads are live, they are only served after you consent, and consent controls whether they are personalised.</li>
+      <li>You can accept or reject non-essential cookies when you first visit, and change your choice any time via "Cookie settings" in the footer.</li>
+    </ul>
+
+    <h2>Calculator inputs</h2>
+    <p>
+      Every calculation runs locally in your browser using client-side
+      JavaScript. Hours, pay rates, salaries, and tax settings are not
+      transmitted to us or to any third party, and are not stored on a server.
+      Some tools put your inputs in the page URL so you can bookmark or share a
+      result; that URL is only created if you choose to copy or share it.
+    </p>
+
+    <h2>Analytics</h2>
+    <p>
+      We use Google Analytics 4 (measurement ID <code>{SITE.ga4Id}</code>). With
+      your consent it sets cookies and collects: pages viewed, referring site,
+      approximate location (country/region, derived from IP — the full IP address
+      is not stored by us), device and browser type, and interaction events such
+      as "a calculation was completed" or "a result was copied". We use this only
+      in aggregate to decide which calculators to improve or build next. If you
+      do not consent, Google Analytics runs in a cookieless mode that does not
+      identify you or store data on your device.
+    </p>
+
+    <h2>Advertising</h2>
+    <p>
+      {SITE.name} plans to display ads served by Google AdSense (publisher ID
+      <code>{SITE.adsensePublisherId}</code>). Ads are not enabled on every page
+      yet, and no ad is served before you have accepted advertising cookies.
+      When ads are active and you have consented, Google and its partners may use
+      cookies to serve and measure ads, including personalised ads. If you reject
+      advertising cookies, any ads shown are non-personalised or suppressed
+      depending on your region. You can review Google's practices at
+      <a href="https://policies.google.com/technologies/partner-sites" rel="nofollow">policies.google.com/technologies/partner-sites</a>.
+    </p>
+
+    <h2>Cookies and similar storage</h2>
+    <ul>
+      <li><strong>Consent choice</strong> — stored in your browser's local storage so we don't ask again on every visit. Essential; not shareable.</li>
+      <li><strong>Google Analytics</strong> — set only with your consent; used to distinguish sessions and users for aggregate reporting.</li>
+      <li><strong>Google AdSense</strong> — set only with your consent, and only when ads are active; used for ad serving, frequency capping, and measurement.</li>
+    </ul>
+
+    <h2>Hosting</h2>
+    <p>
+      The site is hosted on GitHub Pages. GitHub may process your IP address and
+      request metadata in server logs to deliver the site and protect against
+      abuse, as described in the
+      <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="nofollow">GitHub Privacy Statement</a>.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      Depending on where you live (including the EEA, the UK, and California) you
+      may have the right to access, correct, or delete personal data, to object
+      to or restrict processing, and to withdraw consent. Because we do not hold
+      an account or profile for you, the main control available on this site is
+      your cookie consent choice, which you can change at any time. For requests
+      about data held by Google, use Google's own tools. To contact us, see the
+      <a href="/contact/">Contact page</a>.
+    </p>
+
+    <h2>Children</h2>
+    <p>
+      {SITE.name} is a general-audience tools site and is not directed to children
+      under 13 (or the equivalent age in your country). We do not knowingly
+      collect personal information from children.
+    </p>
+
+    <h2>Changes</h2>
+    <p>
+      We will update this page if our data practices change and will revise the
+      "last updated" date above.
+    </p>
+  </div>
+</BaseLayout>

@@ -1,0 +1,101 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import AdSlot from "@/components/AdSlot.astro";
+import { SITE } from "@/data/site";
+import { CLUSTERS, toolsInCluster } from "@/data/tools";
+
+const itemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: CLUSTERS.flatMap((c) =>
+    toolsInCluster(c.id).map((t) => ({
+      "@type": "ListItem",
+      name: t.title,
+      url: new URL(`/calculators/${t.slug}/`, SITE.url).href,
+    })),
+  ).map((x, i) => ({ ...x, position: i + 1 })),
+};
+---
+
+<BaseLayout
+  title="All Calculators"
+  description="Every TinyTools calculator for work hours and pay: time card, hours worked, time clock, working hours, time, decimal hours, overtime, salary to hourly, hourly pay, paycheck, and take-home pay."
+  path="/calculators/"
+  jsonLd={[itemList]}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Calculators" }]} />
+    <h1>All calculators</h1>
+    <p class="lead">
+      Eleven calculators, grouped by the problem they solve. Each one works
+      offline in your browser and shows how the result is calculated.
+    </p>
+
+    <AdSlot placement="top-leaderboard" />
+
+    {
+      CLUSTERS.map((c) => (
+        <section class="cat">
+          <h2>{c.label}</h2>
+          <p class="cat__blurb">{c.blurb}</p>
+          <ul class="cat__list">
+            {toolsInCluster(c.id).map((t) => (
+              <li>
+                <a href={`/calculators/${t.slug}/`}>
+                  <span class="cat__name">{t.title}</span>
+                  <span class="cat__desc">{t.summary}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .lead {
+    max-width: 58ch;
+    color: var(--ink-soft);
+  }
+  .cat {
+    margin-top: 2.25rem;
+  }
+  .cat__blurb {
+    margin-top: 0.15rem;
+    color: var(--ink-faint);
+  }
+  .cat__list {
+    margin-top: 0.85rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+  .cat__list a {
+    display: block;
+    height: 100%;
+    padding: 0.85rem 0.95rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+    text-decoration: none;
+  }
+  .cat__list a:hover {
+    border-color: var(--accent);
+  }
+  .cat__name {
+    display: block;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .cat__desc {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.86rem;
+    color: var(--ink-faint);
+  }
+</style>

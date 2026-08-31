@@ -1,0 +1,65 @@
+---
+import { SITE } from "@/data/site";
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  items: Crumb[];
+}
+const { items } = Astro.props;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((c, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: c.label,
+    ...(c.href ? { item: new URL(c.href, SITE.url).href } : {}),
+  })),
+};
+---
+
+<nav class="crumbs" aria-label="Breadcrumb">
+  <ol>
+    {
+      items.map((c, i) => (
+        <li>
+          {c.href && i < items.length - 1 ? (
+            <a href={c.href}>{c.label}</a>
+          ) : (
+            <span aria-current="page">{c.label}</span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<style>
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+  .crumbs li + li::before {
+    content: "›";
+    margin-right: 0.3rem;
+    color: var(--ink-faint);
+  }
+  .crumbs a {
+    text-decoration: none;
+    color: var(--ink-soft);
+  }
+  .crumbs a:hover {
+    color: var(--accent);
+  }
+</style>

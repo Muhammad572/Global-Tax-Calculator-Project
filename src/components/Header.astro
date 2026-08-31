@@ -1,0 +1,174 @@
+---
+import { SITE, PRIMARY_NAV } from "@/data/site";
+import { CLUSTERS, toolsInCluster } from "@/data/tools";
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || (href !== "/" && path.startsWith(href));
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="brand" aria-label={`${SITE.name} home`}>
+      <svg class="brand__glyph" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+        <rect x="1" y="1" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M11 6.2v5.1l3.4 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <span class="brand__name">{SITE.name}</span>
+      <span class="brand__descriptor">{SITE.descriptor}</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <details class="site-nav__menu">
+        <summary class="site-nav__toggle" aria-label="Open menu">Menu</summary>
+        <div class="site-nav__panel">
+          <ul class="site-nav__list">
+            {
+              PRIMARY_NAV.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="site-nav__mega">
+            {
+              CLUSTERS.map((c) => (
+                <div class="site-nav__group">
+                  <p class="site-nav__group-title">{c.label}</p>
+                  <ul>
+                    {toolsInCluster(c.id).map((t) => (
+                      <li>
+                        <a href={`/calculators/${t.slug}/`}>{t.title}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.5rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5ch;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .brand__glyph {
+    color: var(--accent);
+    flex: none;
+  }
+  .brand__name {
+    font-size: 1.05rem;
+  }
+  .brand__descriptor {
+    font-weight: 500;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    border-left: 1px solid var(--border-strong);
+    padding-left: 0.6ch;
+    margin-left: 0.2ch;
+  }
+  @media (max-width: 33rem) {
+    .brand__descriptor {
+      display: none;
+    }
+  }
+
+  .site-nav__menu > summary {
+    list-style: none;
+    cursor: pointer;
+    min-height: var(--tap);
+    display: inline-flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    font-weight: 550;
+  }
+  .site-nav__menu > summary::-webkit-details-marker {
+    display: none;
+  }
+  .site-nav__panel {
+    position: absolute;
+    right: 1.1rem;
+    left: 1.1rem;
+    margin-top: 0.5rem;
+    background: var(--paper-raised);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 34px rgb(0 0 0 / 0.12);
+    padding: 1rem;
+    display: grid;
+    gap: 1rem;
+  }
+  .site-nav__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    margin: 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    list-style: none;
+  }
+  .site-nav__list a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .site-nav__mega {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 1rem;
+  }
+  .site-nav__group-title {
+    margin: 0 0 0.3rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+  .site-nav__group ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.15rem;
+  }
+  .site-nav__group a {
+    text-decoration: none;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .site-nav__group a:hover {
+    color: var(--accent);
+  }
+  @media (min-width: 60rem) {
+    .site-nav__panel {
+      left: auto;
+      width: 40rem;
+    }
+  }
+</style>

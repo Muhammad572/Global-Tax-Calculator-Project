@@ -1,0 +1,67 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import AdSlot from "@/components/AdSlot.astro";
+import { SITE } from "@/data/site";
+
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  updated: string; // ISO date
+  jsonLd?: Record<string, unknown>[];
+}
+const { title, description, slug, updated, jsonLd = [] } = Astro.props;
+
+const article = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description,
+  datePublished: updated,
+  dateModified: updated,
+  author: { "@type": "Organization", name: SITE.name },
+  publisher: { "@type": "Organization", name: SITE.name },
+  mainEntityOfPage: new URL(`/guides/${slug}/`, SITE.url).href,
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={`/guides/${slug}/`}
+  ogType="article"
+  jsonLd={[article, ...jsonLd]}
+>
+  <div class="container">
+    <Breadcrumbs
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Guides", href: "/guides/" },
+        { label: title },
+      ]}
+    />
+    <article class="prose guide">
+      <h1>{title}</h1>
+      <p class="guide__meta">
+        Updated <time datetime={updated}>{new Date(updated).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</time>
+      </p>
+      <slot />
+      <AdSlot placement="in-content" />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .guide {
+    margin-top: 1rem;
+  }
+  .guide__meta {
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+  }
+  .guide :global(h2) {
+    margin-top: 2rem;
+  }
+</style>

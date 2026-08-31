@@ -1,0 +1,65 @@
+---
+import { relatedTools } from "@/data/tools";
+
+interface Props {
+  slug: string;
+  heading?: string;
+}
+const { slug, heading = "Related calculators" } = Astro.props;
+const items = relatedTools(slug);
+---
+
+{
+  items.length > 0 && (
+    <section class="related" aria-labelledby="related-h">
+      <h2 id="related-h">{heading}</h2>
+      <ul class="related__list">
+        {items.map((t) => (
+          <li>
+            <a href={`/calculators/${t.slug}/`}>
+              <span class="related__name">{t.title}</span>
+              <span class="related__desc">{t.summary}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  .related {
+    margin-top: 2.5rem;
+  }
+  .related__list {
+    margin-top: 0.75rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+  .related__list a {
+    display: block;
+    height: 100%;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    background: var(--paper-raised);
+  }
+  .related__list a:hover {
+    border-color: var(--accent);
+  }
+  .related__name {
+    display: block;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .related__desc {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+</style>

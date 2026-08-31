@@ -1,0 +1,76 @@
+---
+/**
+ * Reusable ad placeholder. Policy-safe by construction:
+ *  - Reserves a fixed min-height per placement so ads never cause layout shift.
+ *  - Always labelled "Advertisement".
+ *  - Renders the AdSense <ins> only when a slot id is configured for the
+ *    placement AND SITE.adsenseEnabled is true. Until then it renders nothing
+ *    visible (no empty grey box on a site with no ads yet).
+ *  - MUST NOT be placed inside or next to calculator controls or the result box
+ *    — that's enforced by where layouts allow this component, not here.
+ */
+import { SITE } from "@/data/site";
+
+type Placement = "top-leaderboard" | "in-content" | "below-result" | "sidebar" | "footer";
+interface Props {
+  placement: Placement;
+  class?: string;
+}
+const { placement, class: className } = Astro.props;
+
+const slotId = SITE.adSlots[placement] ?? "";
+const active = SITE.adsenseEnabled && slotId !== "";
+
+const MIN_HEIGHTS: Record<Placement, string> = {
+  "top-leaderboard": "90px",
+  "in-content": "250px",
+  "below-result": "250px",
+  sidebar: "600px",
+  footer: "90px",
+};
+---
+
+{
+  active && (
+    <aside
+      class:list={["adslot", `adslot--${placement}`, className]}
+      style={`--ad-min-h:${MIN_HEIGHTS[placement]}`}
+      aria-label="Advertisement"
+    >
+      <span class="adslot__label">Advertisement</span>
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client={SITE.adsensePublisherId}
+        data-ad-slot={slotId}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+      <script is:inline>
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </aside>
+  )
+}
+
+<style>
+  .adslot {
+    display: block;
+    margin-block: 1.5rem;
+    padding: 0.25rem 0;
+    min-height: var(--ad-min-h);
+    text-align: center;
+    contain: layout style;
+  }
+  .adslot__label {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.35rem;
+  }
+  .adslot--sidebar {
+    margin-block: 0;
+  }
+</style>

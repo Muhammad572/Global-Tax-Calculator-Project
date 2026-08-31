@@ -1,0 +1,83 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/data/site";
+---
+
+<BaseLayout
+  title="Disclaimer"
+  description="TinyTools calculators produce estimates, not official figures. How overtime presets, pay conversions, and 2026 paycheck withholding estimates are calculated, and their limits."
+  path="/disclaimer/"
+>
+  <div class="container prose">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Disclaimer" }]} />
+    <h1>Disclaimer</h1>
+    <p>Last updated: <time datetime="2026-08-31">31 August 2026</time></p>
+
+    <p>
+      Every result on {SITE.name} is an <strong>estimate</strong> generated from
+      the inputs you enter and from published rates and formulas. It is not an
+      official calculation, a payslip, or a tax determination.
+    </p>
+
+    <h2>Hours and time calculations</h2>
+    <p>
+      Time and time-card tools use standard arithmetic: elapsed time between a
+      start and end, minus unpaid breaks, with shifts that pass midnight counted
+      into the next day. Rounding (if you enable it) follows the increment you
+      choose. These figures are only as accurate as the times you enter.
+    </p>
+
+    <h2>Overtime</h2>
+    <p>
+      The overtime rule presets (US FLSA 40-hour week, California daily overtime,
+      Ontario 44-hour week, the UK, and a common Australian award pattern) are
+      <strong>calculation conveniences, not legal advice</strong>. Whether you are
+      entitled to overtime, and at what rate, depends on your employee
+      classification, your award or contract, your state or province, and current
+      law. The tool applies the thresholds and multipliers you select; it does
+      not decide your entitlement. Where a preset omits a rule (for example
+      California's seventh-consecutive-day rule), that is stated on the page.
+    </p>
+
+    <h2>Salary and pay conversions</h2>
+    <p>
+      Conversions between hourly, weekly, biweekly, semi-monthly, monthly, and
+      annual pay use the hours-per-week and weeks-per-year assumptions shown on
+      the page (default: 40 hours, 52 weeks, i.e. 2,080 hours a year). Change
+      those to match your real schedule. "Real hourly rate" divides annual pay by
+      the hours you actually work after paid time off.
+    </p>
+
+    <h2>Paycheck and take-home pay</h2>
+    <p>
+      The paycheck and take-home tools estimate <strong>payroll withholding for
+      United States tax year 2026 only</strong>. They combine:
+    </p>
+    <ul>
+      <li>Federal income tax withholding using the IRS Publication 15-T percentage method (assuming a 2020-or-later Form W-4);</li>
+      <li>Social Security (6.2% up to the 2026 wage base of $184,500) and Medicare (1.45%, plus 0.9% Additional Medicare on wages over $200,000);</li>
+      <li>State income tax withholding for the supported states only: California, New York, Illinois, Pennsylvania, and the states with no wage income tax (Texas, Florida, Washington, and others).</li>
+    </ul>
+    <p>
+      These are <strong>withholding estimates, not the tax you ultimately owe</strong>.
+      Your annual tax return reconciles the difference. The tools do <em>not</em>
+      model: tax-return credits and deductions, local city or county taxes (such
+      as New York City, Yonkers, or the Philadelphia wage tax), state disability
+      or unemployment contributions beyond noted cases, wage garnishments, or
+      year-to-date limits across multiple jobs.
+    </p>
+    <p>
+      If you select a state, country, or tax year that is not supported, the tool
+      says so clearly and does not invent a number. Canada, the United Kingdom,
+      and Australia are not yet supported for paycheck calculations.
+    </p>
+
+    <h2>No affiliation with tax authorities</h2>
+    <p>
+      {SITE.name} is independent and is not connected to any government or revenue
+      agency. For an authoritative figure, use your employer's payroll system or
+      the official calculators published by the relevant tax authority.
+    </p>
+  </div>
+</BaseLayout>

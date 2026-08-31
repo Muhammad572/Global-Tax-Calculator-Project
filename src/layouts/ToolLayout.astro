@@ -1,0 +1,86 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import RelatedTools from "@/components/RelatedTools.astro";
+import AdSlot from "@/components/AdSlot.astro";
+import { TOOLS_BY_SLUG } from "@/data/tools";
+
+interface Props {
+  slug: string;
+  /** Short paragraph shown under the H1, above the tool. Keep it to one sentence. */
+  intro: string;
+  /** JSON-LD for the tool (WebApplication) + optional FAQPage. */
+  jsonLd?: Record<string, unknown>[];
+}
+const { slug, intro, jsonLd = [] } = Astro.props;
+const tool = TOOLS_BY_SLUG[slug];
+if (!tool) throw new Error(`ToolLayout: unknown tool slug "${slug}"`);
+
+const webApp = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: tool.title,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Any",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  description: tool.description,
+};
+---
+
+<BaseLayout
+  title={tool.metaTitle}
+  description={tool.description}
+  path={`/calculators/${tool.slug}/`}
+  ogType="website"
+  jsonLd={[webApp, ...jsonLd]}
+>
+  <div class="container tool">
+    <Breadcrumbs
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Calculators", href: "/calculators/" },
+        { label: tool.title },
+      ]}
+    />
+
+    <header class="tool__head">
+      <h1>{tool.title}</h1>
+      <p class="tool__intro">{intro}</p>
+    </header>
+
+    <AdSlot placement="top-leaderboard" />
+
+    <!-- The calculator. No ad slot is permitted between here and the result. -->
+    <section class="tool__app" aria-label={`${tool.title} tool`}>
+      <slot />
+    </section>
+
+    <div class="tool__body prose">
+      <slot name="content" />
+    </div>
+
+    <AdSlot placement="in-content" />
+
+    <RelatedTools slug={tool.slug} />
+  </div>
+</BaseLayout>
+
+<style>
+  .tool {
+    max-width: var(--wide-width);
+  }
+  .tool__head {
+    margin-block: 0.9rem 1.25rem;
+  }
+  .tool__intro {
+    margin-top: 0.5rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+  .tool__app {
+    margin-bottom: 2rem;
+  }
+  .tool__body {
+    margin-top: 1rem;
+  }
+</style>

@@ -1,0 +1,131 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import AdSlot from "@/components/AdSlot.astro";
+import { SITE } from "@/data/site";
+import { CLUSTERS, TOOLS, toolsInCluster } from "@/data/tools";
+
+const p1 = TOOLS.filter((t) => t.priority === "P1");
+---
+
+<BaseLayout
+  title={SITE.name}
+  description="Free calculators for work hours, time cards, overtime, and pay. Add up hours worked, split regular and overtime, convert salary to hourly, and estimate your take-home pay."
+  path="/"
+>
+  <div class="container">
+    <section class="hero">
+      <h1>Work out your hours, overtime, and pay</h1>
+      <p class="hero__lead">
+        {SITE.name} is a focused set of free calculators for one thing: turning
+        work hours into pay. Time cards, overtime, salary conversions, and
+        take-home pay estimates — fast, clear, and mobile-friendly.
+      </p>
+      <div class="hero__cta">
+        {
+          p1.map((t) => (
+            <a class="btn btn--primary" href={`/calculators/${t.slug}/`}>
+              {t.title}
+            </a>
+          ))
+        }
+        <a class="btn" href="/calculators/">All calculators</a>
+      </div>
+    </section>
+
+    <AdSlot placement="top-leaderboard" />
+
+    {
+      CLUSTERS.map((c) => (
+        <section class="home-cluster">
+          <h2>{c.label}</h2>
+          <p class="home-cluster__blurb">{c.blurb}</p>
+          <ul class="tool-grid">
+            {toolsInCluster(c.id).map((t) => (
+              <li>
+                <a href={`/calculators/${t.slug}/`}>
+                  <span class="tool-grid__name">{t.title}</span>
+                  <span class="tool-grid__desc">{t.summary}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+
+    <section class="prose home-about">
+      <h2>Why a dedicated tool?</h2>
+      <p>
+        A chatbot can answer "what's time and a half on $22?" But a real
+        timesheet — seven days, lunch breaks, an overnight shift, an overtime
+        threshold that depends on where you work — is a structured problem. These
+        calculators keep the inputs organised, show the formula, and let you
+        copy, print, or share the result.
+      </p>
+      <p>
+        Calculations run entirely in your browser. Nothing you type is sent
+        anywhere. Pay and tax figures are estimates for {SITE.markets.join(", ")};
+        see the <a href="/disclaimer/">Disclaimer</a>.
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: 1.5rem 1rem;
+    max-width: 42rem;
+  }
+  .hero__lead {
+    margin-top: 0.75rem;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+  }
+  .hero__cta {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .home-cluster {
+    margin-top: 2.5rem;
+  }
+  .home-cluster__blurb {
+    margin-top: 0.2rem;
+    color: var(--ink-faint);
+  }
+  .tool-grid {
+    margin-top: 0.9rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+  .tool-grid a {
+    display: block;
+    height: 100%;
+    padding: 0.85rem 0.95rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+    text-decoration: none;
+  }
+  .tool-grid a:hover {
+    border-color: var(--accent);
+  }
+  .tool-grid__name {
+    display: block;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .tool-grid__desc {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.86rem;
+    color: var(--ink-faint);
+  }
+  .home-about {
+    margin-top: 3rem;
+  }
+</style>

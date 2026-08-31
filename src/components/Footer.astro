@@ -1,0 +1,89 @@
+---
+import { SITE, FOOTER_LEGAL } from "@/data/site";
+import { CLUSTERS, toolsInCluster } from "@/data/tools";
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      {
+        CLUSTERS.map((c) => (
+          <nav class="site-footer__col" aria-label={c.label}>
+            <p class="site-footer__title">{c.label}</p>
+            <ul>
+              {toolsInCluster(c.id).map((t) => (
+                <li>
+                  <a href={`/calculators/${t.slug}/`}>{t.title}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+      <nav class="site-footer__col" aria-label="Company">
+        <p class="site-footer__title">Company</p>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          {FOOTER_LEGAL.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+          <li><a href="#" data-open-consent>Cookie settings</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="site-footer__note">
+      {SITE.name} provides free calculators for informational purposes only.
+      Results are estimates, not financial, tax, or legal advice, and {SITE.name}
+      is not affiliated with any government or tax authority. Pay and tax figures
+      are withholding estimates — see the <a href="/disclaimer/">Disclaimer</a>.
+    </p>
+    <p class="site-footer__copy">© {year} {SITE.name} · {SITE.descriptor}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--paper-sunk);
+    padding-block: 2rem 2.5rem;
+    margin-top: 3rem;
+  }
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 1.5rem;
+  }
+  .site-footer__title {
+    margin: 0 0 0.4rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+  .site-footer__col ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.25rem;
+  }
+  .site-footer__col a {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .site-footer__col a:hover {
+    color: var(--accent);
+  }
+  .site-footer__note {
+    margin-top: 1.75rem;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    max-width: 60ch;
+  }
+  .site-footer__copy {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+  }
+</style>

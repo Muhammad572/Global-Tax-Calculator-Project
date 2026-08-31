@@ -1,0 +1,20 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { TOOLS } from "@/data/tools";
+const popular = TOOLS.filter((t) => t.priority === "P1" || t.slug === "paycheck-calculator");
+---
+
+<BaseLayout title="Page not found" description="That page doesn't exist. Try one of the TinyTools calculators instead." path="/404/" noindex>
+  <div class="container prose">
+    <h1>Page not found</h1>
+    <p>
+      The page you're looking for doesn't exist or has moved. If you followed a
+      link from the old version of this site, the calculators have changed — try
+      one of these:
+    </p>
+    <ul>
+      {popular.map((t) => <li><a href={`/calculators/${t.slug}/`}>{t.title}</a></li>)}
+      <li><a href="/calculators/">See all calculators</a></li>
+    </ul>
+  </div>
+</BaseLayout>
