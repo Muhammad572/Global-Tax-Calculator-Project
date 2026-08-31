@@ -1,0 +1,51 @@
+---
+/**
+ * Shared calculator chrome: a <form> wrapper, an aria-live result region, an
+ * alert region for validation errors, and copy/print/share actions. Islands
+ * hydrate this; without JS the server-rendered form fields still render and the
+ * "Calculate" button submits (progressive enhancement — pages that can compute
+ * a sensible default do so at build time in their own markup).
+ *
+ * Slots: default = form fields; "result-static" = optional no-JS fallback
+ * content shown until hydrated; "footnote" = assumptions/methodology teaser.
+ */
+interface Props {
+  id: string;
+  /** aria-label for the form. */
+  label: string;
+  actions?: ("copy" | "print" | "share")[];
+  submitText?: string;
+}
+const { id, label, actions = ["copy", "print", "share"], submitText = "Calculate" } = Astro.props;
+const actionLabels: Record<string, string> = {
+  copy: "Copy result",
+  print: "Print",
+  share: "Share",
+};
+---
+
+<div class="calc" data-calc={id}>
+  <form class="calc__form" aria-label={label} novalidate>
+    <slot />
+    <div class="calc__actions">
+      <button type="submit" class="btn btn--primary" data-action="calculate">{submitText}</button>
+      <button type="reset" class="btn btn--ghost" data-action="reset">Reset</button>
+    </div>
+  </form>
+
+  <div class="result-errors" role="alert" data-errors hidden></div>
+
+  <div class="result" role="status" aria-live="polite" data-result hidden></div>
+
+  <div class="calc__actions calc__actions--result" data-result-actions hidden>
+    {
+      actions.map((a) => (
+        <button type="button" class="btn" data-action={a}>
+          {actionLabels[a]}
+        </button>
+      ))
+    }
+  </div>
+
+  <slot name="footnote" />
+</div>

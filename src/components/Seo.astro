@@ -24,10 +24,10 @@ const {
 
 const canonicalPath = path ?? Astro.url.pathname;
 const canonical = new URL(canonicalPath, SITE.url).href;
+// Homepage gets the descriptor; inner pages keep the title short (~60 chars) with
+// just the brand suffix so Google doesn't truncate the meaningful part.
 const fullTitle =
-  title === SITE.name
-    ? `${SITE.name} — ${SITE.descriptor}`
-    : `${title} — ${SITE.descriptor} | ${SITE.name}`;
+  title === SITE.name ? `${SITE.name} — ${SITE.descriptor}` : `${title} | ${SITE.name}`;
 
 const org = {
   "@context": "https://schema.org",

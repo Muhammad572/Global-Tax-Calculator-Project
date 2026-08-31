@@ -1,0 +1,132 @@
+---
+import ToolLayout from "@/layouts/ToolLayout.astro";
+import CalcShell from "@/components/CalcShell.astro";
+import Faq from "@/components/Faq.astro";
+import { OVERTIME_RULES } from "@tinytools/calc";
+
+const rules = Object.values(OVERTIME_RULES);
+
+const faq = [
+  {
+    q: "How do I calculate overtime pay?",
+    a: "Multiply your regular hourly rate by the overtime multiplier (1.5 for time and a half) to get the overtime rate, then multiply that by your overtime hours. Add it to your regular pay. Example: $20/hour, 45 hours, US federal rule → 40 × $20 + 5 × $30 = $950.",
+  },
+  {
+    q: "What is time and a half?",
+    a: "1.5 times your regular hourly rate. On $18/hour, time and a half is $27/hour. Double time is 2× ($36/hour).",
+  },
+  {
+    q: "When does overtime start — 40 hours or something else?",
+    a: "Under US federal law (FLSA) it's after 40 hours in a workweek. California also pays overtime after 8 hours in a day and double time after 12. Ontario's threshold is 44 hours a week. The UK has no legal overtime rate at all. Pick the rule that matches your situation, or choose Custom.",
+  },
+  {
+    q: "Do salaried employees get overtime?",
+    a: "Often not. Under the FLSA, employees who are classified as exempt (which usually requires a salary above a threshold and certain job duties) are not entitled to overtime. Non-exempt employees are, whether paid hourly or by salary.",
+  },
+  {
+    q: "Is this a legal calculation of what I'm owed?",
+    a: "No. The presets are calculation conveniences. Your actual entitlement depends on your employee classification, your award or contract, your state or province, and current law. Check with your employer's payroll team or the relevant labour authority.",
+  },
+];
+---
+
+<ToolLayout
+  slug="overtime-calculator"
+  intro="Work out overtime pay from your hourly rate and hours. Pick an overtime rule — US federal, California daily, Ontario, the UK, Australia — or set your own threshold and multiplier."
+>
+  <CalcShell id="overtime" label="Overtime pay">
+    <fieldset>
+      <legend>Your pay and hours</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="rate">Regular hourly rate</label>
+          <input type="number" inputmode="decimal" min="0" step="0.01" id="rate" name="rate" placeholder="20.00" required />
+        </div>
+        <div class="field">
+          <label for="jur">Overtime rule</label>
+          <select id="jur" name="jur">
+            {rules.map((r) => <option value={r.id}>{r.label}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label" id="mode-label">What do you want to enter?</span>
+        <div role="radiogroup" aria-labelledby="mode-label" class="field-row">
+          <label class="field" style="flex-direction:row;align-items:center;gap:.4rem">
+            <input type="radio" name="mode" value="total" checked /> Total hours worked
+          </label>
+          <label class="field" style="flex-direction:row;align-items:center;gap:.4rem">
+            <input type="radio" name="mode" value="split" /> Regular + overtime hours
+          </label>
+        </div>
+      </div>
+
+      <div class="field" data-total-field style="max-width:14rem">
+        <label for="total">Total hours this week</label>
+        <input type="number" inputmode="decimal" min="0" step="0.25" id="total" name="total" placeholder="45" />
+      </div>
+
+      <div class="field-row" data-split-fields hidden>
+        <div class="field">
+          <label for="reg">Regular hours</label>
+          <input type="number" inputmode="decimal" min="0" step="0.25" id="reg" name="reg" placeholder="40" />
+        </div>
+        <div class="field">
+          <label for="ot">Overtime hours</label>
+          <input type="number" inputmode="decimal" min="0" step="0.25" id="ot" name="ot" placeholder="5" />
+        </div>
+      </div>
+
+      <div class="field-row" data-custom-fields hidden>
+        <div class="field">
+          <label for="thresh">Weekly overtime threshold (hours)</label>
+          <input type="number" inputmode="decimal" min="0" step="1" id="thresh" name="thresh" value="40" />
+        </div>
+        <div class="field">
+          <label for="mult">Overtime multiplier</label>
+          <input type="number" inputmode="decimal" min="1" step="0.1" id="mult" name="mult" value="1.5" />
+        </div>
+      </div>
+    </fieldset>
+  </CalcShell>
+
+  <Fragment slot="content">
+    <h2>The formula</h2>
+    <p>
+      <code>overtime rate = hourly rate × multiplier</code><br />
+      <code>overtime pay = overtime rate × overtime hours</code><br />
+      <code>gross pay = regular hours × hourly rate + overtime pay</code>
+    </p>
+    <p>
+      When you enter a total, the calculator first splits it into regular and
+      overtime hours using the rule you chose, then applies the formula. When you
+      enter regular and overtime hours directly, it uses those.
+    </p>
+
+    <h2>Overtime rules by place</h2>
+    <ul>
+      <li><strong>US federal (FLSA):</strong> 1.5× after 40 hours in a workweek.</li>
+      <li><strong>California:</strong> 1.5× after 8 hours in a day or 40 in a week; 2× after 12 hours in a day.</li>
+      <li><strong>Ontario (Canada):</strong> 1.5× after 44 hours in a week.</li>
+      <li><strong>United Kingdom:</strong> no statutory overtime rate — whatever your contract says. The 48-hour Working Time limit is a cap on average hours, not a pay rule.</li>
+      <li><strong>Australia:</strong> set by your modern award; a common pattern is 1.5× for the first few overtime hours then 2×, on a 38-hour week.</li>
+    </ul>
+    <p>Full detail: <a href="/guides/how-to-calculate-overtime-pay/">how overtime pay is calculated</a>.</p>
+
+    <h2>Related tools</h2>
+    <ul>
+      <li>Need to work out your hours first? <a href="/calculators/time-card-calculator/">Time Card Calculator</a>.</li>
+      <li>Just the pay-period breakdown of a rate: <a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a>.</li>
+      <li>Take-home after tax: <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a>.</li>
+    </ul>
+
+    <Faq items={faq} />
+  </Fragment>
+</ToolLayout>
+
+<script>
+  import { init } from "@/islands/overtime";
+  const root = document.querySelector<HTMLElement>("[data-calc='overtime']");
+  if (root) init(root);
+</script>

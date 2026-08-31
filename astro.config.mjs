@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import { fileURLToPath } from "node:url";
 
 const SITE = "https://tinytools.live";
 
@@ -26,4 +27,12 @@ export default defineConfig({
     }),
   ],
   devToolbar: { enabled: false },
+  vite: {
+    resolve: {
+      alias: {
+        "@tinytools/calc": fileURLToPath(new URL("./packages/calc/src/index.ts", import.meta.url)),
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
+    },
+  },
 });

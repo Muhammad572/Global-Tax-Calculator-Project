@@ -1,0 +1,168 @@
+---
+import ToolLayout from "@/layouts/ToolLayout.astro";
+import CalcShell from "@/components/CalcShell.astro";
+import Faq from "@/components/Faq.astro";
+import { OVERTIME_RULES } from "@tinytools/calc";
+
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const rules = Object.values(OVERTIME_RULES);
+
+const faq = [
+  {
+    q: "How do I calculate hours worked on a time card?",
+    a: "For each day, subtract the start time from the end time, then subtract any unpaid break. Add the daily totals for the week. This calculator does that automatically and also converts the total to decimal hours for payroll (for example 8 hours 30 minutes = 8.50).",
+  },
+  {
+    q: "How does it handle overnight shifts?",
+    a: "If a day's end time is earlier than its start time, the shift is treated as crossing midnight and 24 hours are added. A 10:00 PM to 6:00 AM shift is counted as 8 hours and marked <em>(overnight)</em>.",
+  },
+  {
+    q: "How is overtime calculated?",
+    a: "Choose an overtime rule. The US federal (FLSA) rule pays 1.5× after 40 hours in the week. California adds daily overtime (1.5× after 8 hours, 2× after 12). Ontario uses a 44-hour weekly threshold. You can also pick <em>Custom</em> and set your own threshold and multiplier. These are calculation settings, not legal advice — your entitlement depends on your job and location.",
+  },
+  {
+    q: "Are my hours and pay saved anywhere?",
+    a: "No. Everything is calculated in your browser and nothing is sent to a server. If you use the Share button, your entries are placed in the page link so you can send the result to yourself or a colleague.",
+  },
+  {
+    q: "What if I'm paid for breaks?",
+    a: "Enter only <em>unpaid</em> break minutes (usually lunch). Paid rest breaks stay in your worked hours, so leave them out of the break field.",
+  },
+];
+---
+
+<ToolLayout
+  slug="time-card-calculator"
+  intro="Enter your start and end times for each day of the week, subtract lunch and unpaid breaks, and get your total hours, overtime split, and estimated gross pay. Overnight shifts are handled automatically."
+  jsonLd={[]}
+>
+  <CalcShell id="time-card" label="Weekly time card">
+    <fieldset>
+      <legend>This week's shifts</legend>
+      <div class="day-rows">
+        <div class="day-row" aria-hidden="true">
+          <span class="day-row__label"></span>
+          <span class="field-label">Start</span>
+          <span class="field-label">End</span>
+          <span class="field-label">Break (min)</span>
+        </div>
+        {
+          DAYS.map((d) => (
+            <div class="day-row" role="group" aria-label={d}>
+              <span class="day-row__label">{d}</span>
+              <div class="field">
+                <label for={`${d}s`} class="visually-hidden">
+                  {d} start time
+                </label>
+                <input type="text" inputmode="text" id={`${d}s`} name={`${d}s`} placeholder="9:00 AM" autocomplete="off" />
+              </div>
+              <div class="field">
+                <label for={`${d}e`} class="visually-hidden">
+                  {d} end time
+                </label>
+                <input type="text" inputmode="text" id={`${d}e`} name={`${d}e`} placeholder="5:30 PM" autocomplete="off" />
+              </div>
+              <div class="field">
+                <label for={`${d}b`} class="visually-hidden">
+                  {d} unpaid break in minutes
+                </label>
+                <input type="number" inputmode="numeric" min="0" step="5" id={`${d}b`} name={`${d}b`} placeholder="30" />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="field__hint">
+        Times accept most formats: <code>9</code>, <code>9:30</code>, <code>9:30am</code>, <code>17:45</code>, <code>0930</code>. Leave a day blank if you didn't work.
+      </p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Pay &amp; overtime (optional)</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="rate">Hourly rate</label>
+          <input type="number" inputmode="decimal" min="0" step="0.01" id="rate" name="rate" placeholder="20.00" />
+          <span class="field__hint">Leave blank for hours only.</span>
+        </div>
+        <div class="field">
+          <label for="jur">Overtime rule</label>
+          <select id="jur" name="jur">
+            {rules.map((r) => <option value={r.id}>{r.label}</option>)}
+          </select>
+        </div>
+        <div class="field">
+          <label for="round">Round each day to</label>
+          <select id="round" name="round">
+            <option value="0">No rounding</option>
+            <option value="1">Nearest minute</option>
+            <option value="5">Nearest 5 min</option>
+            <option value="6">Nearest 6 min (tenth of an hour)</option>
+            <option value="15">Nearest 15 min</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <details class="assumptions" slot="footnote">
+      <summary>Assumptions this calculator makes</summary>
+      <ul>
+        <li>A day whose end time is at or before its start time is treated as an overnight shift (+24h), unless start and end are identical (then it's flagged as an error).</li>
+        <li>Only unpaid breaks are subtracted. Paid breaks remain in worked time.</li>
+        <li>Overtime is applied to the weekly total (and, for California, to each day) using the rule you select. The California 7th-consecutive-day rule is not applied.</li>
+        <li>Gross pay is before tax and other deductions. Use the <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a> for take-home pay.</li>
+      </ul>
+    </details>
+  </CalcShell>
+
+  <Fragment slot="content">
+    <h2>How to fill out the time card</h2>
+    <p>
+      Enter the time you clocked in and out for each day, in whatever format is
+      natural to you. Put your unpaid lunch in the break column in minutes. The
+      calculator updates as you type: each day shows hours and minutes plus
+      decimal hours, and the week rolls up into a total, an overtime split, and —
+      if you enter an hourly rate — estimated gross pay.
+    </p>
+
+    <h2>The formula</h2>
+    <p>For each day:</p>
+    <p><code>worked minutes = (end − start, +24h if overnight) − unpaid break</code></p>
+    <p>For the week, with the US federal rule:</p>
+    <p>
+      <code>regular hours = min(total, 40)</code><br />
+      <code>overtime hours = max(0, total − 40)</code><br />
+      <code>gross pay = regular × rate + overtime × rate × 1.5</code>
+    </p>
+    <p>
+      Other rules change the threshold (Ontario uses 44 hours) or add a daily
+      test (California: 1.5× after 8 hours in a day, 2× after 12). See
+      <a href="/guides/how-to-calculate-overtime-pay/">how overtime pay is calculated</a>
+      for the details and the jurisdictions.
+    </p>
+
+    <h2>Example</h2>
+    <p>
+      You work 8:00 AM–4:30 PM Monday to Thursday with a 30-minute lunch, and
+      7:00 PM–3:00 AM Friday into Saturday (also 30 minutes). That's 8.0 hours ×
+      4 = 32 hours, plus an 7.5-hour overnight Friday shift = 39.5 hours. At
+      $22/hour with the federal rule, no overtime applies and gross pay is
+      <strong>$869.00</strong>.
+    </p>
+
+    <h2>When to use a different tool</h2>
+    <ul>
+      <li>Just one shift to add up? Use the <a href="/calculators/hours-worked-calculator/">Hours Worked Calculator</a>.</li>
+      <li>Working from raw clock-in/out punches for payroll? The <a href="/calculators/time-clock-calculator/">Time Clock Calculator</a> is punch-focused and decimal-first.</li>
+      <li>Only need the overtime pay math? The <a href="/calculators/overtime-calculator/">Overtime Calculator</a> takes regular and overtime hours directly.</li>
+    </ul>
+
+    <Faq items={faq} />
+  </Fragment>
+</ToolLayout>
+
+<script>
+  import { init } from "@/islands/timeCard";
+  const root = document.querySelector<HTMLElement>("[data-calc='time-card']");
+  if (root) init(root);
+</script>

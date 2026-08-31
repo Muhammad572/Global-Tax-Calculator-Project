@@ -1,0 +1,241 @@
+/* Calculator form + result styling. Imported by ToolLayout. */
+
+.calc {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.calc__form {
+  display: grid;
+  gap: 1rem;
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem 1rem;
+}
+legend {
+  padding: 0 0.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.3rem;
+}
+.field > label,
+.field-label {
+  font-weight: 550;
+  font-size: 0.92rem;
+}
+.field__hint {
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="time"],
+input[type="date"],
+select {
+  width: 100%;
+  min-height: var(--tap);
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+}
+input:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+  border-color: var(--accent);
+}
+input[aria-invalid="true"] {
+  border-color: var(--neg);
+}
+
+.field-row {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+}
+
+/* Day-row grid for time card / time clock */
+.day-rows {
+  display: grid;
+  gap: 0.5rem;
+}
+.day-row {
+  display: grid;
+  gap: 0.5rem 0.6rem;
+  grid-template-columns: 4.5rem 1fr 1fr 5rem;
+  align-items: end;
+}
+.day-row__label {
+  font-weight: 600;
+  padding-bottom: 0.55rem;
+}
+@media (max-width: 34rem) {
+  .day-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .day-row__label {
+    grid-column: 1 / -1;
+    padding-bottom: 0;
+  }
+}
+.day-row .field__hint {
+  display: none;
+}
+
+.calc__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Result panel — visually distinct from the form, never looks like an ad */
+.result {
+  border: 1px solid var(--border-strong);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  padding: 1rem 1.1rem;
+}
+.result[hidden] {
+  display: none;
+}
+.result__headline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+.result__headline strong {
+  font-size: 1.7rem;
+  color: var(--ink);
+}
+.result__rows {
+  margin: 0;
+  display: grid;
+  gap: 0.1rem;
+}
+.result__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0;
+  border-top: 1px solid var(--border);
+}
+.result__row dt {
+  color: var(--ink-soft);
+}
+.result__row dd {
+  margin: 0;
+  font-weight: 600;
+}
+.result__row--total {
+  border-top: 2px solid var(--border-strong);
+  margin-top: 0.25rem;
+  padding-top: 0.5rem;
+  font-size: 1.05rem;
+}
+.result__row--total dt {
+  color: var(--ink);
+  font-weight: 650;
+}
+.result__row--positive dd {
+  color: var(--pos);
+}
+.result__row--muted dt,
+.result__row--muted dd {
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.result__row--warn dd {
+  color: var(--warn);
+}
+.result__row-note {
+  flex-basis: 100%;
+  margin: 0.1rem 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+}
+.result__notes {
+  margin: 0.75rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+.result__notes li + li {
+  margin-top: 0.2rem;
+}
+
+.result-errors {
+  border: 1px solid var(--neg);
+  background: var(--neg-wash);
+  border-radius: var(--radius);
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+}
+.result-errors[hidden] {
+  display: none;
+}
+.result__error-title {
+  margin: 0 0 0.3rem;
+  font-weight: 650;
+}
+.result-errors ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.assumptions {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+.assumptions summary {
+  cursor: pointer;
+  font-weight: 550;
+  color: var(--ink-soft);
+}
+
+.faq {
+  margin-top: 1.5rem;
+}
+.faq details {
+  border-top: 1px solid var(--border);
+  padding: 0.7rem 0;
+}
+.faq details[open] summary {
+  margin-bottom: 0.4rem;
+}
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .adslot,
+  .calc__actions,
+  .crumbs,
+  .related,
+  .consent,
+  .faq {
+    display: none !important;
+  }
+  .result {
+    border-color: #000;
+  }
+}

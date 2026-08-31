@@ -11,9 +11,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "npm run test --workspace @tinytools/calc",
+    "test": "npm run test --workspace @tinytools/calc && vitest run --config vitest.config.ts",
     "test:calc": "npm run test --workspace @tinytools/calc",
-    "typecheck": "npm run typecheck --workspace @tinytools/calc"
+    "test:islands": "vitest run --config vitest.config.ts",
+    "typecheck": "npm run typecheck --workspace @tinytools/calc && astro check"
   },
   "engines": {
     "node": ">=20"
@@ -22,6 +23,8 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/sitemap": "^3.2.1",
     "astro": "^5.13.0",
-    "typescript": "^5.9.2"
+    "happy-dom": "^15.11.7",
+    "typescript": "^5.9.2",
+    "vitest": "^2.1.9"
   }
 }
