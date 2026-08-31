@@ -7,8 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "npm run gen:redirects && astro dev",
+    "gen:redirects": "node scripts/gen-redirects.mjs",
+    "build": "npm run gen:redirects && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "test": "npm run test --workspace @tinytools/calc && vitest run --config vitest.config.ts",
@@ -18,7 +19,7 @@
     "qa:seo": "node scripts/seo-crawl.mjs",
     "qa:cannibalization": "node scripts/cannibalization.mjs",
     "qa:a11y": "node scripts/a11y-dynamic.mjs",
-    "qa:tax": "npx tsx scripts/tax-spotcheck.mjs"
+    "qa:tax": "npx --yes tsx scripts/tax-spotcheck.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -1,0 +1,41 @@
+name: CI
+
+# Validation for every branch and PR. Does NOT deploy — deployment happens only
+# from main via deploy.yml. Pushing redesign/work-pay runs this to prove the
+# build is clean without touching the live GitHub Pages site.
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Type-check (calc engine + astro)
+        run: npm run typecheck
+      - name: Tests (engine + islands)
+        run: npm test
+      - name: Production build
+        run: npm run build
+      - name: Verify build artefacts
+        run: |
+          test -f dist/index.html
+          test -f dist/CNAME && echo "CNAME=$(cat dist/CNAME)"
+          test -f dist/sitemap-index.xml
+          test -f dist/robots.txt
+          test -f dist/404.html
+          test -f dist/calculator.html && echo "redirect stubs present"
+          echo "HTML pages: $(find dist -name '*.html' | wc -l)"
+      - name: SEO crawl gate
+        run: npm run qa:seo
+      - name: Cannibalization check
+        run: npm run qa:cannibalization

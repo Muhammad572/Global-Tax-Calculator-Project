@@ -52,9 +52,8 @@ const indexable = pages.filter((p) => p.url !== "/404" && !(p.robots || "").incl
 const problems = [];
 const warn = [];
 
-// 1. exactly one H1
-for (const p of pages) {
-  if (p.url === "/404") continue;
+// 1. exactly one H1 (indexable pages only — redirect stubs and /404 have none)
+for (const p of indexable) {
   if (p.h1s.length !== 1) problems.push(`${p.url}: ${p.h1s.length} <h1> (expected 1) — ${JSON.stringify(p.h1s)}`);
 }
 
@@ -70,12 +69,23 @@ for (const p of indexable) {
 for (const [t, urls] of Object.entries(byTitle)) if (urls.length > 1) problems.push(`Duplicate <title> "${t}": ${urls.join(", ")}`);
 for (const [d, urls] of Object.entries(byDesc)) if (urls.length > 1) problems.push(`Duplicate description: ${urls.join(", ")}`);
 
-// 3. canonical correctness (self-referential, absolute, https)
-for (const p of pages) {
-  if (p.url === "/404") continue;
+// 3. canonical correctness — self-referential for indexable pages; for noindex
+//    redirect stubs the canonical + meta-refresh must point at a real page.
+const indexableUrls = new Set(indexable.map((p) => p.url));
+for (const p of indexable) {
   const expected = SITE + p.url;
   if (!p.canonical) problems.push(`${p.url}: no canonical`);
   else if (p.canonical !== expected) problems.push(`${p.url}: canonical is ${p.canonical} (expected ${expected})`);
+}
+for (const p of pages) {
+  if (p.url === "/404" || indexableUrls.has(p.url)) continue;
+  // redirect stub
+  const refresh = (p.html.match(/http-equiv="refresh" content="0;\s*url=([^"]+)"/) || [])[1];
+  const target = (p.canonical || "").replace(SITE, "");
+  if (!refresh) problems.push(`${p.url}: noindex page with no meta-refresh (unexpected stub)`);
+  if (refresh && !indexableUrls.has(refresh)) problems.push(`${p.url}: redirect target ${refresh} is not a live page`);
+  if (target && !indexableUrls.has(target)) problems.push(`${p.url}: stub canonical ${target} is not a live page`);
+  if (refresh && p.canonical && refresh !== target) problems.push(`${p.url}: meta-refresh (${refresh}) != canonical (${target})`);
 }
 
 // 4. OG + twitter present on indexable

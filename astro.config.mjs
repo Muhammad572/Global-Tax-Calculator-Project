@@ -9,6 +9,9 @@ export default defineConfig({
   site: SITE,
   output: "static",
   trailingSlash: "always",
+  // Old-URL redirects are generated as literal files in public/ by
+  // scripts/gen-redirects.mjs (Astro's `redirects` clashes with
+  // trailingSlash:'always' for `.html` keys). See src/data/redirects.ts.
   build: {
     format: "directory",
     // "auto": inline tiny critical CSS, externalise the shared bundle so it is
