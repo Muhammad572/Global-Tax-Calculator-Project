@@ -1,20 +1,24 @@
 name: Deploy Astro site to GitHub Pages
 
-# The ONLY workflow that deploys this site. Manual trigger only, so it can be run
-# from redesign/work-pay to validate the live site before the main cutover
-# (instruction: main must stay the rollback version until validation passes).
+# The ONLY workflow that deploys this site to GitHub Pages. It does NOT use
+# Jekyll. GitHub's built-in "pages-build-deployment" (actions/jekyll-build-pages)
+# only runs while Pages Source = "Deploy from a branch"; the `configure-pages`
+# step below switches Source to "GitHub Actions" and disables that legacy builder.
+# If that step lacks permission in your org, set it manually:
+# repo Settings -> Pages -> Build and deployment -> Source -> "GitHub Actions".
 #
-# This does NOT use Jekyll. GitHub's built-in "pages-build-deployment"
-# (actions/jekyll-build-pages) only runs while Pages Source = "Deploy from a
-# branch". The `configure-pages` step below switches Source to "GitHub Actions",
-# which disables that legacy builder. If that step lacks permission in your org,
-# set it manually: repo Settings -> Pages -> Build and deployment -> Source ->
-# "GitHub Actions".
+# Trigger: pushes to redesign/work-pay (so the live site can be validated before
+# the main cutover — main stays the rollback version), plus workflow_dispatch
+# (GitHub only exposes the manual "Run workflow" button once this file is on the
+# default branch, which happens at cutover; until then the push trigger is how
+# it runs). At cutover, add `push: { branches: [main] }` or merge to main.
 #
-# At cutover, either re-run this workflow with --ref main, or add a
-# `push: { branches: [main] }` trigger.
+# NOTE: every push to redesign/work-pay redeploys to tinytools.live. main and the
+# v0-global-tax-calculator tag remain untouched as the rollback.
 
 on:
+  push:
+    branches: [redesign/work-pay]
   workflow_dispatch:
 
 permissions:
@@ -42,7 +46,8 @@ jobs:
         with:
           enablement: true
 
-      - run: npm ci
+      - name: Install dependencies (npm ci)
+        run: npm ci
       - name: Type-check
         run: npm run typecheck
       - name: Tests (engine + islands)
