@@ -13,7 +13,7 @@ export * from "./overtime.js";
 export * from "./timecard.js";
 export * from "./payConversion.js";
 export * from "./workingHours.js";
-// export * from "./paycheck/index.js"; // enabled in B3 once 2026 tax tables are researched + verified
+export * from "./paycheck/index.js";
 
 /** Engine version — bump on any behaviour change; tax tables version separately. */
 export const CALC_ENGINE_VERSION = "0.1.0";
