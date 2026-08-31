@@ -19,9 +19,10 @@
 import { SITE } from "@/data/site";
 const { ga4Id, adsensePublisherId } = SITE;
 const adsenseEnabled = SITE.adsenseEnabled;
+const adsenseVerification = SITE.adsenseVerification;
 ---
 
-<script is:inline define:vars={{ ga4Id, adsensePublisherId, adsenseEnabled }}>
+<script is:inline define:vars={{ ga4Id, adsensePublisherId, adsenseEnabled, adsenseVerification }}>
   (function () {
     var KEY = "tt_consent_v1";
     window.dataLayer = window.dataLayer || [];
@@ -43,7 +44,7 @@ const adsenseEnabled = SITE.adsenseEnabled;
     gtag("config", ga4Id, { anonymize_ip: true });
 
     function loadAds() {
-      if (!adsenseEnabled || document.getElementById("tt-adsense")) return;
+      if (document.getElementById("tt-adsense")) return;
       var s = document.createElement("script");
       s.id = "tt-adsense";
       s.async = true;
@@ -57,10 +58,14 @@ const adsenseEnabled = SITE.adsenseEnabled;
       gtag("consent", "update", {
         ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v,
       });
-      if (v === "granted") loadAds();
+      if (v === "granted" && adsenseEnabled) loadAds();
     }
 
     if (stored === "granted" || stored === "denied") apply(stored);
+
+    // Load the AdSense script site-wide (no ad units) so Google can crawl the
+    // site for the AdSense review. Runs after the Consent Mode default above.
+    if (adsenseVerification) loadAds();
 
     // Exposed for src/islands/consent.ts
     window.__ttConsent = {

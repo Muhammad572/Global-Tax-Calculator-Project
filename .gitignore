@@ -11,6 +11,10 @@ dist/
 /public/about.html
 /public/contact.html
 /public/privacy-policy.html
+/public/us-tax-guide.html
+/public/uk-tax-guide.html
+/public/canada-tax-guide.html
+/public/global-tax-guide.html
 /public/docs/
 
 # test / coverage

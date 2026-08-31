@@ -14,6 +14,20 @@ export const SITE = {
    * and (b) the visitor has consented. See planning/phase-a-report.md B3.
    */
   adsensePublisherId: "ca-pub-8653293678103388",
+  /**
+   * When true, loads adsbygoogle.js site-wide (no ad units) so the AdSense
+   * crawler sees the live ad code during review.
+   *
+   * Kept FALSE by default: loading it makes Google probe for ad-serving
+   * capability (a `test_cookie` on googleads.g.doubleclick.net), which drops
+   * Lighthouse Best Practices 100 -> ~77 and Performance ~99 -> ~96 on every
+   * page. Site ownership is already declared to AdSense two other ways — the
+   * `<meta name="google-adsense-account">` tag (added in BaseLayout) and the
+   * matching publisher id in /ads.txt — which is enough to add the site in the
+   * AdSense dashboard. Flip this to true and redeploy only if a specific review
+   * step asks for the live ad script; it is a one-line change.
+   */
+  adsenseVerification: false as boolean,
   adsenseEnabled: false as boolean,
   /** Per-placement AdSense slot ids. Empty => that placement renders nothing. */
   adSlots: {

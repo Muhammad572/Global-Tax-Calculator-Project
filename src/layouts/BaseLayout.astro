@@ -5,6 +5,7 @@ import Seo from "@/components/Seo.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import ConsentAndAnalytics from "@/components/ConsentAndAnalytics.astro";
+import { SITE } from "@/data/site";
 
 interface Props {
   title: string;
@@ -32,9 +33,13 @@ const { title, description, path, noindex, ogType, jsonLd } = Astro.props;
     */}
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://adservice.google.com https://www.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google-analytics.com https://*.googletagmanager.com https://*.googlesyndication.com https://*.g.doubleclick.net https://*.google.com https://google.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com; worker-src 'self' blob:"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://adservice.google.com https://www.google.com https://*.adtrafficquality.google; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google-analytics.com https://*.googletagmanager.com https://*.googlesyndication.com https://*.g.doubleclick.net https://*.google.com https://google.com https://*.adtrafficquality.google; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://*.googlesyndication.com https://*.adtrafficquality.google; worker-src 'self' blob:"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+    {/* Declares the AdSense publisher account for the dashboard site-add /
+        review. Zero cost; the id is public and already in /ads.txt. Loading the
+        ad script is a separate opt-in (SITE.adsenseVerification). */}
+    <meta name="google-adsense-account" content={SITE.adsensePublisherId} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="mask-icon" href="/favicon.svg" color="#1f5fd8" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />

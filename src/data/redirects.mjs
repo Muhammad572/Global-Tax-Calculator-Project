@@ -11,6 +11,13 @@ export const REDIRECTS = {
   "/docs/uk-tax-guide.html": "/guides/",
   "/docs/canada-tax-guide.html": "/guides/",
   "/docs/global-tax-guide.html": "/calculators/",
+  // The pre-redesign sitemap.xml listed the four tax guides at the site root
+  // (they 404'd there even then). Old external links / crawl history may still
+  // reference these, so redirect them to the closest current content.
+  "/us-tax-guide.html": "/guides/gross-pay-vs-take-home-pay/",
+  "/uk-tax-guide.html": "/guides/",
+  "/canada-tax-guide.html": "/guides/",
+  "/global-tax-guide.html": "/calculators/",
   "/about.html": "/about/",
   "/contact.html": "/contact/",
   "/privacy-policy.html": "/privacy/",

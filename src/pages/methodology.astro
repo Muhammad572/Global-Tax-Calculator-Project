@@ -1,0 +1,254 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/data/site";
+
+const reviewed = "2026-08-31";
+const reviewedLabel = new Date(reviewed).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const article = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Methodology & Sources",
+  description:
+    "How TinyTools calculators are built, every formula they use, and the government publication behind each overtime and 2026 US tax figure.",
+  datePublished: reviewed,
+  dateModified: reviewed,
+  author: { "@type": "Organization", name: SITE.name },
+  publisher: { "@type": "Organization", name: SITE.name },
+  mainEntityOfPage: new URL("/methodology/", SITE.url).href,
+};
+---
+
+<BaseLayout
+  title="Methodology & Sources"
+  description="How TinyTools calculators are built, the formulas they use, and the government publication behind every overtime rule and 2026 US tax figure."
+  path="/methodology/"
+  ogType="article"
+  jsonLd={[article]}
+>
+  <div class="container prose">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Methodology & Sources" }]} />
+    <h1>Methodology &amp; Sources</h1>
+    <p>Last reviewed: <time datetime={reviewed}>{reviewedLabel}</time></p>
+
+    <p>
+      This page documents how every {SITE.name} calculator produces its result:
+      the formula, the assumptions, and — for overtime rules and tax figures —
+      the specific statute or government publication the number comes from. If a
+      figure here is out of date or wrong, please
+      <a href="/contact/">tell us</a>.
+    </p>
+
+    <h2>How the calculators are built</h2>
+    <ul>
+      <li>
+        <strong>One shared, tested engine.</strong> All calculators call the same
+        open TypeScript library, so a time card, the overtime calculator, and the
+        paycheck calculator agree with each other. It is covered by an automated
+        test suite (200+ cases) that runs on every change.
+      </li>
+      <li>
+        <strong>Money is handled in whole cents.</strong> Amounts are stored and
+        added as integer cents and only formatted to dollars for display, so
+        repeated operations do not accumulate floating-point rounding error.
+      </li>
+      <li>
+        <strong>Everything runs in your browser.</strong> No inputs are sent to a
+        server. The tools keep working offline once the page has loaded.
+      </li>
+      <li>
+        <strong>Unsupported cases are stated, not guessed.</strong> If you pick a
+        state, country, or tax year the engine does not have validated data for,
+        the tool says so and withholds no number rather than inventing one.
+      </li>
+    </ul>
+
+    <h2>Hours, time cards, and decimal hours</h2>
+    <p>
+      Elapsed time is <code>end − start</code>, plus 24 hours when the end time is
+      at or before the start time (an overnight shift), minus any unpaid break.
+      Decimal hours are <code>hours + minutes ÷ 60</code>. Optional rounding
+      applies the increment you choose (for example nearest 6 minutes = nearest
+      tenth of an hour) to each day before totals are summed. These are standard
+      timekeeping conventions; the accuracy of the result depends entirely on the
+      times you enter.
+    </p>
+
+    <h2>Overtime rules</h2>
+    <p>
+      The overtime presets are <strong>calculation settings, not legal advice</strong>.
+      Whether you are entitled to overtime, and at what rate, depends on your
+      employee classification, your award or contract, and current law where you
+      work. The engine applies the threshold and multiplier for the rule you
+      select:
+    </p>
+    <table>
+      <thead>
+        <tr><th>Preset</th><th>Rule applied</th><th>Primary source</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>US — federal (FLSA)</td>
+          <td>1.5× the regular rate after 40 hours in a workweek</td>
+          <td>
+            <a href="https://www.dol.gov/agencies/whd/overtime" rel="noopener">US Department of Labor, Wage and Hour Division — Overtime Pay</a>
+            (Fair Labor Standards Act, 29 U.S.C. §207)
+          </td>
+        </tr>
+        <tr>
+          <td>US — California</td>
+          <td>1.5× after 8 hours in a day or 40 in a week; 2× after 12 hours in a day. The 7th-consecutive-day rule is not modelled.</td>
+          <td>
+            <a href="https://www.dir.ca.gov/dlse/faq_overtime.htm" rel="noopener">California Department of Industrial Relations — Overtime</a>
+            (Labor Code §510)
+          </td>
+        </tr>
+        <tr>
+          <td>Canada — Ontario</td>
+          <td>1.5× after 44 hours in a work week</td>
+          <td>
+            <a href="https://www.ontario.ca/document/your-guide-employment-standards-act-0/overtime" rel="noopener">Ontario — Your guide to the Employment Standards Act: Overtime</a>
+          </td>
+        </tr>
+        <tr>
+          <td>United Kingdom</td>
+          <td>No statutory overtime rate — pay is whatever the contract states. The 48-hour limit is an average cap for health and safety, not an overtime trigger.</td>
+          <td>
+            <a href="https://www.gov.uk/overtime-your-rights" rel="noopener">GOV.UK — Overtime: your rights</a>,
+            <a href="https://www.gov.uk/maximum-weekly-working-hours" rel="noopener">GOV.UK — Maximum weekly working hours</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Australia</td>
+          <td>A common modern-award pattern (often a 38-hour week, then 1.5× and 2×). Your actual award may differ.</td>
+          <td>
+            <a href="https://www.fairwork.gov.au/pay-and-wages/penalty-rates-and-allowances/overtime-pay" rel="noopener">Fair Work Ombudsman — Overtime pay</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Custom</td>
+          <td>Your own threshold (hours) and multiplier</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Pay and salary conversions</h2>
+    <p>
+      Conversions between hourly, weekly, biweekly, semi-monthly, monthly, and
+      annual pay use the hours-per-week and weeks-per-year values shown on the
+      page. The default full-time year is 40 hours × 52 weeks = 2,080 hours.
+      "Real hourly rate" divides annual pay by the hours actually worked after
+      subtracting paid time off. These are arithmetic conventions, not a legal
+      standard.
+    </p>
+
+    <h2>US paycheck &amp; take-home pay — tax year 2026</h2>
+    <p>
+      The paycheck and take-home calculators estimate <strong>payroll
+      withholding</strong> for US tax year 2026. Withholding is a running
+      prepayment of your tax; the amount you ultimately owe is settled on your
+      annual return. Every figure below is the value built into the engine and
+      the source it was taken from.
+    </p>
+
+    <h3>Federal income tax withholding</h3>
+    <ul>
+      <li>
+        Method: the Percentage Method for Automated Payroll Systems (Worksheet
+        1A), annual payroll period, for a 2020-or-later Form W-4. Pre-2020 W-4s
+        with allowances are not modelled.
+      </li>
+      <li>
+        2026 standard-deduction amounts embedded in the schedules: $16,100
+        single, $24,150 head of household, $32,200 married filing jointly.
+      </li>
+      <li>
+        Source:
+        <a href="https://www.irs.gov/forms-pubs/about-publication-15-t" rel="noopener">IRS Publication 15-T, Federal Income Tax Withholding Methods</a>
+        (for use in 2026).
+      </li>
+    </ul>
+
+    <h3>Social Security and Medicare (FICA)</h3>
+    <ul>
+      <li>Social Security: 6.2% of wages up to the 2026 wage base of <strong>$184,500</strong>.</li>
+      <li>Medicare: 1.45% of all wages, plus an Additional Medicare Tax of 0.9% on wages over $200,000 in a year (employers withhold this regardless of filing status).</li>
+      <li>
+        Sources:
+        <a href="https://www.ssa.gov/oact/cola/cbb.html" rel="noopener">Social Security Administration — Contribution and Benefit Base</a>;
+        <a href="https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax" rel="noopener">IRS — Additional Medicare Tax</a>
+        (Internal Revenue Code §3101).
+      </li>
+    </ul>
+
+    <h3>State income tax withholding</h3>
+    <p>
+      Supported states only. Local city and county income taxes (for example New
+      York City, Yonkers, and the Philadelphia wage tax) are never included.
+    </p>
+    <table>
+      <thead>
+        <tr><th>State</th><th>Rule applied (2026)</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>California</td>
+          <td>Method B exact-calculation, annual payroll period, with the low-income exemption, standard deduction, and exemption-allowance credit</td>
+          <td><a href="https://edd.ca.gov/en/payroll_taxes/rates_and_withholding/" rel="noopener">California EDD — Rates &amp; Withholding (DE 44, California Withholding Schedules for 2026)</a></td>
+        </tr>
+        <tr>
+          <td>New York</td>
+          <td>Method II exact-calculation, annual tax rate schedule and Table A deduction/exemption allowance</td>
+          <td><a href="https://www.tax.ny.gov/forms/withholding_cur_forms.htm" rel="noopener">NYS Department of Taxation and Finance — Withholding tax forms (Publication NYS-50-T-NYS)</a></td>
+        </tr>
+        <tr>
+          <td>Illinois</td>
+          <td>Flat 4.95%, with the 2026 personal exemption allowance of $2,925 per allowance</td>
+          <td><a href="https://tax.illinois.gov/forms/withholding.html" rel="noopener">Illinois Department of Revenue — Withholding (Booklet IL-700-T)</a></td>
+        </tr>
+        <tr>
+          <td>Pennsylvania</td>
+          <td>Flat 3.07%, no allowances or standard deduction</td>
+          <td><a href="https://www.revenue.pa.gov/GeneralTaxInformation/Tax%20Types%20and%20Information/EmployerWithholding/Pages/default.aspx" rel="noopener">Pennsylvania Department of Revenue — Employer Withholding</a></td>
+        </tr>
+        <tr>
+          <td>AK, FL, NH, NV, SD, TN, TX, WA, WY</td>
+          <td>No state income tax on wage income — $0 state withholding</td>
+          <td>Respective state revenue departments</td>
+        </tr>
+        <tr>
+          <td>Any other US state</td>
+          <td>Not yet supported — the tool shows federal and FICA only and says the state figure is missing</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>What the paycheck tools do not model</h3>
+    <ul>
+      <li>The tax you ultimately owe — credits, other income, and itemised deductions reconciled on your return.</li>
+      <li>Local city or county income taxes.</li>
+      <li>State disability and unemployment contributions beyond noted cases.</li>
+      <li>Wage garnishments and post-tax benefit elections.</li>
+      <li>Year-to-date wage-base tracking across multiple employers.</li>
+      <li>Canada, the United Kingdom, and Australia — not yet supported for tax.</li>
+    </ul>
+
+    <h2>How this is kept current</h2>
+    <p>
+      Tax figures are reviewed against the source publications when the relevant
+      agency releases the next year's tables, and the "last reviewed" date at the
+      top of this page is updated. The applicable tax year is shown on every
+      paycheck result. {SITE.name} is independent and is not affiliated with the
+      IRS, the SSA, any state revenue body, or any other government agency; for an
+      authoritative figure, use your employer's payroll system or an official
+      government calculator. See also the <a href="/disclaimer/">Disclaimer</a>.
+    </p>
+  </div>
+</BaseLayout>

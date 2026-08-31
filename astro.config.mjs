@@ -5,6 +5,11 @@ import { fileURLToPath } from "node:url";
 
 const SITE = "https://tinytools.live";
 
+// Stable sitemap <lastmod>. Bump this only when site content materially changes,
+// so unchanged pages don't get a fresh lastmod on every rebuild (which trains
+// crawlers to ignore the signal). Per-page dates live in src/data/guides.ts.
+const CONTENT_LASTMOD = "2026-08-31";
+
 export default defineConfig({
   site: SITE,
   output: "static",
@@ -26,7 +31,7 @@ export default defineConfig({
         !page.includes("/404") &&
         !page.includes("/go/"), // redirect stubs are noindex, keep them out of the sitemap
       changefreq: "monthly",
-      lastmod: new Date(),
+      lastmod: new Date(CONTENT_LASTMOD),
     }),
   ],
   devToolbar: { enabled: false },

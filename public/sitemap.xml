@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The generated sitemap lives at /sitemap-index.xml (see robots.txt). This
+     file exists only so the pre-redesign sitemap URL keeps resolving for any
+     old Search Console submission or external reference. -->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://tinytools.live/sitemap-0.xml</loc>
+  </sitemap>
+</sitemapindex>
