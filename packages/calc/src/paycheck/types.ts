@@ -11,9 +11,14 @@ export const FILING_STATUS_LABELS: Record<FilingStatus, string> = {
   mfs: "Married filing separately",
 };
 
-/** ISO 3166-2-style code for a supported US state, or `"none"` for "no state selected". */
+/**
+ * A supported US state code, `"none"` for "no state selected", or `"other"` for
+ * a US state the engine does not yet have 2026 withholding tables for (returns
+ * an explicit not-supported result — never a fabricated number).
+ */
 export type StateCode =
   | "none"
+  | "other"
   | "TX"
   | "FL"
   | "WA"

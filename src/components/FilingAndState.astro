@@ -1,0 +1,35 @@
+---
+import { FILING_STATUS_LABELS, STATE_LABELS, SUPPORTED_STATES, type StateCode } from "@tinytools/calc";
+
+const filing = Object.entries(FILING_STATUS_LABELS) as [string, string][];
+const noTax: StateCode[] = ["TX", "FL", "WA", "TN", "NV", "SD", "WY", "AK", "NH"];
+const progressive = SUPPORTED_STATES.filter((c) => !noTax.includes(c));
+---
+
+<div class="field-row">
+  <div class="field">
+    <label for="filing">Filing status</label>
+    <select id="filing" name="filing">
+      {filing.map(([v, l]) => <option value={v}>{l}</option>)}
+    </select>
+  </div>
+  <div class="field">
+    <label for="state">State</label>
+    <select id="state" name="state">
+      <option value="none">Select your state</option>
+      <optgroup label="State income tax (2026 tables)">
+        {progressive.map((c) => <option value={c}>{STATE_LABELS[c]}</option>)}
+      </optgroup>
+      <optgroup label="No state income tax on wages">
+        {noTax.map((c) => <option value={c}>{STATE_LABELS[c]}</option>)}
+      </optgroup>
+      <optgroup label="Other">
+        <option value="other">{STATE_LABELS.other}</option>
+      </optgroup>
+    </select>
+  </div>
+</div>
+<p class="field__hint">
+  Supported for 2026: US federal, FICA, and the states listed above. Other US
+  states, US city taxes, and Canada / UK / Australia are not yet supported.
+</p>

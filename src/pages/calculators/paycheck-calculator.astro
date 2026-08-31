@@ -1,0 +1,157 @@
+---
+import ToolLayout from "@/layouts/ToolLayout.astro";
+import CalcShell from "@/components/CalcShell.astro";
+import FilingAndState from "@/components/FilingAndState.astro";
+import Faq from "@/components/Faq.astro";
+
+const faq = [
+  {
+    q: "How accurate is this paycheck calculator?",
+    a: "It uses the 2026 IRS Publication 15-T percentage method for federal withholding, the 2026 Social Security wage base and Medicare rates, and published 2026 state withholding tables for the supported states. It's a good estimate of what an employer would withhold. It is not the tax you ultimately owe — your annual return reconciles the difference.",
+  },
+  {
+    q: "Which states are supported?",
+    a: "California, New York, Illinois, and Pennsylvania (with 2026 tables), plus the states with no wage income tax: Texas, Florida, Washington, Tennessee, Nevada, South Dakota, Wyoming, Alaska, and New Hampshire. Choose 'Another US state' to see federal and FICA only, with a clear note that your state tax isn't included.",
+  },
+  {
+    q: "What about New York City or Philadelphia?",
+    a: "Local city and county income taxes are not included. If you live in NYC, Yonkers, or a city with a wage tax, your actual paycheck will be lower than the estimate.",
+  },
+  {
+    q: "How is this different from the Take-Home Pay Calculator?",
+    a: "This tool calculates one paycheck from your pay per period (or your rate and hours). The <a href='/calculators/take-home-pay-calculator/'>Take-Home Pay Calculator</a> starts from an annual salary and shows your take-home per year, per month, and per paycheck for budgeting and comparing offers.",
+  },
+  {
+    q: "What are the W-4 boxes for?",
+    a: "They match a 2020-or-later Form W-4. Check 'multiple jobs' if you selected Step 2(c). 'Dependent credits' is the annual amount from Step 3. 'Extra withholding' is Step 4(c). Pre-2020 W-4s with allowances aren't modelled.",
+  },
+];
+---
+
+<ToolLayout
+  slug="paycheck-calculator"
+  intro="Estimate one paycheck after federal income tax, Social Security, Medicare, and state income tax withholding, using 2026 rates. Enter your pay per period or your hourly rate and hours."
+>
+  <CalcShell id="paycheck" label="Paycheck estimate">
+    <fieldset>
+      <legend>Pay</legend>
+      <div class="field">
+        <span class="field-label" id="mode-l">How are you paid?</span>
+        <div role="radiogroup" aria-labelledby="mode-l" class="field-row">
+          <label class="field" style="flex-direction:row;align-items:center;gap:.4rem"><input type="radio" name="mode" value="salary" checked /> A set amount per paycheck</label>
+          <label class="field" style="flex-direction:row;align-items:center;gap:.4rem"><input type="radio" name="mode" value="hourly" /> An hourly rate</label>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="freq">Pay frequency</label>
+          <select id="freq" name="freq">
+            <option value="weekly">Weekly</option>
+            <option value="biweekly" selected>Every 2 weeks</option>
+            <option value="semimonthly">Twice a month</option>
+            <option value="monthly">Monthly</option>
+          </select>
+        </div>
+        <div class="field" data-salary-fields>
+          <label for="gross">Gross pay this paycheck</label>
+          <input type="number" inputmode="decimal" min="0" step="0.01" id="gross" name="gross" placeholder="2500" />
+        </div>
+      </div>
+
+      <div data-hourly-fields hidden>
+        <div class="field-row">
+          <div class="field">
+            <label for="rate">Hourly rate</label>
+            <input type="number" inputmode="decimal" min="0" step="0.01" id="rate" name="rate" placeholder="22.00" />
+          </div>
+          <div class="field">
+            <label for="reghrs">Regular hours this paycheck</label>
+            <input type="number" inputmode="decimal" min="0" step="0.5" id="reghrs" name="reghrs" placeholder="80" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="othrs">Overtime hours this paycheck</label>
+            <input type="number" inputmode="decimal" min="0" step="0.5" id="othrs" name="othrs" placeholder="0" />
+          </div>
+          <div class="field">
+            <label for="otmult">Overtime multiplier</label>
+            <input type="number" inputmode="decimal" min="1" step="0.1" id="otmult" name="otmult" value="1.5" />
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Tax settings</legend>
+      <FilingAndState />
+    </fieldset>
+
+    <fieldset>
+      <legend>W-4 &amp; deductions (optional)</legend>
+      <label class="field" style="flex-direction:row;align-items:center;gap:.4rem;margin-bottom:.6rem">
+        <input type="checkbox" name="step2" /> Form W-4 Step 2 "multiple jobs" box is checked
+      </label>
+      <div class="field-row">
+        <div class="field">
+          <label for="dep">Dependent credits — annual (W-4 Step 3)</label>
+          <input type="number" inputmode="decimal" min="0" step="1" id="dep" name="dep" placeholder="0" />
+        </div>
+        <div class="field">
+          <label for="extra">Extra withholding per paycheck (Step 4c)</label>
+          <input type="number" inputmode="decimal" min="0" step="1" id="extra" name="extra" placeholder="0" />
+        </div>
+      </div>
+      <div class="field" style="max-width:16rem">
+        <label for="pretax">Pre-tax deductions this paycheck</label>
+        <input type="number" inputmode="decimal" min="0" step="1" id="pretax" name="pretax" placeholder="0" />
+        <span class="field__hint">401(k), HSA, or §125 health premiums.</span>
+      </div>
+    </fieldset>
+
+    <div class="result-errors" data-notice slot="notice" hidden role="note" style="border-color:var(--warn);background:var(--warn-wash)"></div>
+  </CalcShell>
+
+  <Fragment slot="content">
+    <h2>How a paycheck is calculated</h2>
+    <ol>
+      <li>Start with <strong>gross pay</strong> for the period.</li>
+      <li>Subtract <strong>pre-tax deductions</strong> (401k, HSA, §125) to get taxable wages.</li>
+      <li>Subtract <strong>federal income tax withholding</strong> — the IRS percentage method annualises your wages, applies the 2026 schedule for your filing status, subtracts Step 3 credits, and divides back to the period.</li>
+      <li>Subtract <strong>Social Security</strong> (6.2% up to the $184,500 wage base for 2026) and <strong>Medicare</strong> (1.45%, plus 0.9% on wages over $200,000).</li>
+      <li>Subtract <strong>state income tax withholding</strong> for supported states.</li>
+      <li>What's left is your <strong>estimated take-home pay</strong>.</li>
+    </ol>
+
+    <h2>Why this is an estimate</h2>
+    <p>
+      Withholding is a running prepayment of your tax, not the final bill. Your
+      W-4 settings, other income, itemised deductions, and credits all change the
+      actual amount you owe, which is settled on your tax return. This tool also
+      doesn't model local city taxes, state disability/unemployment beyond noted
+      cases, or garnishments. See the <a href="/disclaimer/">full disclaimer</a>.
+    </p>
+
+    <h2>Realistic expectations</h2>
+    <p>
+      We currently support four states with income tax plus the no-tax states.
+      Full 50-state coverage is planned. If your state isn't listed, the tool is
+      honest about it rather than guessing.
+    </p>
+
+    <h2>Related tools</h2>
+    <ul>
+      <li>Annual salary → yearly and monthly take-home: <a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a>.</li>
+      <li>Work out gross pay and overtime first: <a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a>, <a href="/calculators/time-card-calculator/">Time Card Calculator</a>.</li>
+    </ul>
+
+    <Faq items={faq} />
+  </Fragment>
+</ToolLayout>
+
+<script>
+  import { init } from "@/islands/paycheck";
+  const root = document.querySelector<HTMLElement>("[data-calc='paycheck']");
+  if (root) init(root);
+</script>

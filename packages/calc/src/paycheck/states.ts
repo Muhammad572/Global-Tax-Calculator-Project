@@ -23,6 +23,7 @@ export const SUPPORTED_STATES: StateCode[] = [...NO_INCOME_TAX_STATES, "PA", "IL
 
 export const STATE_LABELS: Record<StateCode, string> = {
   none: "No state selected",
+  other: "Another US state (not yet supported)",
   TX: "Texas",
   FL: "Florida",
   WA: "Washington",
@@ -169,6 +170,12 @@ export function computeStateWithholding(input: StateInput): JurisdictionResult {
 
   if (state === "none") {
     return { supported: true, withholdingPerPeriodCents: 0, withholdingAnnualCents: 0, lines: [], source: "No state selected" };
+  }
+
+  if (state === "other") {
+    return unsupported(
+      "This US state isn't supported yet. We only publish a paycheck estimate where we have validated 2026 state withholding tables. The federal and FICA figures below still apply; your real paycheck will be lower by your state's income tax.",
+    );
   }
 
   if (input.taxYear !== 2026) {

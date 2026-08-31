@@ -1,0 +1,119 @@
+---
+import ToolLayout from "@/layouts/ToolLayout.astro";
+import CalcShell from "@/components/CalcShell.astro";
+import FilingAndState from "@/components/FilingAndState.astro";
+import Faq from "@/components/Faq.astro";
+
+const faq = [
+  {
+    q: "What does 'take-home pay' mean?",
+    a: "The amount that actually reaches your bank account after federal income tax, Social Security, Medicare, and state income tax are withheld — plus any pre-tax deductions like a 401(k). It's also called net pay.",
+  },
+  {
+    q: "$90,000 a year — what's the take-home?",
+    a: "It depends on your state and filing status. As a rough guide for a single filer in 2026, expect somewhere around $66,000–$70,000 after federal tax and FICA, less if your state has income tax. Enter your details above for an estimate.",
+  },
+  {
+    q: "Which places are supported?",
+    a: "United States, tax year 2026: federal, FICA, and the states California, New York, Illinois, Pennsylvania, plus the no-income-tax states. Canada, the UK, and Australia are not supported for take-home tax — the tool tells you rather than guessing.",
+  },
+  {
+    q: "How is this different from the Paycheck Calculator?",
+    a: "This tool starts from an annual salary and shows take-home per year, per month, and per paycheck — good for budgeting or comparing a job offer. The <a href='/calculators/paycheck-calculator/'>Paycheck Calculator</a> starts from your pay for one period (or rate and hours) and focuses on that single paycheck's deductions.",
+  },
+  {
+    q: "Is this the tax I'll owe?",
+    a: "No. It estimates payroll withholding. Your final tax is settled on your annual return, where credits, other income, and deductions can move the number in either direction.",
+  },
+];
+---
+
+<ToolLayout
+  slug="take-home-pay-calculator"
+  intro="Enter an annual salary and see your estimated take-home pay per year, per month, and per paycheck after 2026 federal tax, Social Security, Medicare, and state income tax withholding."
+>
+  <CalcShell id="take-home" label="Take-home pay estimate">
+    <fieldset>
+      <legend>Income</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="salary">Annual salary</label>
+          <input type="number" inputmode="decimal" min="0" step="100" id="salary" name="salary" placeholder="90000" required />
+        </div>
+        <div class="field">
+          <label for="freq">Paycheck frequency</label>
+          <select id="freq" name="freq">
+            <option value="weekly">Weekly (52/yr)</option>
+            <option value="biweekly" selected>Every 2 weeks (26/yr)</option>
+            <option value="semimonthly">Twice a month (24/yr)</option>
+            <option value="monthly">Monthly (12/yr)</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Tax settings</legend>
+      <FilingAndState />
+    </fieldset>
+
+    <fieldset>
+      <legend>Pre-tax deductions (optional)</legend>
+      <div class="field" style="max-width:16rem">
+        <label for="pretax">Pre-tax deductions per year</label>
+        <input type="number" inputmode="decimal" min="0" step="100" id="pretax" name="pretax" placeholder="0" />
+        <span class="field__hint">Annual 401(k), HSA, or §125 contributions.</span>
+      </div>
+      <label class="field" style="flex-direction:row;align-items:center;gap:.4rem;margin-top:.6rem">
+        <input type="checkbox" name="step2" /> Form W-4 Step 2 "multiple jobs" box is checked
+      </label>
+    </fieldset>
+
+    <div class="result-errors" data-notice slot="notice" hidden role="note" style="border-color:var(--warn);background:var(--warn-wash)"></div>
+  </CalcShell>
+
+  <Fragment slot="content">
+    <h2>Gross pay vs take-home pay</h2>
+    <p>
+      Gross pay is your salary before anything is taken out. Take-home pay is
+      what's left after:
+    </p>
+    <ul>
+      <li><strong>Pre-tax deductions</strong> — 401(k), HSA, health premiums. These also lower your taxable income.</li>
+      <li><strong>Federal income tax withholding</strong> — a prepayment toward your annual tax bill, set by your W-4.</li>
+      <li><strong>Social Security</strong> (6.2% to $184,500 in 2026) and <strong>Medicare</strong> (1.45%, +0.9% over $200,000).</li>
+      <li><strong>State income tax withholding</strong> where your state has it.</li>
+    </ul>
+    <p>Read more: <a href="/guides/gross-pay-vs-take-home-pay/">gross pay vs take-home pay</a>.</p>
+
+    <h2>The annual, monthly, and per-paycheck view</h2>
+    <p>
+      This calculator shows all three because they answer different questions:
+      annual for comparing an offer, monthly for budgeting rent and bills, and
+      per-paycheck for what actually lands each payday. They're consistent — the
+      per-paycheck figure times the number of paychecks equals the annual figure.
+    </p>
+
+    <h2>What this doesn't include</h2>
+    <p>
+      Local city taxes (e.g. New York City, Philadelphia), state disability and
+      unemployment beyond noted cases, garnishments, and post-tax benefit
+      elections. It also assumes a 2020-or-later Form W-4. See the
+      <a href="/disclaimer/">disclaimer</a>.
+    </p>
+
+    <h2>Related tools</h2>
+    <ul>
+      <li>Focus on one paycheck's deductions: <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a>.</li>
+      <li>Convert a salary to an hourly rate: <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly Calculator</a>.</li>
+    </ul>
+
+    <Faq items={faq} />
+  </Fragment>
+</ToolLayout>
+
+<script>
+  import { init } from "@/islands/takeHome";
+  const root = document.querySelector<HTMLElement>("[data-calc='take-home']");
+  if (root) init(root);
+</script>

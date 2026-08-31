@@ -285,5 +285,91 @@ describe("getSupportedJurisdictions", () => {
     expect(s.states.map((x) => x.code)).toContain("CA");
     expect(s.states.map((x) => x.code)).toContain("TX");
     expect(s.states.map((x) => x.code)).not.toContain("OH");
+    expect(s.states.map((x) => x.code)).not.toContain("other");
+  });
+});
+
+describe("D4 boundary & consistency cases", () => {
+  const base = {
+    payFrequency: "biweekly" as const,
+    filingStatus: "single" as const,
+    taxYear: 2026,
+    state: "TX" as const,
+  };
+
+  it("Social Security stops at the 2026 wage base ($184,500)", () => {
+    const atBase = computePaycheck({ ...base, payFrequency: "annual", grossPerPeriodCents: toCents(184_500) });
+    const overBase = computePaycheck({ ...base, payFrequency: "annual", grossPerPeriodCents: toCents(300_000) });
+    const ss = (r: typeof atBase) => r.fica.lines.find((l) => l.key === "social_security")!.amountCents;
+    expect(fromCents(ss(atBase))).toBeCloseTo(11_439, 0); // 184,500 * 6.2%
+    expect(ss(overBase)).toBe(ss(atBase)); // capped — no more SS above the base
+  });
+
+  it("Additional Medicare kicks in only above $200,000/year", () => {
+    const under = computePaycheck({ ...base, payFrequency: "annual", grossPerPeriodCents: toCents(199_000) });
+    const over = computePaycheck({ ...base, payFrequency: "annual", grossPerPeriodCents: toCents(250_000) });
+    expect(under.fica.lines.some((l) => l.key === "additional_medicare")).toBe(false);
+    const addl = over.fica.lines.find((l) => l.key === "additional_medicare")!;
+    expect(fromCents(addl.amountCents)).toBeCloseTo((250_000 - 200_000) * 0.009, 0);
+  });
+
+  it("filing status changes federal withholding (single > mfj at the same wage)", () => {
+    const wage = toCents(100_000);
+    const single = computePaycheck({ ...base, payFrequency: "annual", grossPerPeriodCents: wage, filingStatus: "single" });
+    const mfj = computePaycheck({ ...base, payFrequency: "annual", grossPerPeriodCents: wage, filingStatus: "mfj" });
+    const hoh = computePaycheck({ ...base, payFrequency: "annual", grossPerPeriodCents: wage, filingStatus: "hoh" });
+    expect(single.federal.withholdingAnnualCents).toBeGreaterThan(mfj.federal.withholdingAnnualCents);
+    expect(single.federal.withholdingAnnualCents).toBeGreaterThan(hoh.federal.withholdingAnnualCents);
+  });
+
+  it("pay-frequency independence: net annual is stable across frequencies (within rounding)", () => {
+    const salary = 78_000;
+    const nets = (["weekly", "biweekly", "semimonthly", "monthly"] as const).map((payFrequency) => {
+      const periods = { weekly: 52, biweekly: 26, semimonthly: 24, monthly: 12 }[payFrequency];
+      const r = computePaycheck({ ...base, payFrequency, grossPerPeriodCents: toCents(salary / periods), state: "CA" });
+      return fromCents(r.netPerPeriodCents * periods);
+    });
+    const spread = Math.max(...nets) - Math.min(...nets);
+    expect(spread).toBeLessThan(150); // a few dollars of per-period rounding across a year
+  });
+
+  it("zero income -> zero withholding, net 0, no crash", () => {
+    const r = computePaycheck({ ...base, grossPerPeriodCents: 0 });
+    expect(r.totalWithholdingPerPeriodCents).toBe(0);
+    expect(r.netPerPeriodCents).toBe(0);
+    expect(r.effectiveRate).toBe(0);
+  });
+
+  it("pre-tax deductions lower federal, state, AND net", () => {
+    const noPre = computePaycheck({ ...base, grossPerPeriodCents: toCents(3000), state: "NY" });
+    const withPre = computePaycheck({ ...base, grossPerPeriodCents: toCents(3000), state: "NY", preTaxPerPeriodCents: toCents(400) });
+    expect(withPre.federal.withholdingPerPeriodCents).toBeLessThan(noPre.federal.withholdingPerPeriodCents);
+    expect(withPre.state.withholdingPerPeriodCents).toBeLessThan(noPre.state.withholdingPerPeriodCents);
+    expect(withPre.taxablePerPeriodCents).toBe(toCents(2600));
+  });
+
+  it("'other' US state -> not supported, federal + FICA still computed", () => {
+    const r = computePaycheck({ ...base, state: "other", grossPerPeriodCents: toCents(2500) });
+    expect(r.supported).toBe(false);
+    expect(r.state.supported).toBe(false);
+    expect(r.state.withholdingPerPeriodCents).toBe(0);
+    expect(r.federal.supported).toBe(true);
+    expect(r.fica.supported).toBe(true);
+    expect(r.netPerPeriodCents).toBeGreaterThan(0);
+    expect(r.disclaimers.join(" ")).toMatch(/isn't supported yet|not a supported state|not yet supported/i);
+  });
+
+  it("unsupported tax year -> nothing computed, clear reason", () => {
+    const r = computePaycheck({ ...base, taxYear: 2027, grossPerPeriodCents: toCents(2500) });
+    expect(r.supported).toBe(false);
+    expect(r.federal.supported).toBe(false);
+    expect(r.fica.supported).toBe(false);
+    expect(r.reason).toMatch(/2027/);
+  });
+
+  it("high earner in CA: sane effective rate", () => {
+    const r = computePaycheck({ ...base, payFrequency: "annual", grossPerPeriodCents: toCents(400_000), state: "CA", filingStatus: "single" });
+    expect(r.effectiveRate).toBeGreaterThan(0.25);
+    expect(r.effectiveRate).toBeLessThan(0.5);
   });
 });
