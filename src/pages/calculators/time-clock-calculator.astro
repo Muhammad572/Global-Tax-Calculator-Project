@@ -1,0 +1,109 @@
+---
+import ToolLayout from "@/layouts/ToolLayout.astro";
+import CalcShell from "@/components/CalcShell.astro";
+import Faq from "@/components/Faq.astro";
+
+const ROWS = Array.from({ length: 12 }, (_, i) => i);
+
+const faq = [
+  {
+    q: "How do I convert clock in and clock out times to decimal hours?",
+    a: "Find the elapsed time for each punch pair, subtract any unpaid break, then divide the minutes by 60. 8:02 AM to 4:29 PM is 8 hours 27 minutes, which is 8.45 decimal hours. This calculator does every pair and adds them up.",
+  },
+  {
+    q: "How is this different from the Time Card Calculator?",
+    a: "The <a href='/calculators/time-card-calculator/'>Time Card Calculator</a> is built around a Monday–Sunday work week, weekly overtime, and gross pay. This tool takes a plain list of punch pairs in any quantity and gives you one number: decimal payroll hours. Use it when you're entering hours into a timesheet or payroll system.",
+  },
+  {
+    q: "Does it accept 24-hour (military) time?",
+    a: "Yes. Enter <code>0800</code>, <code>08:00</code>, <code>8:00 AM</code>, or <code>1645</code> — all work. Punch clocks usually print 24-hour time.",
+  },
+  {
+    q: "How does it handle a shift that runs past midnight?",
+    a: "If the clock-out time is earlier than the clock-in time, the pair is treated as crossing midnight and marked <em>(overnight)</em>.",
+  },
+  {
+    q: "Can I deduct lunch?",
+    a: "Set one unpaid break value and it's subtracted from every punch pair. If breaks vary by shift, use the <a href='/calculators/time-card-calculator/'>Time Card Calculator</a> instead, which takes a break per day.",
+  },
+];
+---
+
+<ToolLayout
+  slug="time-clock-calculator"
+  intro="Turn a list of clock-in and clock-out punches into total decimal hours for payroll. Add as many pairs as you have, deduct a lunch break, and get a payroll-ready total. 12- and 24-hour time both work."
+>
+  <CalcShell id="time-clock" label="Time clock punches">
+    <fieldset>
+      <legend>Punches</legend>
+      <div class="punch-rows">
+        <div class="punch-row" aria-hidden="true">
+          <span class="punch-row__n"></span>
+          <span class="field-label">Clock in</span>
+          <span class="field-label">Clock out</span>
+        </div>
+        {
+          ROWS.map((i) => (
+            <div class="punch-row" role="group" aria-label={`Punch pair ${i + 1}`}>
+              <span class="punch-row__n">{i + 1}</span>
+              <div class="field">
+                <label for={`in${i}`} class="visually-hidden">Punch {i + 1} clock in</label>
+                <input type="text" id={`in${i}`} name={`in${i}`} placeholder={i === 0 ? "0800" : ""} autocomplete="off" />
+              </div>
+              <div class="field">
+                <label for={`out${i}`} class="visually-hidden">Punch {i + 1} clock out</label>
+                <input type="text" id={`out${i}`} name={`out${i}`} placeholder={i === 0 ? "1645" : ""} autocomplete="off" />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Options</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="brk">Unpaid break per punch (minutes)</label>
+          <input type="number" min="0" step="5" id="brk" name="brk" placeholder="0" />
+        </div>
+        <div class="field">
+          <label for="rate">Hourly rate (optional)</label>
+          <input type="number" inputmode="decimal" min="0" step="0.01" id="rate" name="rate" placeholder="18.00" />
+        </div>
+      </div>
+    </fieldset>
+  </CalcShell>
+
+  <Fragment slot="content">
+    <h2>How the time clock calculation works</h2>
+    <p>
+      For each punch pair: <code>minutes = (clock out − clock in, +24h if overnight) − unpaid break</code>.
+      The minutes for every pair are added, then converted to decimal hours by
+      dividing by 60. Payroll systems want the decimal form: 8 hours 27 minutes
+      is entered as <strong>8.45</strong>, not 8.27.
+    </p>
+
+    <h2>Reading a punch record</h2>
+    <p>
+      Punch clocks print times like <code>07:58</code> and <code>16:31</code>.
+      Enter them exactly as shown — you don't need to convert to AM/PM. If your
+      clock rounds punches to the nearest quarter hour, enter the rounded times.
+    </p>
+
+    <h2>When to use a different tool</h2>
+    <ul>
+      <li>Need weekly overtime and gross pay by weekday? <a href="/calculators/time-card-calculator/">Time Card Calculator</a>.</li>
+      <li>Just one shift to check? <a href="/calculators/hours-worked-calculator/">Hours Worked Calculator</a>.</li>
+      <li>Only converting hours:minutes to decimal? <a href="/calculators/decimal-hours-calculator/">Decimal Hours Calculator</a>.</li>
+    </ul>
+
+    <Faq items={faq} />
+  </Fragment>
+</ToolLayout>
+
+<script>
+  import { init } from "@/islands/timeClock";
+  const root = document.querySelector<HTMLElement>("[data-calc='time-clock']");
+  if (root) init(root);
+</script>

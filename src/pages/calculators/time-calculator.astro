@@ -1,0 +1,104 @@
+---
+import ToolLayout from "@/layouts/ToolLayout.astro";
+import CalcShell from "@/components/CalcShell.astro";
+import Faq from "@/components/Faq.astro";
+
+const ROWS = Array.from({ length: 6 }, (_, i) => i);
+
+const faq = [
+  {
+    q: "How do I add hours and minutes together?",
+    a: "Add the minutes; every 60 minutes carries into an hour. 2h 45m + 1h 30m = 3h 75m = 4h 15m. This calculator carries the minutes and seconds for you.",
+  },
+  {
+    q: "How is this different from the Hours Worked Calculator?",
+    a: "The <a href='/calculators/hours-worked-calculator/'>Hours Worked Calculator</a> finds the time <em>between</em> two clock times, like 9:00 AM to 5:30 PM. This tool adds and subtracts <em>durations</em> — 2:45 plus 1:30 minus 0:20 — with no start or end time involved.",
+  },
+  {
+    q: "Can the result be negative?",
+    a: "Yes. If you subtract more time than you add, the result is shown with a minus sign.",
+  },
+  {
+    q: "What can I use it for?",
+    a: "Totalling billable time, adding up study or practice sessions, working out cooking or baking timings, editing and render times, or race and lap splits.",
+  },
+];
+---
+
+<ToolLayout
+  slug="time-calculator"
+  intro="Add and subtract hours, minutes, and seconds. Enter each amount on its own line with a plus or minus, and get the running total in hours:minutes:seconds, decimal hours, and total minutes."
+>
+  <CalcShell id="time-calc" label="Add and subtract time">
+    <fieldset>
+      <legend>Time amounts</legend>
+      <div class="punch-rows">
+        <div class="punch-row" style="grid-template-columns: 5rem 1fr 1fr 1fr" aria-hidden="true">
+          <span></span>
+          <span class="field-label">Hours</span>
+          <span class="field-label">Minutes</span>
+          <span class="field-label">Seconds</span>
+        </div>
+        {
+          ROWS.map((i) => (
+            <div class="punch-row" style="grid-template-columns: 5rem 1fr 1fr 1fr" role="group" aria-label={`Time amount ${i + 1}`}>
+              <div class="field">
+                <label for={`op${i}`} class="visually-hidden">Operation for row {i + 1}</label>
+                <select id={`op${i}`} name={`op${i}`}>
+                  <option value="+">+ add</option>
+                  <option value="-">− subtract</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for={`h${i}`} class="visually-hidden">Hours, row {i + 1}</label>
+                <input type="number" inputmode="numeric" min="0" step="1" id={`h${i}`} name={`h${i}`} placeholder="0" />
+              </div>
+              <div class="field">
+                <label for={`m${i}`} class="visually-hidden">Minutes, row {i + 1}</label>
+                <input type="number" inputmode="numeric" min="0" step="1" id={`m${i}`} name={`m${i}`} placeholder="0" />
+              </div>
+              <div class="field">
+                <label for={`s${i}`} class="visually-hidden">Seconds, row {i + 1}</label>
+                <input type="number" inputmode="numeric" min="0" step="1" id={`s${i}`} name={`s${i}`} placeholder="0" />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <label class="field" style="flex-direction:row;align-items:center;gap:.4rem;margin-top:.6rem">
+        <input type="checkbox" name="sec" checked /> Show seconds in the result
+      </label>
+    </fieldset>
+  </CalcShell>
+
+  <Fragment slot="content">
+    <h2>How to add and subtract time</h2>
+    <p>
+      Work from the smallest unit up. Add the seconds and carry every 60 into
+      minutes; add the minutes and carry every 60 into hours. To subtract, borrow
+      the other way. The calculator keeps a running total as you type.
+    </p>
+    <p><code>total = Σ (± (hours × 3600 + minutes × 60 + seconds))</code>, shown as h:mm:ss, decimal hours, and total minutes.</p>
+
+    <h2>Examples</h2>
+    <ul>
+      <li>3 client tasks of 1:15, 0:45 and 2:05 → <strong>4:05</strong> (4.08 hours) to bill.</li>
+      <li>A 45-minute recording minus a 6:30 intro and a 3:15 outro → <strong>35:15</strong> of main content.</li>
+      <li>Total practice this week: 0:40 + 0:55 + 1:10 + 0:30 → <strong>3:15</strong>.</li>
+    </ul>
+
+    <h2>Related tools</h2>
+    <ul>
+      <li>Time between two clock times: <a href="/calculators/hours-worked-calculator/">Hours Worked Calculator</a>.</li>
+      <li>Convert a total to decimal for payroll: <a href="/calculators/decimal-hours-calculator/">Decimal Hours Calculator</a>.</li>
+    </ul>
+
+    <Faq items={faq} />
+  </Fragment>
+</ToolLayout>
+
+<script>
+  import { init } from "@/islands/timeCalculator";
+  const root = document.querySelector<HTMLElement>("[data-calc='time-calc']");
+  if (root) init(root);
+</script>

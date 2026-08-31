@@ -5,6 +5,7 @@ import {
   formatDuration,
   formatTimeOfDay,
   minutesToDecimalHours,
+  parseDurationToMinutes,
   parseTimeOfDay,
   roundMinutes,
   spanMinutes,
@@ -116,6 +117,26 @@ describe("roundMinutes", () => {
     expect(roundMinutes(67, 15)).toBe(60);
     expect(roundMinutes(64, 6)).toBe(66);
     expect(roundMinutes(64, 1)).toBe(64);
+  });
+});
+
+describe("parseDurationToMinutes", () => {
+  it.each([
+    ["7:45", 465],
+    ["40:30", 2430],
+    ["0:15", 15],
+    ["7h 45m", 465],
+    ["7h", 420],
+    ["45m", 45],
+    ["7.75", 465],
+    ["7.5", 450],
+    ["8", 480],
+    ["  2:05 ", 125],
+  ])("%s -> %i", (input, expected) => {
+    expect(parseDurationToMinutes(input)).toBe(expected);
+  });
+  it.each(["", "  ", "abc", "7:99", "1:2:3", "h m", "-3"])("rejects %s", (input) => {
+    expect(parseDurationToMinutes(input)).toBeNull();
   });
 });
 

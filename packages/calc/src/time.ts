@@ -202,3 +202,27 @@ export function accumulateDuration(
   }
   return { totalSeconds: seconds, totalMinutes: seconds / 60 };
 }
+
+/**
+ * Parse a *duration* (not a time of day, so it may exceed 24h) to whole minutes.
+ * Accepts: `"7:45"` / `"40:30"` (H:MM), `"7h 45m"` / `"7h"` / `"45m"`,
+ * `"7.75"` (decimal hours), `"7"` (whole hours). Returns `null` on anything else.
+ */
+export function parseDurationToMinutes(input: string): number | null {
+  if (input == null) return null;
+  const raw = String(input).trim().toLowerCase();
+  if (raw === "") return null;
+
+  const colon = /^(\d+):([0-5]?\d)$/.exec(raw);
+  if (colon) return Number(colon[1]) * 60 + Number(colon[2]);
+
+  const hm = /^(?:(\d+(?:\.\d+)?)\s*h)?\s*(?:(\d+(?:\.\d+)?)\s*m)?$/.exec(raw);
+  if (hm && (hm[1] !== undefined || hm[2] !== undefined)) {
+    return Math.round((Number(hm[1] ?? 0)) * 60 + Number(hm[2] ?? 0));
+  }
+
+  const dec = /^\d+(?:\.\d+)?$/.exec(raw);
+  if (dec) return Math.round(Number(raw) * 60);
+
+  return null;
+}

@@ -1,0 +1,105 @@
+---
+import ToolLayout from "@/layouts/ToolLayout.astro";
+import CalcShell from "@/components/CalcShell.astro";
+import Faq from "@/components/Faq.astro";
+
+// Server-rendered minutes -> decimal reference chart (owns the "chart" queries,
+// and it is genuine reference content, not filler).
+const chart = Array.from({ length: 60 }, (_, m) => ({ m, d: (m / 60).toFixed(4).replace(/0+$/, "").replace(/\.$/, "") || "0" }));
+const chartCols = [0, 12, 24, 36, 48].map((start) => chart.slice(start, start + 12));
+
+const faq = [
+  {
+    q: "How do I convert minutes to decimal hours?",
+    a: "Divide the minutes by 60. 15 ÷ 60 = 0.25, 30 ÷ 60 = 0.5, 45 ÷ 60 = 0.75. So 7 hours 45 minutes is 7.75 hours — a common mistake is to write 7.45.",
+  },
+  {
+    q: "How do I convert decimal hours back to minutes?",
+    a: "Multiply the decimal part by 60. 0.6 × 60 = 36, so 8.6 hours is 8 hours 36 minutes. Enter a decimal like 8.6 above and the calculator shows the hours and minutes.",
+  },
+  {
+    q: "Why does payroll use decimal hours?",
+    a: "Pay is rate × hours, and that multiplication only works cleanly with decimals. $20 × 7.75 = $155.00. With 7:45 you'd have to convert first anyway.",
+  },
+  {
+    q: "Can I convert a whole timesheet at once?",
+    a: "Yes — paste one time per line (7:45, 8:15, 6:30 …) into the bulk box and it returns a decimal for each line plus the total.",
+  },
+];
+---
+
+<ToolLayout
+  slug="decimal-hours-calculator"
+  intro="Convert hours and minutes to decimal hours for payroll, and decimal hours back to hours and minutes. Do one value or paste a whole column. Includes a minutes-to-decimal chart."
+>
+  <CalcShell id="decimal-hours" label="Decimal hours converter" actions={["copy", "print"]}>
+    <fieldset>
+      <legend>Convert one value</legend>
+      <div class="field" style="max-width:16rem">
+        <label for="single">Time or decimal</label>
+        <input type="text" id="single" name="single" placeholder="7:45  or  7.75" autocomplete="off" />
+        <span class="field__hint">Accepts <code>7:45</code>, <code>7h 45m</code>, or a decimal like <code>7.75</code>.</span>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Convert a column (optional)</legend>
+      <div class="field">
+        <label for="bulk">One time per line</label>
+        <textarea id="bulk" name="bulk" rows="5" placeholder={"7:45\n8:15\n6:30"} style="width:100%;min-height:6rem;padding:.5rem .65rem;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--paper);color:var(--ink);font-family:var(--font-mono)"></textarea>
+      </div>
+      <div data-bulk-out hidden></div>
+    </fieldset>
+  </CalcShell>
+
+  <Fragment slot="content">
+    <h2>Minutes to decimal hours chart</h2>
+    <p>Divide minutes by 60. Round to two decimal places for payroll.</p>
+    <div style="overflow-x:auto">
+      <table class="reference-chart">
+        <thead>
+          <tr>{chartCols.map(() => (<Fragment><th>Min</th><th>Dec</th></Fragment>))}</tr>
+        </thead>
+        <tbody>
+          {
+            Array.from({ length: 12 }, (_, r) => (
+              <tr>
+                {chartCols.map((col) => {
+                  const cell = col[r];
+                  return (
+                    <Fragment>
+                      <td>{cell ? cell.m : ""}</td>
+                      <td>{cell ? Number(cell.d).toFixed(2) : ""}</td>
+                    </Fragment>
+                  );
+                })}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <h2>The rule</h2>
+    <p>
+      <code>decimal hours = whole hours + (minutes ÷ 60)</code><br />
+      <code>minutes = (decimal hours − whole hours) × 60</code>
+    </p>
+    <p>The frequent error is treating minutes as the decimal directly: 7 hours 45 minutes is <strong>7.75</strong>, not 7.45.</p>
+
+    <h2>Related tools</h2>
+    <ul>
+      <li>Total clock punches into decimal hours: <a href="/calculators/time-clock-calculator/">Time Clock Calculator</a>.</li>
+      <li>Add and subtract time values: <a href="/calculators/time-calculator/">Time Calculator</a>.</li>
+      <li>Hours worked on a shift: <a href="/calculators/hours-worked-calculator/">Hours Worked Calculator</a>.</li>
+    </ul>
+
+    <Faq items={faq} />
+  </Fragment>
+</ToolLayout>
+
+<script>
+  import { init } from "@/islands/decimalHours";
+  const root = document.querySelector<HTMLElement>("[data-calc='decimal-hours']");
+  if (root) init(root);
+</script>
