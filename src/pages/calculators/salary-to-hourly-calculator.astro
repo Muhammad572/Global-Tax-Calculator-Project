@@ -1,0 +1,137 @@
+---
+import ToolLayout from "@/layouts/ToolLayout.astro";
+import CalcShell from "@/components/CalcShell.astro";
+import Faq from "@/components/Faq.astro";
+
+const commonSalaries = [30000, 40000, 50000, 60000, 70000, 80000, 100000, 120000];
+const hourly = (s: number) => (s / 2080).toFixed(2);
+
+const faq = [
+  {
+    q: "How do I convert an annual salary to an hourly rate?",
+    a: "Divide the salary by the hours you're paid for in a year. At 40 hours a week for 52 weeks that's 2,080 hours, so a $52,000 salary is $25.00 an hour. Change the hours-per-week or weeks-per-year fields if your schedule is different.",
+  },
+  {
+    q: "What is the effective (real) hourly rate?",
+    a: "Salaried employees are paid for vacation and holidays, so the hours they actually work are fewer than the hours they're paid for. Divide the salary by hours actually worked instead. On $52,000 with 15 vacation days and 10 holidays, you work 1,880 hours, so your effective rate is about $27.66 — higher than the $25.00 headline.",
+  },
+  {
+    q: "How is this different from the Hourly Pay Calculator?",
+    a: "This tool converts a <em>fixed annual salary</em> into an hourly rate and every pay period, for comparing offers. The <a href='/calculators/hourly-pay-calculator/'>Hourly Pay Calculator</a> goes the other way and adds overtime: it takes an hourly rate plus the hours you work and projects your gross pay for a week, paycheck, month, or year.",
+  },
+  {
+    q: "$60,000 a year is how much an hour?",
+    a: "About $28.85 an hour at 40 hours a week, 52 weeks a year ($60,000 ÷ 2,080). At 37.5 hours a week it's $30.77.",
+  },
+  {
+    q: "Should I use 2,080 hours?",
+    a: "It's the standard full-time figure (40 × 52) and makes offers comparable. Use a smaller number if you work part-time or your standard week isn't 40 hours.",
+  },
+];
+---
+
+<ToolLayout
+  slug="salary-to-hourly-calculator"
+  intro="Convert an annual salary to an hourly rate — and to weekly, biweekly, semi-monthly, and monthly pay. See your effective hourly rate after vacation and holidays, and compare up to three salaries side by side."
+>
+  <CalcShell id="salary-hourly" label="Salary to hourly converter">
+    <fieldset>
+      <legend>Convert</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="amount">Amount</label>
+          <input type="number" inputmode="decimal" min="0" step="0.01" id="amount" name="amount" placeholder="52000" required />
+        </div>
+        <div class="field">
+          <label for="dir">Direction</label>
+          <select id="dir" name="dir">
+            <option value="salary-to-hourly">Annual salary → hourly</option>
+            <option value="hourly-to-salary">Hourly → annual salary</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="hpw">Hours per week</label>
+          <input type="number" inputmode="decimal" min="0.1" step="0.5" id="hpw" name="hpw" value="40" />
+        </div>
+        <div class="field">
+          <label for="wpy">Paid weeks per year</label>
+          <input type="number" inputmode="numeric" min="1" max="53" step="1" id="wpy" name="wpy" value="52" />
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Effective rate after time off (optional)</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="pto">Vacation / PTO days</label>
+          <input type="number" inputmode="numeric" min="0" step="1" id="pto" name="pto" placeholder="0" />
+        </div>
+        <div class="field">
+          <label for="hol">Public holidays</label>
+          <input type="number" inputmode="numeric" min="0" step="1" id="hol" name="hol" placeholder="0" />
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Compare (optional)</legend>
+      <p class="field__hint">Enter one or two more amounts to compare them side by side.</p>
+      <div class="field-row">
+        <div class="field">
+          <label for="amount2">Second amount</label>
+          <input type="number" inputmode="decimal" min="0" step="0.01" id="amount2" name="amount2" placeholder="58000" />
+        </div>
+        <div class="field">
+          <label for="amount3">Third amount</label>
+          <input type="number" inputmode="decimal" min="0" step="0.01" id="amount3" name="amount3" placeholder="65000" />
+        </div>
+      </div>
+      <div data-compare-out hidden></div>
+    </fieldset>
+  </CalcShell>
+
+  <Fragment slot="content">
+    <h2>The formulas</h2>
+    <p>
+      <code>hourly rate = annual salary ÷ (hours per week × weeks per year)</code><br />
+      <code>annual salary = hourly rate × hours per week × weeks per year</code><br />
+      <code>effective hourly = annual salary ÷ (paid hours − time-off hours)</code>
+    </p>
+
+    <h2>Common salaries at 40 hours a week</h2>
+    <table>
+      <thead><tr><th>Annual salary</th><th>Per hour</th><th>Per month</th></tr></thead>
+      <tbody>
+        {commonSalaries.map((s) => (
+          <tr><td>${s.toLocaleString()}</td><td>${hourly(s)}</td><td>${(s / 12).toLocaleString(undefined, { maximumFractionDigits: 0 })}</td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>Why compare in hourly terms?</h2>
+    <p>
+      A salaried offer and an hourly offer are hard to compare directly. Putting
+      both on an hourly basis — and adjusting for the hours each actually
+      expects — shows which one pays more for your time. If a role expects
+      50-hour weeks, its real hourly rate is a lot lower than salary ÷ 2,080.
+    </p>
+
+    <h2>Related tools</h2>
+    <ul>
+      <li>Paid hourly and want gross pay with overtime: <a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a>.</li>
+      <li>Take-home after tax: <a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a>.</li>
+      <li>How many hours are in your work year: <a href="/calculators/working-hours-calculator/">Working Hours Calculator</a>.</li>
+    </ul>
+
+    <Faq items={faq} />
+  </Fragment>
+</ToolLayout>
+
+<script>
+  import { init } from "@/islands/salaryToHourly";
+  const root = document.querySelector<HTMLElement>("[data-calc='salary-hourly']");
+  if (root) init(root);
+</script>

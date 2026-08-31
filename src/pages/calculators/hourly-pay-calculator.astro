@@ -1,0 +1,117 @@
+---
+import ToolLayout from "@/layouts/ToolLayout.astro";
+import CalcShell from "@/components/CalcShell.astro";
+import Faq from "@/components/Faq.astro";
+
+const faq = [
+  {
+    q: "How do I calculate hourly pay?",
+    a: "Multiply your regular hours by your rate, then add overtime hours at the overtime rate (usually 1.5×). Example: $18/hour, 40 regular hours + 6 overtime → 40 × $18 + 6 × $27 = $720 + $162 = $882 gross for the week.",
+  },
+  {
+    q: "$18 an hour is how much a year?",
+    a: "About $37,440 a year at 40 hours a week, 52 weeks ($18 × 2,080), before tax. With regular overtime or unpaid weeks off the real figure differs — this calculator projects it from the hours you actually enter.",
+  },
+  {
+    q: "What is a blended hourly rate?",
+    a: "When you work overtime, your total gross divided by your total hours is higher than your base rate. If you earn $882 for 46 hours, your blended rate is about $19.17 an hour.",
+  },
+  {
+    q: "How is this different from the Salary to Hourly Calculator?",
+    a: "This tool starts from an hourly rate and the hours you work, adds overtime, and projects gross pay for a week, paycheck, month, or year. The <a href='/calculators/salary-to-hourly-calculator/'>Salary to Hourly Calculator</a> starts from a fixed annual salary and converts it to an hourly rate for comparing job offers.",
+  },
+  {
+    q: "Does this show take-home pay?",
+    a: "No — it's gross pay, before tax, Social Security, Medicare, and other deductions. Use the <a href='/calculators/paycheck-calculator/'>Paycheck Calculator</a> for an after-tax estimate.",
+  },
+];
+---
+
+<ToolLayout
+  slug="hourly-pay-calculator"
+  intro="Turn an hourly rate and your weekly hours — including overtime — into gross pay for a week, a paycheck, a month, or a year. See the regular and overtime split, the blended rate, and what overtime adds."
+>
+  <CalcShell id="hourly-pay" label="Hourly pay">
+    <fieldset>
+      <legend>Your pay and hours</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="rate">Hourly rate</label>
+          <input type="number" inputmode="decimal" min="0" step="0.01" id="rate" name="rate" placeholder="18.00" required />
+        </div>
+        <div class="field">
+          <label for="hpw">Regular hours per week</label>
+          <input type="number" inputmode="decimal" min="0" step="0.5" id="hpw" name="hpw" value="40" required />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="ot">Overtime hours per week</label>
+          <input type="number" inputmode="decimal" min="0" step="0.5" id="ot" name="ot" placeholder="0" />
+        </div>
+        <div class="field">
+          <label for="mult">Overtime multiplier</label>
+          <input type="number" inputmode="decimal" min="1" step="0.1" id="mult" name="mult" value="1.5" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="period">Show gross pay for</label>
+          <select id="period" name="period">
+            <option value="weekly">A week</option>
+            <option value="biweekly">A biweekly paycheck</option>
+            <option value="semimonthly">A semi-monthly paycheck</option>
+            <option value="monthly">A month</option>
+            <option value="annual">A year</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="wpy">Paid weeks per year</label>
+          <input type="number" inputmode="numeric" min="1" max="53" step="1" id="wpy" name="wpy" value="52" />
+        </div>
+      </div>
+    </fieldset>
+  </CalcShell>
+
+  <Fragment slot="content">
+    <h2>The formulas</h2>
+    <p>
+      <code>regular pay = regular hours × rate</code><br />
+      <code>overtime pay = overtime hours × rate × multiplier</code><br />
+      <code>weekly gross = regular pay + overtime pay</code><br />
+      <code>annual gross ≈ weekly gross × paid weeks per year</code>
+    </p>
+    <p>
+      Biweekly and semi-monthly figures come from the annual amount (26 and 24
+      paychecks a year), so they stay right even when you set fewer than 52 paid
+      weeks.
+    </p>
+
+    <h2>What $X an hour works out to (40h week, no overtime)</h2>
+    <table>
+      <thead><tr><th>Rate</th><th>Weekly</th><th>Monthly</th><th>Annual</th></tr></thead>
+      <tbody>
+        <tr><td>$15</td><td>$600</td><td>$2,600</td><td>$31,200</td></tr>
+        <tr><td>$20</td><td>$800</td><td>$3,467</td><td>$41,600</td></tr>
+        <tr><td>$25</td><td>$1,000</td><td>$4,333</td><td>$52,000</td></tr>
+        <tr><td>$30</td><td>$1,200</td><td>$5,200</td><td>$62,400</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Related tools</h2>
+    <ul>
+      <li>Just the overtime math: <a href="/calculators/overtime-calculator/">Overtime Calculator</a>.</li>
+      <li>Compare against a salaried offer: <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly Calculator</a>.</li>
+      <li>Work out your hours first: <a href="/calculators/time-card-calculator/">Time Card Calculator</a>.</li>
+      <li>After-tax pay: <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a>.</li>
+    </ul>
+
+    <Faq items={faq} />
+  </Fragment>
+</ToolLayout>
+
+<script>
+  import { init } from "@/islands/hourlyPay";
+  const root = document.querySelector<HTMLElement>("[data-calc='hourly-pay']");
+  if (root) init(root);
+</script>
