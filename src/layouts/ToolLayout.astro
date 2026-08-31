@@ -4,7 +4,7 @@ import BaseLayout from "./BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import RelatedTools from "@/components/RelatedTools.astro";
 import AdSlot from "@/components/AdSlot.astro";
-import { TOOLS_BY_SLUG } from "@/data/tools";
+import { TOOLS_BY_SLUG, CLUSTERS } from "@/data/tools";
 import { GUIDES_BY_SLUG } from "@/data/guides";
 
 interface Props {
@@ -17,6 +17,7 @@ interface Props {
 const { slug, intro, jsonLd = [] } = Astro.props;
 const tool = TOOLS_BY_SLUG[slug];
 if (!tool) throw new Error(`ToolLayout: unknown tool slug "${slug}"`);
+const clusterLabel = CLUSTERS.find((c) => c.id === tool.cluster)?.label ?? "Calculator";
 
 const webApp = {
   "@context": "https://schema.org",
@@ -46,6 +47,7 @@ const webApp = {
     />
 
     <header class="tool__head">
+      <p class="eyebrow">{clusterLabel}</p>
       <h1>{tool.title}</h1>
       <p class="tool__intro">{intro}</p>
     </header>
@@ -80,17 +82,29 @@ const webApp = {
     max-width: var(--wide-width);
   }
   .tool__head {
-    margin-block: 0.9rem 1.25rem;
+    margin-block: 1rem 1.4rem;
+  }
+  .tool__head h1 {
+    margin-top: 0.35rem;
   }
   .tool__intro {
-    margin-top: 0.5rem;
+    margin-top: 0.55rem;
     color: var(--ink-soft);
     max-width: 62ch;
+    font-size: 1.05rem;
   }
   .tool__app {
-    margin-bottom: 2rem;
+    margin-bottom: 2.25rem;
   }
   .tool__body {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+  }
+  .tool__further {
+    margin-top: 1.75rem;
+    padding: 0.85rem 1.1rem;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    background: var(--paper-sunk);
+    font-size: 0.95rem;
   }
 </style>

@@ -25,12 +25,15 @@ const itemList = {
 >
   <div class="container">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Guides" }]} />
-    <h1>Guides</h1>
-    <p class="lead">
-      Plain explanations of how work-hours and pay calculations work — the rules,
-      the formulas, and the edge cases. Each guide links to the calculator that
-      does the maths for you.
-    </p>
+    <header class="hub-head">
+      <p class="eyebrow">Learn the rules</p>
+      <h1>Guides</h1>
+      <p class="lead">
+        Plain explanations of how work-hours and pay calculations work — the rules,
+        the formulas, and the edge cases. Each guide links to the calculator that
+        does the maths for you.
+      </p>
+    </header>
 
     <ul class="guide-list">
       {
@@ -60,11 +63,32 @@ const itemList = {
 </BaseLayout>
 
 <style>
-  .lead { max-width: 58ch; color: var(--ink-soft); }
-  .guide-list { margin-top: 1.5rem; padding: 0; list-style: none; display: grid; gap: 1.25rem; }
-  .guide-list > li { border-top: 1px solid var(--border); padding-top: 1rem; }
+  .hub-head { margin-bottom: 1.75rem; }
+  .hub-head h1 { margin-top: 0.4rem; }
+  .lead { max-width: 58ch; margin-top: 0.6rem; color: var(--ink-soft); font-size: 1.05rem; }
+  .guide-list { margin-top: 1.5rem; padding: 0; list-style: none; display: grid; gap: 0.9rem; }
+  .guide-list > li {
+    padding: 1.25rem 1.35rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, #ffffff, #fdfbf8);
+    box-shadow: var(--shadow-card), var(--shadow-inset);
+    transition: transform 0.14s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+  }
+  .guide-list > li:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-line);
+    box-shadow: var(--shadow-card-hover), var(--shadow-inset);
+  }
   .guide-list a { text-decoration: none; }
-  .guide-list__title { display: block; font-weight: 650; font-size: 1.05rem; color: var(--ink); }
-  .guide-list__summary { display: block; margin-top: 0.15rem; color: var(--ink-soft); }
-  .guide-list__tools { margin-top: 0.4rem; font-size: 0.85rem; color: var(--ink-faint); }
+  .guide-list__title {
+    display: block;
+    font-weight: 660;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .guide-list > li:hover .guide-list__title { color: var(--accent); }
+  .guide-list__summary { display: block; margin-top: 0.25rem; color: var(--ink-soft); }
+  .guide-list__tools { margin-top: 0.6rem; font-size: 0.85rem; color: var(--ink-faint); }
 </style>

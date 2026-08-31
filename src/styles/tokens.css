@@ -1,129 +1,91 @@
 /*
- * TinyTools design tokens. Professional, calm, finance-adjacent: a deep
- * indigo-blue accent, neutral slate greys, real elevation. System fonts only —
- * zero web-font requests, zero font-swap CLS. Light palette on bare :root; dark
- * overrides are guarded so an explicit data-theme wins in both directions and
- * "system" follows prefers-color-scheme.
+ * TinyTools design tokens — light, warm, bright. A near-white warm paper
+ * ground with pure-white raised cards for strong "3D" elevation, a burnt-
+ * orange → amber accent, and layered warm shadows. Light-only by design:
+ * the site does not follow prefers-color-scheme (dark was dropped on
+ * request), so every visitor gets the same white treatment.
  */
 
 :root {
   color-scheme: light;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-sans: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
+  --font-feature: "cv05" 1, "ss03" 1, "tnum" 0; /* Inter niceties */
 
-  /* Surfaces — warm-neutral, layered */
-  --paper: #fbfbfc;
-  --paper-sunk: #f1f3f6;
+  /* ---- Surfaces — warm off-white page, pure-white cards ---- */
+  --paper: #f7f5f1;
+  --paper-sunk: #efeae2;
   --paper-raised: #ffffff;
   --paper-overlay: #ffffff;
-  --border: #e4e7ec;
-  --border-strong: #cfd4dc;
+  --border: #e7e1d6;
+  --border-strong: #d6cdbd;
+  --hairline: rgb(60 40 20 / 0.08);
+  --surface-highlight: rgb(255 255 255 / 0.9);
 
-  /* Ink — deep navy-slate for authority */
-  --ink: #101828;
-  --ink-soft: #475467;
-  --ink-faint: #667085;
+  /* ---- Ink — warm near-black ---- */
+  --ink: #1c1917;
+  --ink-soft: #514b45;
+  --ink-faint: #6b645c; /* AA (>=4.5:1) on --paper and --paper-sunk */
 
-  /* Brand accent — deep indigo-blue (trust) */
-  --accent: #3a55d9;
+  /* ---- Brand accent — burnt orange → amber / dark yellow ----
+     --accent is the flat colour used for link/label/icon text, so it is a
+     darker burnt orange that clears WCAG AA (>=4.5:1) on white. The brighter
+     orange lives in --accent-gradient / --accent-bright for fills and large
+     display text only. */
+  --accent: #a83309;
+  --accent-bright: #ea580c;
+  --accent-2: #b45309;
   --accent-ink: #ffffff;
-  --accent-hover: #2f47bd;
-  --accent-wash: #eef1fe;
-  --accent-line: #c7d0f7;
+  --accent-hover: #8a2b07;
+  --accent-wash: #fff1e6;
+  --accent-line: #f3c59a;
+  --accent-gradient: linear-gradient(135deg, #fb923c 0%, #ea580c 48%, #d97706 100%);
+  --accent-text-gradient: linear-gradient(120deg, #ea580c, #d97706 55%, #b45309);
+  --glow: 0 0 0 1px rgb(234 88 12 / 0.16), 0 10px 30px -8px rgb(234 88 12 / 0.34);
 
-  /* Semantic money */
-  --pos: #0d7a4f;
-  --pos-wash: #e4f4ec;
-  --warn: #92610a;
-  --warn-wash: #fbf0da;
-  --neg: #b42318;
+  /* ---- Semantic money ---- */
+  --pos: #15803d;
+  --pos-wash: #e6f4ea;
+  --warn: #a16207;
+  --warn-wash: #fbf1d9;
+  --neg: #b91c1c;
   --neg-wash: #fdeceb;
 
-  /* Focus ring */
+  /* ---- Focus ---- */
   --focus: 0 0 0 3px var(--accent-wash), 0 0 0 5px var(--accent);
 
-  /* Elevation */
+  /* ---- Elevation — warm, layered, "3D" ---- */
   --shadow-hairline: 0 0 0 1px var(--border);
-  --shadow-sm: 0 1px 2px rgb(16 24 40 / 0.06), 0 1px 3px rgb(16 24 40 / 0.1);
-  --shadow-md: 0 4px 8px -2px rgb(16 24 40 / 0.08), 0 12px 24px -6px rgb(16 24 40 / 0.12);
-  --shadow-lg: 0 8px 16px -4px rgb(16 24 40 / 0.1), 0 24px 48px -12px rgb(16 24 40 / 0.22);
+  --shadow-sm: 0 1px 2px rgb(41 30 20 / 0.06), 0 2px 6px rgb(41 30 20 / 0.06);
+  --shadow-md: 0 2px 6px -1px rgb(41 30 20 / 0.08),
+    0 12px 24px -6px rgb(41 30 20 / 0.14);
+  --shadow-lg: 0 10px 24px -8px rgb(41 30 20 / 0.16),
+    0 32px 60px -18px rgb(41 30 20 / 0.24);
+  /* Chunky card stack — three offsets for a tactile, raised feel */
+  --shadow-card: 0 1px 2px rgb(41 30 20 / 0.06),
+    0 6px 14px -4px rgb(41 30 20 / 0.10),
+    0 16px 36px -12px rgb(41 30 20 / 0.12);
+  --shadow-card-hover: 0 2px 4px rgb(41 30 20 / 0.07),
+    0 14px 26px -6px rgb(41 30 20 / 0.16),
+    0 32px 60px -16px rgb(41 30 20 / 0.20);
+  --shadow-inset: inset 0 1px 0 0 var(--surface-highlight);
 
-  /* Scale */
-  --radius: 10px;
-  --radius-sm: 6px;
-  --radius-lg: 16px;
+  /* ---- Decorative ---- */
+  --grid-line: rgb(120 74 30 / 0.05);
+  --mesh-1: rgb(251 146 60 / 0.16);
+  --mesh-2: rgb(217 119 6 / 0.12);
+
+  /* ---- Scale ---- */
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 18px;
+  --radius-xl: 26px;
   --content-width: 46rem;
-  --wide-width: 62rem;
+  --wide-width: 71rem;
   --space: 1rem;
   --tap: 44px;
-  --header-h: 3.75rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --paper: #0d1117;
-    --paper-sunk: #12171f;
-    --paper-raised: #161c26;
-    --paper-overlay: #1b222e;
-    --border: #262d3a;
-    --border-strong: #384252;
-
-    --ink: #e8ecf2;
-    --ink-soft: #aeb8c7;
-    --ink-faint: #8590a1;
-
-    --accent: #8ea6ff;
-    --accent-ink: #0b1020;
-    --accent-hover: #a6b8ff;
-    --accent-wash: #1a2440;
-    --accent-line: #2f3d6b;
-
-    --pos: #52c98c;
-    --pos-wash: #10261c;
-    --warn: #e0b35f;
-    --warn-wash: #2a2113;
-    --neg: #f1948b;
-    --neg-wash: #2c1613;
-
-    --shadow-hairline: 0 0 0 1px var(--border);
-    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.24), 0 1px 3px rgb(0 0 0 / 0.32);
-    --shadow-md: 0 4px 10px -2px rgb(0 0 0 / 0.3), 0 12px 24px -8px rgb(0 0 0 / 0.4);
-    --shadow-lg: 0 8px 18px -6px rgb(0 0 0 / 0.35), 0 22px 44px -14px rgb(0 0 0 / 0.5);
-  }
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --paper: #0d1117;
-  --paper-sunk: #12171f;
-  --paper-raised: #161c26;
-  --paper-overlay: #1b222e;
-  --border: #262d3a;
-  --border-strong: #384252;
-
-  --ink: #e8ecf2;
-  --ink-soft: #aeb8c7;
-  --ink-faint: #8590a1;
-
-  --accent: #8ea6ff;
-  --accent-ink: #0b1020;
-  --accent-hover: #a6b8ff;
-  --accent-wash: #1a2440;
-  --accent-line: #2f3d6b;
-
-  --pos: #52c98c;
-  --pos-wash: #10261c;
-  --warn: #e0b35f;
-  --warn-wash: #2a2113;
-  --neg: #f1948b;
-  --neg-wash: #2c1613;
-
-  --shadow-hairline: 0 0 0 1px var(--border);
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.24), 0 1px 3px rgb(0 0 0 / 0.32);
-  --shadow-md: 0 4px 10px -2px rgb(0 0 0 / 0.3), 0 12px 24px -8px rgb(0 0 0 / 0.4);
-  --shadow-lg: 0 8px 18px -6px rgb(0 0 0 / 0.35), 0 22px 44px -14px rgb(0 0 0 / 0.5);
+  --header-h: 3.9rem;
 }

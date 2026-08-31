@@ -1,0 +1,50 @@
+/*
+ * Decorative backdrop utilities. Pure CSS (gradients + repeating-linear),
+ * no images, no extra requests. Each is `position: absolute`, `inset: 0`,
+ * `pointer-events: none`, `z-index: 0` — sit them behind content that has a
+ * higher z-index / its own stacking context.
+ */
+
+.decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Faint square grid */
+.decor--grid::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(115% 90% at 50% 0%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(115% 90% at 50% 0%, #000 30%, transparent 78%);
+}
+
+/* Soft coloured glow blobs (the "mesh") */
+.decor--mesh::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(42rem 30rem at 12% -8%, var(--mesh-1), transparent 60%),
+    radial-gradient(38rem 26rem at 92% 4%, var(--mesh-2), transparent 62%);
+}
+
+/* Thin gradient rule (dividers, header underline) */
+.rule-gradient {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--border-strong) 20%,
+    var(--border-strong) 80%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .decor * {
+    animation: none !important;
+  }
+}

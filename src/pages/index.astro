@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import AdSlot from "@/components/AdSlot.astro";
+import ClusterIcon from "@/components/ClusterIcon.astro";
 import { SITE } from "@/data/site";
 import { CLUSTERS, TOOLS, toolsInCluster } from "@/data/tools";
 
@@ -12,39 +13,82 @@ const p1 = TOOLS.filter((t) => t.priority === "P1");
   description="Free calculators for work hours, time cards, overtime, and pay. Add up hours worked, split regular and overtime, convert salary to hourly, and estimate your take-home pay."
   path="/"
 >
-  <div class="container">
-    <section class="hero">
-      <h1>Work out your hours, overtime, and pay</h1>
-      <p class="hero__lead">
-        {SITE.name} is a focused set of free calculators for one thing: turning
-        work hours into pay. Time cards, overtime, salary conversions, and
-        take-home pay estimates — fast, clear, and mobile-friendly.
-      </p>
-      <div class="hero__cta">
-        {
-          p1.map((t) => (
-            <a class="btn btn--primary" href={`/calculators/${t.slug}/`}>
-              {t.title}
-            </a>
-          ))
-        }
-        <a class="btn" href="/calculators/">All calculators</a>
+  <section class="hero">
+    <div class="decor decor--mesh decor--grid"></div>
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow">Work Hours · Overtime · Pay · Paycheck</p>
+        <h1 class="hero__title">
+          Work out your hours, overtime, and
+          <span class="hero__grad">take-home pay</span>
+        </h1>
+        <p class="hero__lead">
+          {SITE.name} is a focused set of free calculators for one thing — turning
+          work hours into pay. Fast, accurate, mobile-first, and calculated
+          entirely in your browser.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" href="/calculators/time-card-calculator/">
+            Start with the Time Card Calculator
+          </a>
+          <a class="btn btn--lg" href="/calculators/">Browse all 11 →</a>
+        </div>
+        <ul class="hero__trust">
+          <li>No sign-up</li>
+          <li>Nothing you type leaves your device</li>
+          <li>US · Canada · UK · Australia</li>
+        </ul>
       </div>
-    </section>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hcard hcard--main">
+          <span class="hcard__label">Gross pay · 46.00 hrs</span>
+          <span class="hcard__value">$980.00</span>
+          <span class="hcard__row"><span>Regular (40.00)</span><span>$800.00</span></span>
+          <span class="hcard__row"><span>Overtime (6.00 × 1.5)</span><span>$180.00</span></span>
+          <span class="hcard__row hcard__row--total"><span>Take-home estimate</span><span>$812.53</span></span>
+        </div>
+        <div class="hcard hcard--chip hcard--chip-a">
+          <span class="hcard__chip-k">Regular</span>40.00 h
+        </div>
+        <div class="hcard hcard--chip hcard--chip-b">
+          <span class="hcard__chip-k">Overtime</span>1.5× rate
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="quicklinks" aria-label="Popular calculators">
+      {
+        p1.map((t) => (
+          <a class="quicklink" href={`/calculators/${t.slug}/`}>
+            <span class="quicklink__name">{t.title}</span>
+            <span class="quicklink__go" aria-hidden="true">→</span>
+          </a>
+        ))
+      }
+    </div>
 
     <AdSlot placement="top-leaderboard" />
 
     {
       CLUSTERS.map((c) => (
         <section class="home-cluster">
-          <h2>{c.label}</h2>
-          <p class="home-cluster__blurb">{c.blurb}</p>
+          <header class="home-cluster__head">
+            <ClusterIcon id={c.id} />
+            <div>
+              <h2>{c.label}</h2>
+              <p class="home-cluster__blurb">{c.blurb}</p>
+            </div>
+          </header>
           <ul class="tool-grid">
             {toolsInCluster(c.id).map((t) => (
               <li>
-                <a href={`/calculators/${t.slug}/`}>
-                  <span class="tool-grid__name">{t.title}</span>
-                  <span class="tool-grid__desc">{t.summary}</span>
+                <a class="tool-card" href={`/calculators/${t.slug}/`}>
+                  <span class="tool-card__name">{t.title}</span>
+                  <span class="tool-card__desc">{t.summary}</span>
+                  <span class="tool-card__cta" aria-hidden="true">Open calculator</span>
                 </a>
               </li>
             ))}
@@ -65,7 +109,8 @@ const p1 = TOOLS.filter((t) => t.priority === "P1");
       <p>
         Calculations run entirely in your browser. Nothing you type is sent
         anywhere. Pay and tax figures are estimates for {SITE.markets.join(", ")};
-        see the <a href="/disclaimer/">Disclaimer</a>.
+        see the <a href="/methodology/">Methodology &amp; Sources</a> and the
+        <a href="/disclaimer/">Disclaimer</a>.
       </p>
     </section>
   </div>
@@ -73,59 +118,328 @@ const p1 = TOOLS.filter((t) => t.priority === "P1");
 
 <style>
   .hero {
-    padding-block: 1.5rem 1rem;
-    max-width: 42rem;
+    position: relative;
+    isolation: isolate;
+    padding-block: clamp(2.25rem, 1rem + 6vw, 4.75rem) clamp(2rem, 1rem + 4vw, 3.5rem);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .hero__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: clamp(2rem, 1rem + 5vw, 3.5rem);
+    align-items: center;
+  }
+  @media (min-width: 60rem) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    }
+  }
+  .hero__copy {
+    min-width: 0;
+  }
+  .hero__title {
+    margin-top: 0.9rem;
+    font-size: clamp(2.1rem, 1.3rem + 3.4vw, 3.35rem);
+    line-height: 1.08;
+  }
+  .hero__grad {
+    background: var(--accent-text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .hero__lead {
-    margin-top: 0.75rem;
-    font-size: 1.05rem;
+    margin-top: 1.1rem;
+    font-size: clamp(1.02rem, 0.98rem + 0.3vw, 1.15rem);
     color: var(--ink-soft);
+    max-width: 40rem;
   }
   .hero__cta {
-    margin-top: 1.25rem;
+    margin-top: 1.75rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: 0.7rem;
   }
-  .home-cluster {
-    margin-top: 2.5rem;
+  .btn--lg {
+    min-height: 48px;
+    padding-inline: 1.4rem;
+    font-size: 1rem;
   }
-  .home-cluster__blurb {
-    margin-top: 0.2rem;
-    color: var(--ink-faint);
-  }
-  .tool-grid {
-    margin-top: 0.9rem;
+  .hero__trust {
+    margin-top: 1.6rem;
     padding: 0;
     list-style: none;
-    display: grid;
-    gap: 0.6rem;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  }
-  .tool-grid a {
-    display: block;
-    height: 100%;
-    padding: 0.85rem 0.95rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--paper-raised);
-    text-decoration: none;
-  }
-  .tool-grid a:hover {
-    border-color: var(--accent);
-  }
-  .tool-grid__name {
-    display: block;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .tool-grid__desc {
-    display: block;
-    margin-top: 0.15rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
     font-size: 0.86rem;
     color: var(--ink-faint);
   }
+  .hero__trust li {
+    display: flex;
+    align-items: center;
+    gap: 0.5ch;
+    margin: 0;
+  }
+  .hero__trust li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* Hero 3D visual — a stacked mock result card + floating chips */
+  .hero__visual {
+    position: relative;
+    min-height: 17rem;
+    perspective: 1400px;
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 1.75rem 1.75rem;
+  }
+  .hcard {
+    background: linear-gradient(180deg, #ffffff, #fdfbf8);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg), var(--shadow-inset);
+  }
+  .hcard--main {
+    position: relative;
+    width: min(23rem, 100%);
+    padding: 1.35rem 1.4rem 1.15rem;
+    display: grid;
+    gap: 0.45rem;
+    transform: rotateY(-9deg) rotateX(4deg) rotate(0.5deg);
+    transform-style: preserve-3d;
+  }
+  .hcard--main::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    background: var(--accent-gradient);
+  }
+  .hcard__label {
+    font-size: 0.72rem;
+    font-weight: 620;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .hcard__value {
+    font-size: 2.4rem;
+    line-height: 1;
+    font-weight: 730;
+    letter-spacing: -0.02em;
+    background: var(--accent-text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.35rem;
+  }
+  .hcard__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .hcard__row span:last-child {
+    font-weight: 620;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .hcard__row--total {
+    border-top: 2px solid var(--border-strong);
+    margin-top: 0.15rem;
+    padding-top: 0.55rem;
+  }
+  .hcard__row--total span:first-child {
+    font-weight: 620;
+    color: var(--ink);
+  }
+  .hcard__row--total span:last-child {
+    color: var(--pos);
+  }
+  .hcard--chip {
+    position: absolute;
+    padding: 0.6rem 0.85rem;
+    border-radius: var(--radius);
+    font-weight: 640;
+    font-size: 0.9rem;
+    color: var(--ink);
+    display: grid;
+    gap: 0.1rem;
+    box-shadow: var(--shadow-lg), var(--shadow-inset);
+  }
+  .hcard__chip-k {
+    font-size: 0.66rem;
+    font-weight: 640;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .hcard--chip-a {
+    left: 0.25rem;
+    bottom: 0.6rem;
+    transform: rotate(-4deg);
+  }
+  .hcard--chip-b {
+    right: 0.35rem;
+    top: 0.6rem;
+    transform: rotate(4deg);
+  }
+  @media (max-width: 60rem) {
+    .hero__visual {
+      min-height: 0;
+      max-width: 25rem;
+      margin-inline: auto;
+      padding: 1.25rem 1.5rem;
+    }
+    .hcard--main {
+      transform: none;
+      width: 100%;
+    }
+  }
+  @media (max-width: 30rem) {
+    .hcard--chip { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hcard--main { transform: none; }
+  }
+
+  /* Quicklinks strip */
+  .quicklinks {
+    margin-top: 1.75rem;
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
+  }
+  .quicklink {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.9rem 1.05rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, #ffffff, #fdfbf8);
+    box-shadow: var(--shadow-card), var(--shadow-inset);
+    text-decoration: none;
+    font-weight: 580;
+    color: var(--ink);
+    transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
+  }
+  .quicklink:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-line);
+    box-shadow: var(--shadow-card-hover), var(--shadow-inset);
+    color: var(--ink);
+  }
+  .quicklink__go {
+    color: var(--accent);
+    transition: transform 0.14s ease;
+  }
+  .quicklink:hover .quicklink__go {
+    transform: translateX(3px);
+  }
+
+  /* Clusters */
+  .home-cluster {
+    margin-top: clamp(2.5rem, 1.5rem + 3vw, 3.75rem);
+  }
+  .home-cluster__head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+  .home-cluster__head h2 {
+    margin: 0;
+  }
+  .home-cluster__blurb {
+    margin-top: 0.15rem;
+    color: var(--ink-faint);
+  }
+  .tool-grid {
+    margin-top: 1.1rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+  }
+  @media (min-width: 40rem) {
+    .tool-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .tool-card {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    padding: 1.15rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, #ffffff, #fdfbf8);
+    box-shadow: var(--shadow-card), var(--shadow-inset);
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+  }
+  .tool-card::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--accent-gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.24s ease;
+  }
+  .tool-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-line);
+    box-shadow: var(--shadow-card-hover), var(--shadow-inset);
+  }
+  .tool-card:hover::after {
+    transform: scaleX(1);
+  }
+  .tool-card__name {
+    font-weight: 630;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .tool-card__desc {
+    margin-top: 0.3rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--ink-faint);
+  }
+  .tool-card__cta {
+    margin-top: 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 560;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3ch;
+  }
+  .tool-card__cta::after {
+    content: "\2192";
+    transition: transform 0.14s ease;
+  }
+  .tool-card:hover .tool-card__cta::after {
+    transform: translateX(3px);
+  }
+
   .home-about {
-    margin-top: 3rem;
+    margin-top: clamp(3rem, 2rem + 3vw, 4.5rem);
   }
 </style>

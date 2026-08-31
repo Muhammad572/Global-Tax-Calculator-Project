@@ -5,16 +5,42 @@ const popular = TOOLS.filter((t) => t.priority === "P1" || t.slug === "paycheck-
 ---
 
 <BaseLayout title="Page not found" description="That page doesn't exist. Try one of the TinyTools calculators instead." path="/404/" noindex>
-  <div class="container prose">
+  <div class="container prose nf">
+    <p class="eyebrow">Error 404</p>
     <h1>Page not found</h1>
     <p>
       The page you're looking for doesn't exist or has moved. If you followed a
       link from the old version of this site, the calculators have changed — try
       one of these:
     </p>
-    <ul>
+    <ul class="nf__links">
       {popular.map((t) => <li><a href={`/calculators/${t.slug}/`}>{t.title}</a></li>)}
-      <li><a href="/calculators/">See all calculators</a></li>
     </ul>
+    <p><a class="btn btn--primary" href="/calculators/">See all calculators</a></p>
   </div>
 </BaseLayout>
+
+<style>
+  .nf { text-align: center; padding-block: 2rem 1rem; }
+  .nf h1 { margin-top: 0.4rem; }
+  .nf .eyebrow { justify-content: center; }
+  .nf__links {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  .nf__links a {
+    display: inline-block;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+    text-decoration: none;
+    box-shadow: var(--shadow-sm), var(--shadow-inset);
+  }
+  .nf__links a:hover { border-color: var(--accent-line); }
+</style>

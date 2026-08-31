@@ -1,5 +1,7 @@
 ---
 import "@/styles/tokens.css";
+import "@/styles/fonts.css";
+import "@/styles/decor.css";
 import "@/styles/base.css";
 import Seo from "@/components/Seo.astro";
 import Header from "@/components/Header.astro";
@@ -42,9 +44,15 @@ const { title, description, path, noindex, ogType, jsonLd } = Astro.props;
         ad script is a separate opt-in (SITE.adsenseVerification). */}
     <meta name="google-adsense-account" content={SITE.adsensePublisherId} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="mask-icon" href="/favicon.svg" color="#1f5fd8" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#10151b" media="(prefers-color-scheme: dark)" />
+    <link rel="mask-icon" href="/favicon.svg" color="#ea580c" />
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <meta name="theme-color" content="#f7f5f1" />
     <Seo
       title={title}
       description={description}

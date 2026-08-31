@@ -1,14 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="TinyTools — Work Hours and Pay Calculators">
-  <rect width="1200" height="630" fill="#fbfbfc"/>
-  <rect width="1200" height="12" y="618" fill="#3a55d9"/>
+  <defs>
+    <linearGradient id="og-accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fb923c"/>
+      <stop offset="0.55" stop-color="#ea580c"/>
+      <stop offset="1" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#f7f5f1"/>
+  <rect width="1200" height="12" y="618" fill="url(#og-accent)"/>
   <g transform="translate(96,150)">
-    <rect x="0" y="0" width="96" height="96" rx="26" fill="#3a55d9"/>
+    <rect x="0" y="0" width="96" height="96" rx="26" fill="url(#og-accent)"/>
     <circle cx="48" cy="48" r="28" fill="none" stroke="#ffffff" stroke-width="8"/>
     <path d="M48 30v18l13 8" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
   </g>
-  <text x="216" y="222" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" fill="#101828">TinyTools</text>
-  <text x="96" y="360" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="52" font-weight="700" fill="#101828">Work Hours &amp; Pay Calculators</text>
-  <text x="96" y="430" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="30" fill="#475467">Time cards, overtime, salary conversions, and take-home pay.</text>
-  <text x="96" y="474" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="30" fill="#475467">Free, accurate, and calculated in your browser.</text>
-  <text x="96" y="556" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" fill="#3a55d9">tinytools.live</text>
+  <text x="216" y="222" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" fill="#1c1917">TinyTools</text>
+  <text x="96" y="360" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="52" font-weight="700" fill="#1c1917">Work Hours &amp; Pay Calculators</text>
+  <text x="96" y="430" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="30" fill="#514b45">Time cards, overtime, salary conversions, and take-home pay.</text>
+  <text x="96" y="474" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="30" fill="#514b45">Free, accurate, and calculated in your browser.</text>
+  <text x="96" y="556" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" fill="#a83309">tinytools.live</text>
 </svg>

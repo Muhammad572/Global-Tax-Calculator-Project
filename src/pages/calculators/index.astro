@@ -26,11 +26,14 @@ const itemList = {
 >
   <div class="container">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Calculators" }]} />
-    <h1>All calculators</h1>
-    <p class="lead">
-      Eleven calculators, grouped by the problem they solve. Each one works
-      offline in your browser and shows how the result is calculated.
-    </p>
+    <header class="hub-head">
+      <p class="eyebrow">The full toolkit</p>
+      <h1>All calculators</h1>
+      <p class="lead">
+        Eleven calculators, grouped by the problem they solve. Each one works
+        offline in your browser and shows how the result is calculated.
+      </p>
+    </header>
 
     <AdSlot placement="top-leaderboard" />
 
@@ -56,45 +59,75 @@ const itemList = {
 </BaseLayout>
 
 <style>
+  .hub-head {
+    margin-bottom: 1.5rem;
+  }
+  .hub-head h1 {
+    margin-top: 0.4rem;
+  }
   .lead {
     max-width: 58ch;
+    margin-top: 0.6rem;
     color: var(--ink-soft);
+    font-size: 1.05rem;
   }
   .cat {
-    margin-top: 2.25rem;
+    margin-top: 2.75rem;
+  }
+  .cat > h2 {
+    margin-top: 0;
   }
   .cat__blurb {
-    margin-top: 0.15rem;
+    margin-top: 0.2rem;
     color: var(--ink-faint);
   }
   .cat__list {
-    margin-top: 0.85rem;
+    margin-top: 1rem;
     padding: 0;
     list-style: none;
     display: grid;
-    gap: 0.6rem;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   }
   .cat__list a {
+    position: relative;
     display: block;
     height: 100%;
-    padding: 0.85rem 0.95rem;
+    padding: 1.1rem 1.15rem;
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--paper-raised);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, #ffffff, #fdfbf8);
     text-decoration: none;
+    box-shadow: var(--shadow-card), var(--shadow-inset);
+    overflow: hidden;
+    transition: transform 0.14s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+  }
+  .cat__list a::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: var(--accent-gradient);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.18s ease;
   }
   .cat__list a:hover {
-    border-color: var(--accent);
+    border-color: var(--accent-line);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover), var(--shadow-inset);
+  }
+  .cat__list a:hover::after {
+    transform: scaleY(1);
   }
   .cat__name {
     display: block;
-    font-weight: 600;
+    font-weight: 620;
     color: var(--ink);
   }
   .cat__desc {
     display: block;
-    margin-top: 0.15rem;
+    margin-top: 0.2rem;
     font-size: 0.86rem;
     color: var(--ink-faint);
   }
