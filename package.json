@@ -1,0 +1,27 @@
+{
+  "name": "tinytools",
+  "private": true,
+  "type": "module",
+  "description": "TinyTools — Work Hours & Pay Calculators (tinytools.live)",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "npm run test --workspace @tinytools/calc",
+    "test:calc": "npm run test --workspace @tinytools/calc",
+    "typecheck": "npm run typecheck --workspace @tinytools/calc"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.13.0",
+    "typescript": "^5.9.2"
+  }
+}
