@@ -22,7 +22,7 @@
     "qa:tax": "npx --yes tsx scripts/tax-spotcheck.mjs"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.19.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
