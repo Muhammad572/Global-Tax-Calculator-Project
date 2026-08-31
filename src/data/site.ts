@@ -35,7 +35,7 @@ export type NavItem = { label: string; href: string };
 
 export const PRIMARY_NAV: NavItem[] = [
   { label: "Calculators", href: "/calculators/" },
-  // "Guides" is added in Phase E when the guide articles exist.
+  { label: "Guides", href: "/guides/" },
   { label: "About", href: "/about/" },
 ];
 

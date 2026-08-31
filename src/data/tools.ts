@@ -83,7 +83,7 @@ export const TOOLS: ToolMeta[] = [
     priority: "P2",
     summary: "Clock in/out punches to decimal payroll hours.",
     related: ["time-card-calculator", "decimal-hours-calculator", "hours-worked-calculator", "overtime-calculator"],
-    guide: "convert-minutes-to-decimal-for-payroll",
+    guide: "how-time-cards-work",
   },
   {
     slug: "working-hours-calculator",
@@ -118,7 +118,7 @@ export const TOOLS: ToolMeta[] = [
     priority: "P2",
     summary: "Minutes ↔ decimal hours, with a conversion chart.",
     related: ["time-clock-calculator", "hours-worked-calculator", "time-calculator"],
-    guide: "convert-minutes-to-decimal-for-payroll",
+    guide: "how-to-calculate-hours-worked",
   },
   {
     slug: "salary-to-hourly-calculator",

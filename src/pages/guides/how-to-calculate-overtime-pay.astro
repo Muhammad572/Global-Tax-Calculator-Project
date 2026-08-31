@@ -1,0 +1,72 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["how-to-calculate-overtime-pay"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    Overtime pay is your regular rate multiplied by an overtime rate — usually
+    time and a half — for the hours over a threshold. The arithmetic is simple;
+    the parts that need care are the <em>regular rate</em> and the
+    <em>threshold</em>, both of which depend on your situation and location.
+  </p>
+
+  <h2>The formula</h2>
+  <p>
+    <code>overtime rate = regular hourly rate × multiplier</code><br />
+    <code>overtime pay = overtime rate × overtime hours</code><br />
+    <code>gross pay = regular hours × regular rate + overtime pay</code>
+  </p>
+  <p>
+    Example: $20 an hour, 46 hours in the week, US federal rule. 40 hours at $20
+    is $800. 6 overtime hours at $30 (1.5 × $20) is $180. Gross pay is
+    <strong>$980</strong>.
+  </p>
+
+  <h2>What "time and a half" means</h2>
+  <p>
+    1.5 times the regular rate. On $18 an hour that is $27. "Double time" is 2×
+    ($36). Some awards and contracts use other multipliers.
+  </p>
+
+  <h2>The regular rate is not always your hourly wage</h2>
+  <ul>
+    <li><strong>Salaried non-exempt:</strong> divide the weekly salary by the hours it covers to get the regular rate, then apply the formula.</li>
+    <li><strong>Two pay rates in one week:</strong> the regular rate is the weighted average of the rates, based on hours at each.</li>
+    <li><strong>Non-discretionary bonuses and commission:</strong> under US federal law these are added into the regular rate for the weeks they cover, which raises the overtime rate.</li>
+  </ul>
+
+  <h2>Thresholds by location</h2>
+  <p>These are calculation starting points, <strong>not legal advice</strong> — your entitlement depends on your employee classification, award or contract, and current law.</p>
+  <table>
+    <thead><tr><th>Where</th><th>Overtime threshold</th><th>Rate</th></tr></thead>
+    <tbody>
+      <tr><td>US — federal (FLSA)</td><td>Over 40 hours / week</td><td>1.5×</td></tr>
+      <tr><td>US — California</td><td>Over 8 hours / day or 40 / week; over 12 / day</td><td>1.5× then 2×</td></tr>
+      <tr><td>Canada — Ontario</td><td>Over 44 hours / week</td><td>1.5×</td></tr>
+      <tr><td>Canada — federal</td><td>Over 40 hours / week</td><td>1.5×</td></tr>
+      <tr><td>United Kingdom</td><td>No statutory overtime rate — set by contract</td><td>Contractual</td></tr>
+      <tr><td>Australia</td><td>Set by the relevant modern award (often 38-hour week)</td><td>Award-based, often 1.5× then 2×</td></tr>
+    </tbody>
+  </table>
+  <p>
+    The UK's 48-hour Working Time limit caps <em>average</em> weekly hours for
+    health and safety; it does not require any overtime pay.
+  </p>
+
+  <h2>Do salaried employees get overtime?</h2>
+  <p>
+    Often not. Under the FLSA, employees classified as <em>exempt</em> — which
+    generally requires both a salary above a set level and certain job duties —
+    are not entitled to overtime. <em>Non-exempt</em> employees are, whether they
+    are paid hourly or by salary.
+  </p>
+
+  <h2>Calculators</h2>
+  <ul>
+    <li><a href="/calculators/overtime-calculator/">Overtime Calculator</a> — enter your rate and hours, pick a rule or set your own.</li>
+    <li><a href="/calculators/time-card-calculator/">Time Card Calculator</a> — a full week of shifts with the overtime split applied.</li>
+    <li><a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a> — gross pay projections including overtime.</li>
+  </ul>
+</GuideLayout>

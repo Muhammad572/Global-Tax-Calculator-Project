@@ -1,0 +1,79 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+import { businessDaysInYear } from "@tinytools/calc";
+const g = GUIDES_BY_SLUG["how-many-work-hours-in-a-year"]!;
+
+const years = [2025, 2026, 2027, 2028].map((y) => ({
+  y,
+  days: businessDaysInYear(y),
+  hours: businessDaysInYear(y) * 8,
+}));
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    A standard full-time work year is <strong>2,080 hours</strong>: 40 hours a
+    week × 52 weeks. That is the figure used to convert salaries to hourly rates
+    and to budget headcount. But the hours you <em>actually</em> work are usually
+    fewer, and the number of working days shifts from year to year.
+  </p>
+
+  <h2>The standard: 2,080 hours</h2>
+  <p><code>40 hours/week × 52 weeks = 2,080 hours</code></p>
+  <p>
+    Divide an annual salary by 2,080 for the equivalent hourly rate: $60,000 ÷
+    2,080 ≈ $28.85. Use the
+    <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
+    Calculator</a> for other schedules.
+  </p>
+
+  <h2>Working days by year</h2>
+  <p>
+    Count only Monday–Friday dates and the total moves between roughly 260 and
+    262, depending on how weekends fall and whether it is a leap year. Public
+    holidays (which vary by country) reduce it further.
+  </p>
+  <table>
+    <thead><tr><th>Year</th><th>Weekdays (Mon–Fri)</th><th>Hours at 8/day</th></tr></thead>
+    <tbody>
+      {years.map((r) => (<tr><td>{r.y}</td><td>{r.days}</td><td>{r.hours.toLocaleString()}</td></tr>))}
+    </tbody>
+  </table>
+  <p>
+    These exclude public holidays. Subtract your country's holidays — typically
+    8–13 days — for actual working days.
+  </p>
+
+  <h2>Hours you actually work</h2>
+  <p><code>hours worked = 2,080 − (PTO days + holidays) × hours per workday</code></p>
+  <p>
+    With 15 vacation days and 10 public holidays at 8 hours each, that is 2,080 −
+    200 = <strong>1,880 hours</strong>. Part-time and compressed schedules change
+    the starting figure.
+  </p>
+  <table>
+    <thead><tr><th>Hours/week</th><th>Per year (52 wk)</th><th>Per month</th></tr></thead>
+    <tbody>
+      <tr><td>40</td><td>2,080</td><td>173.3</td></tr>
+      <tr><td>37.5</td><td>1,950</td><td>162.5</td></tr>
+      <tr><td>35</td><td>1,820</td><td>151.7</td></tr>
+      <tr><td>30</td><td>1,560</td><td>130.0</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Why it matters</h2>
+  <ul>
+    <li><strong>Salary comparisons:</strong> a job expecting 45-hour weeks has a lower real hourly rate than one at 40.</li>
+    <li><strong>Contractor rates:</strong> contractors have no paid time off, so they need a higher rate to match an equivalent salary.</li>
+    <li><strong>Project planning:</strong> a full-time employee provides roughly 1,850–1,900 productive hours a year, not 2,080.</li>
+  </ul>
+
+  <h2>Calculate it for your schedule</h2>
+  <p>
+    The <a href="/calculators/working-hours-calculator/">Working Hours
+    Calculator</a> takes your hours per week, weeks per year, PTO, and holidays
+    and returns hours per week, month, and year, plus working days and full-time
+    equivalent.
+  </p>
+</GuideLayout>

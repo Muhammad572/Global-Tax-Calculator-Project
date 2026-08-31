@@ -5,13 +5,14 @@ import AdSlot from "@/components/AdSlot.astro";
 import { SITE } from "@/data/site";
 
 interface Props {
-  title: string;
+  title: string; // H1
+  metaTitle?: string; // <title> (defaults to title)
   description: string;
   slug: string;
   updated: string; // ISO date
   jsonLd?: Record<string, unknown>[];
 }
-const { title, description, slug, updated, jsonLd = [] } = Astro.props;
+const { title, metaTitle, description, slug, updated, jsonLd = [] } = Astro.props;
 
 const article = {
   "@context": "https://schema.org",
@@ -27,7 +28,7 @@ const article = {
 ---
 
 <BaseLayout
-  title={title}
+  title={metaTitle ?? title}
   description={description}
   path={`/guides/${slug}/`}
   ogType="article"

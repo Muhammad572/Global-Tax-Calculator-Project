@@ -1,0 +1,70 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/data/site";
+import { GUIDES } from "@/data/guides";
+import { TOOLS_BY_SLUG } from "@/data/tools";
+
+const itemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: GUIDES.map((g, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: g.title,
+    url: new URL(`/guides/${g.slug}/`, SITE.url).href,
+  })),
+};
+---
+
+<BaseLayout
+  title="Guides"
+  description="Short, accurate guides on calculating hours worked, overtime pay, time cards, salary vs hourly pay, gross vs take-home pay, and work hours in a year."
+  path="/guides/"
+  jsonLd={[itemList]}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Guides" }]} />
+    <h1>Guides</h1>
+    <p class="lead">
+      Plain explanations of how work-hours and pay calculations work — the rules,
+      the formulas, and the edge cases. Each guide links to the calculator that
+      does the maths for you.
+    </p>
+
+    <ul class="guide-list">
+      {
+        GUIDES.map((g) => (
+          <li>
+            <a href={`/guides/${g.slug}/`}>
+              <span class="guide-list__title">{g.title}</span>
+              <span class="guide-list__summary">{g.summary}</span>
+            </a>
+            <p class="guide-list__tools">
+              Related:{" "}
+              {g.supports.map((s, i) => {
+                const t = TOOLS_BY_SLUG[s];
+                return t ? (
+                  <>
+                    {i > 0 ? ", " : ""}
+                    <a href={`/calculators/${t.slug}/`}>{t.title}</a>
+                  </>
+                ) : null;
+              })}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .lead { max-width: 58ch; color: var(--ink-soft); }
+  .guide-list { margin-top: 1.5rem; padding: 0; list-style: none; display: grid; gap: 1.25rem; }
+  .guide-list > li { border-top: 1px solid var(--border); padding-top: 1rem; }
+  .guide-list a { text-decoration: none; }
+  .guide-list__title { display: block; font-weight: 650; font-size: 1.05rem; color: var(--ink); }
+  .guide-list__summary { display: block; margin-top: 0.15rem; color: var(--ink-soft); }
+  .guide-list__tools { margin-top: 0.4rem; font-size: 0.85rem; color: var(--ink-faint); }
+</style>

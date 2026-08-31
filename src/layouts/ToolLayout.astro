@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import RelatedTools from "@/components/RelatedTools.astro";
 import AdSlot from "@/components/AdSlot.astro";
 import { TOOLS_BY_SLUG } from "@/data/tools";
+import { GUIDES_BY_SLUG } from "@/data/guides";
 
 interface Props {
   slug: string;
@@ -58,6 +59,14 @@ const webApp = {
 
     <div class="tool__body prose">
       <slot name="content" />
+      {
+        tool.guide && GUIDES_BY_SLUG[tool.guide] && (
+          <p class="tool__further">
+            Further reading:{" "}
+            <a href={`/guides/${tool.guide}/`}>{GUIDES_BY_SLUG[tool.guide]!.title}</a>
+          </p>
+        )
+      }
     </div>
 
     <AdSlot placement="in-content" />

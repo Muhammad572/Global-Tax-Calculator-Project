@@ -1,0 +1,64 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["salary-vs-hourly-pay"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    A salaried worker earns a fixed amount each pay period regardless of exact
+    hours. An hourly worker is paid for each hour recorded. The pay structure
+    changes overtime rights, income stability, and often benefits.
+  </p>
+
+  <h2>The core difference</h2>
+  <table>
+    <thead><tr><th></th><th>Salary</th><th>Hourly</th></tr></thead>
+    <tbody>
+      <tr><td>Paycheck</td><td>Fixed each period</td><td>Varies with hours worked</td></tr>
+      <tr><td>Overtime</td><td>Only if non-exempt</td><td>Yes (non-exempt), usually 1.5× over 40 hrs/week</td></tr>
+      <tr><td>Short weeks</td><td>Usually paid in full</td><td>Paid only for hours worked</td></tr>
+      <tr><td>Benefits</td><td>More often included</td><td>Varies; sometimes limited</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Exempt vs non-exempt is what decides overtime</h2>
+  <p>
+    Under the US Fair Labor Standards Act, an employee is <strong>exempt</strong>
+    from overtime only if they meet both a salary test (paid a set minimum salary)
+    and a duties test (executive, administrative, professional, and some other
+    categories). Everyone else is <strong>non-exempt</strong> and must receive
+    overtime for hours over 40 in a workweek — including many salaried employees.
+    Being paid a salary does not by itself remove your right to overtime.
+  </p>
+
+  <h2>Comparing two offers</h2>
+  <p>
+    Put both on the same basis. To compare a salary with an hourly rate, convert
+    the salary: <code>hourly = salary ÷ (hours per week × weeks per year)</code>,
+    usually ÷ 2,080. Then adjust for the hours each job actually expects — a role
+    that wants 50-hour weeks has a much lower real hourly rate than salary ÷ 2,080
+    suggests.
+  </p>
+  <p>
+    The <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
+    Calculator</a> does the conversion, shows the effective rate after paid time
+    off, and compares up to three amounts side by side.
+  </p>
+
+  <h2>Which is better?</h2>
+  <p>
+    Neither, universally. Salary suits predictable roles and people who value a
+    steady paycheck and benefits. Hourly suits variable schedules, roles with
+    regular overtime (where the premium can add up), and anyone who wants to be
+    paid for every hour. Read the offer for expected hours, overtime policy,
+    benefits eligibility, and whether the role is classified exempt or non-exempt.
+  </p>
+
+  <h2>Related</h2>
+  <ul>
+    <li><a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a> — gross pay with overtime</li>
+    <li><a href="/guides/how-to-calculate-overtime-pay/">How to calculate overtime pay</a></li>
+    <li><a href="/guides/gross-pay-vs-take-home-pay/">Gross pay vs take-home pay</a></li>
+  </ul>
+</GuideLayout>

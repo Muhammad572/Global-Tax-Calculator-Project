@@ -1,0 +1,78 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["how-time-cards-work"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    A time card is a record of when you started and stopped work each day in a
+    pay period. Payroll uses it to work out how many hours to pay you for,
+    including overtime. It can be a paper sheet, a spreadsheet, or entries in a
+    time-tracking app.
+  </p>
+
+  <h2>What a time card records</h2>
+  <ul>
+    <li>The <strong>date</strong> and <strong>day</strong>.</li>
+    <li><strong>Clock in</strong> and <strong>clock out</strong> times — one pair per shift, or more if you leave and return.</li>
+    <li><strong>Unpaid breaks</strong>, usually lunch, in minutes.</li>
+    <li>Sometimes a <strong>job or project code</strong> so hours can be allocated.</li>
+  </ul>
+
+  <h2>Filling one out</h2>
+  <ol>
+    <li>Record your actual start and finish times to the minute, as you go — not from memory at the end of the week.</li>
+    <li>Note the length of any unpaid break.</li>
+    <li>At the end of each day, work out the hours: <code>(clock out − clock in) − unpaid break</code>.</li>
+    <li>At the end of the period, add the daily totals and convert to decimal hours for payroll.</li>
+    <li>Sign it if your employer requires a signature, and keep your own copy.</li>
+  </ol>
+  <p>
+    The <a href="/calculators/time-card-calculator/">Time Card Calculator</a> does
+    steps 3–4 for a whole week and applies overtime. For a stack of raw punches,
+    the <a href="/calculators/time-clock-calculator/">Time Clock Calculator</a>
+    totals them into decimal hours.
+  </p>
+
+  <h2>Pay periods</h2>
+  <p>
+    A time card covers one pay period. Common periods are weekly (52 a year),
+    biweekly (26), and semi-monthly (24, on set dates like the 15th and last
+    day). Overtime is generally figured on each <em>workweek</em>, even when the
+    pay period is longer.
+  </p>
+
+  <h2>How employers round punch times</h2>
+  <p>
+    Rounding to the nearest 5, 6 (a tenth of an hour), or 15 minutes is common.
+    In the US, the FLSA allows rounding only if, over time, it does not
+    systematically underpay employees. The "7-minute rule" for 15-minute
+    rounding sends 1–7 minutes down and 8–14 up. Rounding must be applied the
+    same way whether it helps or hurts the worker.
+  </p>
+
+  <h2>Record-keeping</h2>
+  <p>
+    US employers must keep accurate records of hours worked for non-exempt
+    employees, generally for at least two to three years depending on the record.
+    Your own copy of each time card is your evidence if there is ever a dispute
+    about hours or pay.
+  </p>
+
+  <h2>Common mistakes that cost hours</h2>
+  <ul>
+    <li>Logging scheduled hours instead of actual hours worked.</li>
+    <li>Forgetting an overnight shift crosses midnight.</li>
+    <li>Deducting a lunch that was not actually taken.</li>
+    <li>Writing 7 hours 30 minutes as 7.30 instead of 7.50.</li>
+    <li>Not recording short shifts, callbacks, or time spent on required tasks before or after a shift.</li>
+  </ul>
+
+  <h2>Related</h2>
+  <ul>
+    <li><a href="/guides/how-to-calculate-hours-worked/">How to calculate hours worked</a></li>
+    <li><a href="/guides/how-to-calculate-overtime-pay/">How to calculate overtime pay</a></li>
+    <li><a href="/calculators/hours-worked-calculator/">Hours Worked Calculator</a></li>
+  </ul>
+</GuideLayout>

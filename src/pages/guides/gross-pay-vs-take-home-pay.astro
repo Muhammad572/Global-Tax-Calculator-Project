@@ -1,0 +1,71 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["gross-pay-vs-take-home-pay"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    <strong>Gross pay</strong> is what you earn before anything is taken out.
+    <strong>Take-home pay</strong> (net pay) is what actually lands in your
+    account after deductions. The gap is usually 20–35% of gross, depending on
+    your income, where you live, and your benefit elections.
+  </p>
+  <p><code>take-home pay = gross pay − pre-tax deductions − taxes withheld − post-tax deductions</code></p>
+
+  <h2>What comes out of a US paycheck</h2>
+  <h3>1. Pre-tax deductions</h3>
+  <p>
+    Taken before tax is calculated, so they also lower your taxable income:
+    traditional 401(k) or 403(b) contributions, HSA and FSA contributions, and
+    health, dental, and vision premiums paid through a Section 125 plan.
+  </p>
+
+  <h3>2. Federal income tax withholding</h3>
+  <p>
+    A running prepayment toward your annual federal tax bill. Your employer uses
+    the IRS Publication 15-T method and the information on your Form W-4 (filing
+    status, dependents, other income, extra withholding). It is an estimate — the
+    exact amount is settled on your tax return.
+  </p>
+
+  <h3>3. FICA — Social Security and Medicare</h3>
+  <ul>
+    <li><strong>Social Security:</strong> 6.2% of wages, up to the annual wage base ($184,500 for 2026). Nothing is withheld above that.</li>
+    <li><strong>Medicare:</strong> 1.45% of all wages, with no cap.</li>
+    <li><strong>Additional Medicare:</strong> an extra 0.9% on wages over $200,000 in a year. Employers withhold it regardless of filing status.</li>
+  </ul>
+
+  <h3>4. State (and sometimes local) income tax withholding</h3>
+  <p>
+    Most states withhold income tax; nine do not tax wage income at all. Some
+    cities — New York City, Yonkers, and Philadelphia among them — add a local
+    tax. Rules and rates vary widely.
+  </p>
+
+  <h3>5. Post-tax deductions</h3>
+  <p>
+    Taken after tax: Roth 401(k) contributions, disability insurance premiums,
+    union dues, garnishments, and charitable payroll deductions.
+  </p>
+
+  <h2>Reading a pay stub</h2>
+  <p>
+    A stub shows gross pay for the period, each deduction on its own line
+    (usually with a year-to-date column), and net pay at the bottom. Check that
+    your gross matches your hours and rate, and that your filing status and any
+    pre-tax elections look right.
+  </p>
+
+  <h2>Estimate your take-home</h2>
+  <ul>
+    <li><a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a> — from an annual salary, per year / month / paycheck.</li>
+    <li><a href="/calculators/paycheck-calculator/">Paycheck Calculator</a> — one paycheck, with the full deduction stack.</li>
+  </ul>
+  <p>
+    Both currently support US tax year 2026: federal, FICA, and the states
+    California, New York, Illinois, and Pennsylvania, plus the no-income-tax
+    states. Other states, local taxes, and other countries are not yet modelled —
+    the tools say so rather than guessing.
+  </p>
+</GuideLayout>

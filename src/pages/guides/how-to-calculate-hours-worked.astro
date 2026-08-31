@@ -1,0 +1,70 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["how-to-calculate-hours-worked"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    Calculating hours worked is subtraction plus one conversion: elapsed time
+    between clock-in and clock-out, minus unpaid breaks, converted to decimal
+    hours for payroll. Here is the method, with the parts that trip people up.
+  </p>
+
+  <h2>The four steps</h2>
+  <ol>
+    <li><strong>Write both times in the same format.</strong> Convert to a 24-hour clock if that is easier: 1:30 PM becomes 13:30.</li>
+    <li><strong>Subtract the start time from the end time.</strong> 8:00 to 16:30 is 8 hours 30 minutes.</li>
+    <li><strong>Subtract unpaid breaks.</strong> A 30-minute unpaid lunch leaves 8 hours 0 minutes.</li>
+    <li><strong>Convert the minutes to a decimal</strong> by dividing by 60. 30 ÷ 60 = 0.5, so the day is 8.00 hours.</li>
+  </ol>
+  <p><code>hours worked = (end − start) − unpaid break, then minutes ÷ 60</code></p>
+
+  <h2>Overnight shifts</h2>
+  <p>
+    When the end time is earlier than the start time, the shift crossed
+    midnight. Add 24 hours before subtracting. A shift from 22:00 to 06:00 is
+    (06:00 + 24:00) − 22:00 = 8 hours.
+  </p>
+
+  <h2>Minutes to decimal — the common mistake</h2>
+  <p>
+    7 hours 45 minutes is <strong>7.75</strong>, not 7.45. The minutes are a
+    fraction of 60, not of 100.
+  </p>
+  <table>
+    <thead><tr><th>Minutes</th><th>Decimal</th></tr></thead>
+    <tbody>
+      <tr><td>15</td><td>0.25</td></tr>
+      <tr><td>20</td><td>0.33</td></tr>
+      <tr><td>30</td><td>0.50</td></tr>
+      <tr><td>45</td><td>0.75</td></tr>
+      <tr><td>50</td><td>0.83</td></tr>
+    </tbody>
+  </table>
+  <p>The <a href="/calculators/decimal-hours-calculator/">Decimal Hours Calculator</a> has the full 0–59 chart and a bulk converter.</p>
+
+  <h2>Rounding</h2>
+  <p>
+    Many employers round each punch to the nearest quarter hour or tenth of an
+    hour. In the US, rounding is allowed under the Fair Labor Standards Act only
+    if it does not consistently favour the employer over time. The well-known
+    "7-minute rule" rounds 1–7 minutes down and 8–14 minutes up to the nearest
+    quarter hour. Record your actual times; round only if your workplace policy
+    says to.
+  </p>
+
+  <h2>A full week</h2>
+  <p>
+    Add the daily decimal totals. Overtime, where it applies, is usually
+    calculated on the weekly total (over 40 hours under US federal law, over 44
+    in Ontario). See <a href="/guides/how-to-calculate-overtime-pay/">how to calculate overtime pay</a>.
+  </p>
+
+  <h2>Let a calculator do it</h2>
+  <ul>
+    <li><a href="/calculators/hours-worked-calculator/">Hours Worked Calculator</a> — one shift or a split shift, with a break.</li>
+    <li><a href="/calculators/time-card-calculator/">Time Card Calculator</a> — a full week, with overtime and gross pay.</li>
+    <li><a href="/calculators/time-clock-calculator/">Time Clock Calculator</a> — a list of clock-in/out punches for payroll.</li>
+  </ul>
+</GuideLayout>
