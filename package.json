@@ -14,16 +14,23 @@
     "test": "npm run test --workspace @tinytools/calc && vitest run --config vitest.config.ts",
     "test:calc": "npm run test --workspace @tinytools/calc",
     "test:islands": "vitest run --config vitest.config.ts",
-    "typecheck": "npm run typecheck --workspace @tinytools/calc && astro check"
+    "typecheck": "npm run typecheck --workspace @tinytools/calc && astro check",
+    "qa:seo": "node scripts/seo-crawl.mjs",
+    "qa:cannibalization": "node scripts/cannibalization.mjs",
+    "qa:a11y": "node scripts/a11y-dynamic.mjs",
+    "qa:tax": "npx tsx scripts/tax-spotcheck.mjs"
   },
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/sitemap": "^3.2.1",
-    "astro": "^5.13.0",
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.2.9",
+    "axe-core": "^4.13.0",
     "happy-dom": "^15.11.7",
+    "lighthouse": "^13.4.1",
+    "puppeteer-core": "^23.11.1",
     "typescript": "^5.9.2",
     "vitest": "^2.1.9"
   }

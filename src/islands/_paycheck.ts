@@ -70,7 +70,15 @@ export function deductionRows(
   return rows;
 }
 
+function escapeHtml(s: string): string {
+  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string);
+}
+
+/**
+ * The message for an unsupported jurisdiction/year. Escaped for defence in depth
+ * even though the engine only ever produces literal strings + numbers here.
+ */
 export function unsupportedNote(r: PaycheckResult): string | null {
   if (r.supported) return null;
-  return r.reason ?? "This selection isn't fully supported yet.";
+  return escapeHtml(r.reason ?? "This selection isn't fully supported yet.");
 }

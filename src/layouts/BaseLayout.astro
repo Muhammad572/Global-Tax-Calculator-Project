@@ -22,6 +22,19 @@ const { title, description, path, noindex, ogType, jsonLd } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/*
+      GitHub Pages cannot set HTTP response headers, so security policy is
+      applied here via <meta> where the mechanism supports it. A nonce-based CSP
+      is not possible with Astro static output + our inline consent script, so
+      script-src / style-src keep 'unsafe-inline'; the policy still blocks
+      scripts/frames/objects from unlisted origins. The allowlist covers Google
+      Analytics and (for when ads are enabled) Google AdSense.
+    */}
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://www.google.com https://adservice.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.googlesyndication.com https://*.g.doubleclick.net https://www.google.com; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googlesyndication.com https://*.g.doubleclick.net https://www.google.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com; worker-src 'self' blob:"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="mask-icon" href="/favicon.svg" color="#1f5fd8" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
