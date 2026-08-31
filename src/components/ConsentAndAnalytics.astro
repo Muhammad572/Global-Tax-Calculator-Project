@@ -1,54 +1,44 @@
 ---
 /**
- * Google Consent Mode v2 + GA4 + (optional) AdSense loader, plus a lightweight
+ * Google Consent Mode v2 + GA4 + (optional, currently inert) AdSense, plus a
  * self-hosted consent banner.
  *
- * Behaviour:
  *  - Consent defaults to DENIED for ad_storage, ad_user_data, ad_personalization,
- *    analytics_storage. GA4 loads immediately but runs in cookieless "consent
- *    denied" ping mode until the visitor accepts.
- *  - The banner is shown to everyone (simple, one implementation for US/CA/UK/AU).
- *    "Accept" grants all; "Reject" keeps everything denied; choice persists in
+ *    analytics_storage. gtag.js loads so Consent Mode can signal, but sets no
+ *    cookies / sends no identifiable data until the visitor accepts.
+ *  - "Accept" grants all; "Reject" keeps all denied. Choice persists in
  *    localStorage and is re-openable from the footer "Cookie settings" link.
- *  - AdSense's script is injected only after consent is granted AND
- *    SITE.adsenseEnabled is true.
+ *  - AdSense's script is injected only after consent AND SITE.adsenseEnabled.
  *
- * This is a good-faith implementation, not legal advice — see /privacy/.
+ * The Consent Mode bootstrap must run before gtag.js, so it is inline. The
+ * banner's DOM wiring is a bundled module (src/islands/consent.ts) — more
+ * robust and debuggable than an inline handler.
+ *
+ * Good-faith implementation, not legal advice — see /privacy/.
  */
 import { SITE } from "@/data/site";
 const { ga4Id, adsensePublisherId } = SITE;
 const adsenseEnabled = SITE.adsenseEnabled;
 ---
 
-<script
-  is:inline
-  define:vars={{ ga4Id, adsensePublisherId, adsenseEnabled }}
->
+<script is:inline define:vars={{ ga4Id, adsensePublisherId, adsenseEnabled }}>
   (function () {
-    var STORAGE_KEY = "tt_consent_v1";
+    var KEY = "tt_consent_v1";
     window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
+    function gtag() { dataLayer.push(arguments); }
     window.gtag = gtag;
 
-    var granted = null;
-    try {
-      granted = localStorage.getItem(STORAGE_KEY);
-    } catch (e) {
-      /* storage blocked — treat as no choice */
-    }
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) {}
 
-    var baseline = {
+    gtag("consent", "default", {
       ad_storage: "denied",
       ad_user_data: "denied",
       ad_personalization: "denied",
       analytics_storage: "denied",
       functionality_storage: "granted",
       security_storage: "granted",
-    };
-    gtag("consent", "default", baseline);
-
+    });
     gtag("js", new Date());
     gtag("config", ga4Id, { anonymize_ip: true });
 
@@ -58,106 +48,90 @@ const adsenseEnabled = SITE.adsenseEnabled;
       s.id = "tt-adsense";
       s.async = true;
       s.crossOrigin = "anonymous";
-      s.src =
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" +
-        adsensePublisherId;
+      s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + adsensePublisherId;
       document.head.appendChild(s);
     }
 
     function apply(choice) {
       var v = choice === "granted" ? "granted" : "denied";
       gtag("consent", "update", {
-        ad_storage: v,
-        ad_user_data: v,
-        ad_personalization: v,
-        analytics_storage: v,
+        ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v,
       });
       if (v === "granted") loadAds();
     }
 
-    if (granted === "granted" || granted === "denied") {
-      apply(granted);
-    }
+    if (stored === "granted" || stored === "denied") apply(stored);
 
+    // Exposed for src/islands/consent.ts
     window.__ttConsent = {
-      set: function (choice) {
-        try {
-          localStorage.setItem(STORAGE_KEY, choice);
-        } catch (e) {}
-        apply(choice);
-        var b = document.getElementById("tt-consent");
-        if (b) b.hidden = true;
-      },
-      hasChoice: function () {
-        return granted === "granted" || granted === "denied";
+      hasChoice: function () { return stored === "granted" || stored === "denied"; },
+      choose: function (choice) {
+        stored = choice === "granted" ? "granted" : "denied";
+        try { localStorage.setItem(KEY, stored); } catch (e) {}
+        apply(stored);
       },
     };
   })();
 </script>
-<script
-  is:inline
-  async
-  src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
-></script>
+<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
 
-<div id="tt-consent" class="consent" role="dialog" aria-label="Cookie consent" aria-live="polite" hidden>
-  <p class="consent__text">
-    We use cookies for analytics and, later, advertising. You can accept or reject
-    non-essential cookies. See our <a href="/privacy/">Privacy Policy</a>.
-  </p>
-  <div class="consent__actions">
-    <button type="button" class="btn" data-consent="denied">Reject</button>
-    <button type="button" class="btn btn--primary" data-consent="granted">Accept</button>
+<div id="tt-consent" class="consent" role="dialog" aria-modal="false" aria-label="Cookie preferences" hidden data-consent>
+  <div class="consent__inner">
+    <p class="consent__text">
+      We use cookies for analytics and, later, advertising. Calculator inputs
+      stay in your browser. See our <a href="/privacy/">Privacy&nbsp;Policy</a>.
+    </p>
+    <div class="consent__actions">
+      <button type="button" class="btn consent__btn" data-consent-choice="denied">Reject</button>
+      <button type="button" class="btn btn--primary consent__btn" data-consent-choice="granted">Accept</button>
+    </div>
   </div>
 </div>
 
-<script is:inline>
-  (function () {
-    var banner = document.getElementById("tt-consent");
-    if (!banner) return;
-    if (!window.__ttConsent || !window.__ttConsent.hasChoice()) banner.hidden = false;
-    banner.addEventListener("click", function (e) {
-      var t = e.target;
-      if (t && t.dataset && t.dataset.consent) {
-        window.__ttConsent.set(t.dataset.consent);
-      }
-    });
-    document.addEventListener("click", function (e) {
-      var t = e.target;
-      if (t && t.closest && t.closest('[data-open-consent]')) {
-        e.preventDefault();
-        banner.hidden = false;
-      }
-    });
-  })();
+<script>
+  import { initConsent } from "@/islands/consent";
+  initConsent();
 </script>
 
 <style>
   .consent {
     position: fixed;
-    inset: auto 0.75rem 0.75rem 0.75rem;
-    z-index: 90;
-    max-width: 32rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 80;
+    padding: 0.85rem;
+    background: var(--paper-overlay);
+    border-top: 1px solid var(--border-strong);
+    box-shadow: var(--shadow-lg);
+  }
+  .consent[hidden] { display: none; }
+  .consent__inner {
+    max-width: var(--wide-width);
     margin-inline: auto;
-    background: var(--paper-raised);
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius);
-    box-shadow: 0 8px 30px rgb(0 0 0 / 0.14);
-    padding: 1rem;
-    display: grid;
-    gap: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
   }
   .consent__text {
     margin: 0;
     font-size: 0.9rem;
     color: var(--ink-soft);
+    flex: 1 1 20rem;
   }
   .consent__actions {
     display: flex;
     gap: 0.6rem;
-    justify-content: flex-end;
+    flex: 0 0 auto;
   }
-  .consent__actions .btn {
-    min-height: 40px;
+  .consent__btn {
+    min-height: 42px;
+    padding-inline: 1.15rem;
+  }
+  @media (max-width: 32rem) {
+    .consent__actions { width: 100%; }
+    .consent__btn { flex: 1; }
   }
 </style>

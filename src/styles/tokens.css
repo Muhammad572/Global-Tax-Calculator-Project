@@ -1,8 +1,9 @@
 /*
- * TinyTools design tokens. One ink, one paper, one accent, plus semantic
- * money colours. Light palette on :root; dark overrides gated so an explicit
- * data-theme wins in both directions and "system" follows prefers-color-scheme.
- * System fonts only — zero web-font requests, zero font-swap CLS.
+ * TinyTools design tokens. Professional, calm, finance-adjacent: a deep
+ * indigo-blue accent, neutral slate greys, real elevation. System fonts only —
+ * zero web-font requests, zero font-swap CLS. Light palette on bare :root; dark
+ * overrides are guarded so an explicit data-theme wins in both directions and
+ * "system" follows prefers-color-scheme.
  */
 
 :root {
@@ -13,100 +14,116 @@
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
 
-  /* Surfaces */
-  --paper: #ffffff;
-  --paper-sunk: #f4f6f8;
+  /* Surfaces — warm-neutral, layered */
+  --paper: #fbfbfc;
+  --paper-sunk: #f1f3f6;
   --paper-raised: #ffffff;
-  --border: #dbe1e8;
-  --border-strong: #c2cad4;
+  --paper-overlay: #ffffff;
+  --border: #e4e7ec;
+  --border-strong: #cfd4dc;
 
-  /* Ink */
-  --ink: #12181f;
-  --ink-soft: #3d4855;
-  --ink-faint: #66707c;
+  /* Ink — deep navy-slate for authority */
+  --ink: #101828;
+  --ink-soft: #475467;
+  --ink-faint: #667085;
 
-  /* Brand accent — used only for primary actions, links, focus, result emphasis */
-  --accent: #1f5fd8;
+  /* Brand accent — deep indigo-blue (trust) */
+  --accent: #3a55d9;
   --accent-ink: #ffffff;
-  --accent-hover: #1a51ba;
-  --accent-wash: #eaf1fd;
+  --accent-hover: #2f47bd;
+  --accent-wash: #eef1fe;
+  --accent-line: #c7d0f7;
 
   /* Semantic money */
-  --pos: #0f7a4d; /* net / take-home / gains */
-  --pos-wash: #e6f4ec;
-  --warn: #9a6400; /* assumptions / caveats */
-  --warn-wash: #fbf1dd;
-  --neg: #b3261e; /* errors / deductions emphasis */
-  --neg-wash: #fbe9e7;
+  --pos: #0d7a4f;
+  --pos-wash: #e4f4ec;
+  --warn: #92610a;
+  --warn-wash: #fbf0da;
+  --neg: #b42318;
+  --neg-wash: #fdeceb;
 
   /* Focus ring */
   --focus: 0 0 0 3px var(--accent-wash), 0 0 0 5px var(--accent);
 
-  /* Scale */
-  --radius: 8px;
-  --radius-sm: 5px;
+  /* Elevation */
   --shadow-hairline: 0 0 0 1px var(--border);
+  --shadow-sm: 0 1px 2px rgb(16 24 40 / 0.06), 0 1px 3px rgb(16 24 40 / 0.1);
+  --shadow-md: 0 4px 8px -2px rgb(16 24 40 / 0.08), 0 12px 24px -6px rgb(16 24 40 / 0.12);
+  --shadow-lg: 0 8px 16px -4px rgb(16 24 40 / 0.1), 0 24px 48px -12px rgb(16 24 40 / 0.22);
+
+  /* Scale */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 16px;
   --content-width: 46rem;
-  --wide-width: 60rem;
+  --wide-width: 62rem;
   --space: 1rem;
   --tap: 44px;
-}
-
-:root[data-theme="dark"],
-:root:not([data-theme="light"]) {
-  /* re-declared verbatim in the media query below; keep in sync */
+  --header-h: 3.75rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --paper: #10151b;
-    --paper-sunk: #161d26;
-    --paper-raised: #1a222c;
-    --border: #2b333d;
-    --border-strong: #3b4551;
+    --paper: #0d1117;
+    --paper-sunk: #12171f;
+    --paper-raised: #161c26;
+    --paper-overlay: #1b222e;
+    --border: #262d3a;
+    --border-strong: #384252;
 
-    --ink: #e8edf2;
-    --ink-soft: #b3bcc6;
-    --ink-faint: #8b95a1;
+    --ink: #e8ecf2;
+    --ink-soft: #aeb8c7;
+    --ink-faint: #8590a1;
 
-    --accent: #6ea0f0;
-    --accent-ink: #0b1017;
-    --accent-hover: #85b0f4;
-    --accent-wash: #1b2b45;
+    --accent: #8ea6ff;
+    --accent-ink: #0b1020;
+    --accent-hover: #a6b8ff;
+    --accent-wash: #1a2440;
+    --accent-line: #2f3d6b;
 
-    --pos: #57c98d;
-    --pos-wash: #14261d;
-    --warn: #e0b25c;
-    --warn-wash: #2a2213;
-    --neg: #f0938a;
-    --neg-wash: #2c1714;
+    --pos: #52c98c;
+    --pos-wash: #10261c;
+    --warn: #e0b35f;
+    --warn-wash: #2a2113;
+    --neg: #f1948b;
+    --neg-wash: #2c1613;
 
     --shadow-hairline: 0 0 0 1px var(--border);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.24), 0 1px 3px rgb(0 0 0 / 0.32);
+    --shadow-md: 0 4px 10px -2px rgb(0 0 0 / 0.3), 0 12px 24px -8px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 8px 18px -6px rgb(0 0 0 / 0.35), 0 22px 44px -14px rgb(0 0 0 / 0.5);
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #10151b;
-  --paper-sunk: #161d26;
-  --paper-raised: #1a222c;
-  --border: #2b333d;
-  --border-strong: #3b4551;
+  --paper: #0d1117;
+  --paper-sunk: #12171f;
+  --paper-raised: #161c26;
+  --paper-overlay: #1b222e;
+  --border: #262d3a;
+  --border-strong: #384252;
 
-  --ink: #e8edf2;
-  --ink-soft: #b3bcc6;
-  --ink-faint: #8b95a1;
+  --ink: #e8ecf2;
+  --ink-soft: #aeb8c7;
+  --ink-faint: #8590a1;
 
-  --accent: #6ea0f0;
-  --accent-ink: #0b1017;
-  --accent-hover: #85b0f4;
-  --accent-wash: #1b2b45;
+  --accent: #8ea6ff;
+  --accent-ink: #0b1020;
+  --accent-hover: #a6b8ff;
+  --accent-wash: #1a2440;
+  --accent-line: #2f3d6b;
 
-  --pos: #57c98d;
-  --pos-wash: #14261d;
-  --warn: #e0b25c;
-  --warn-wash: #2a2213;
-  --neg: #f0938a;
-  --neg-wash: #2c1714;
+  --pos: #52c98c;
+  --pos-wash: #10261c;
+  --warn: #e0b35f;
+  --warn-wash: #2a2113;
+  --neg: #f1948b;
+  --neg-wash: #2c1613;
+
+  --shadow-hairline: 0 0 0 1px var(--border);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.24), 0 1px 3px rgb(0 0 0 / 0.32);
+  --shadow-md: 0 4px 10px -2px rgb(0 0 0 / 0.3), 0 12px 24px -8px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 8px 18px -6px rgb(0 0 0 / 0.35), 0 22px 44px -14px rgb(0 0 0 / 0.5);
 }

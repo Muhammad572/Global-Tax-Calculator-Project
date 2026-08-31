@@ -112,10 +112,10 @@ li + li {
 }
 
 .skip-link {
-  position: absolute;
+  position: fixed;
   left: 0.5rem;
-  top: -3rem;
-  z-index: 100;
+  top: -4rem;
+  z-index: 1000;
   background: var(--paper);
   color: var(--ink);
   padding: 0.6rem 0.9rem;
@@ -157,30 +157,41 @@ main {
   justify-content: center;
   gap: 0.5ch;
   min-height: var(--tap);
-  padding: 0.55rem 1rem;
+  padding: 0.55rem 1.05rem;
   border-radius: var(--radius);
   border: 1px solid var(--border-strong);
-  background: var(--paper);
+  background: var(--paper-raised);
   color: var(--ink);
-  font-weight: 550;
+  font-weight: 560;
   cursor: pointer;
   text-decoration: none;
+  transition: background-color 0.14s ease, border-color 0.14s ease,
+    box-shadow 0.14s ease, transform 0.06s ease;
 }
 .btn:hover {
   background: var(--paper-sunk);
+  border-color: var(--border-strong);
+}
+.btn:active {
+  transform: translateY(0.5px);
 }
 .btn--primary {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--accent-ink);
+  box-shadow: var(--shadow-sm);
 }
 .btn--primary:hover {
   background: var(--accent-hover);
+  border-color: var(--accent-hover);
   color: var(--accent-ink);
 }
 .btn--ghost {
   border-color: transparent;
   background: transparent;
+}
+.btn--ghost:hover {
+  background: var(--paper-sunk);
 }
 
 hr {
@@ -194,4 +205,39 @@ hr {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.1rem;
+}
+
+/* Prose tables (methodology / reference tables in tool + guide pages) */
+.prose table,
+.guide table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.92rem;
+}
+.prose th,
+.prose td,
+.guide th,
+.guide td {
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--border);
+}
+.prose thead th,
+.guide thead th {
+  background: var(--paper-sunk);
+  font-weight: 600;
+  color: var(--ink);
+}
+.prose tbody tr:hover,
+.guide tbody tr:hover {
+  background: var(--paper-sunk);
+}
+.prose code,
+.guide code {
+  background: var(--paper-sunk);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.05em 0.4em;
+  font-size: 0.9em;
 }
