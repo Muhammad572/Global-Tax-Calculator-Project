@@ -29,10 +29,12 @@ jobs:
       - name: Verify build artefacts
         run: |
           test -f dist/index.html
+          test -f dist/.nojekyll
           test -f dist/CNAME && echo "CNAME=$(cat dist/CNAME)"
           test -f dist/sitemap-index.xml
           test -f dist/robots.txt
           test -f dist/404.html
+          test -d dist/_astro
           test -f dist/calculator.html && echo "redirect stubs present"
           echo "HTML pages: $(find dist -name '*.html' | wc -l)"
       - name: SEO crawl gate

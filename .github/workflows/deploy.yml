@@ -1,13 +1,20 @@
-name: Deploy to GitHub Pages
+name: Deploy Astro site to GitHub Pages
 
-# Production deployment. Runs ONLY on push to main (i.e. the cutover merge) or a
-# manual dispatch. Building the new Work/Pay site and serving it from
-# tinytools.live is this workflow's job; until main is updated the old site keeps
-# serving.
+# The ONLY workflow that deploys this site. Manual trigger only, so it can be run
+# from redesign/work-pay to validate the live site before the main cutover
+# (instruction: main must stay the rollback version until validation passes).
+#
+# This does NOT use Jekyll. GitHub's built-in "pages-build-deployment"
+# (actions/jekyll-build-pages) only runs while Pages Source = "Deploy from a
+# branch". The `configure-pages` step below switches Source to "GitHub Actions",
+# which disables that legacy builder. If that step lacks permission in your org,
+# set it manually: repo Settings -> Pages -> Build and deployment -> Source ->
+# "GitHub Actions".
+#
+# At cutover, either re-run this workflow with --ref main, or add a
+# `push: { branches: [main] }` trigger.
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -30,7 +37,7 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
 
-      - name: Configure GitHub Pages (switches source to "GitHub Actions")
+      - name: Configure GitHub Pages (Source -> "GitHub Actions", disables Jekyll builder)
         uses: actions/configure-pages@v5
         with:
           enablement: true
@@ -38,26 +45,30 @@ jobs:
       - run: npm ci
       - name: Type-check
         run: npm run typecheck
-      - name: Tests
+      - name: Tests (engine + islands)
         run: npm test
-      - name: Build
+      - name: Astro build (outputs dist/)
         run: npm run build
 
-      - name: Verify build artefacts
+      - name: Verify Astro dist/ artefacts (not repo root, not Jekyll)
         run: |
           test -f dist/index.html
+          test -f dist/.nojekyll
           test -f dist/CNAME
           test "$(cat dist/CNAME)" = "tinytools.live"
           test -f dist/sitemap-index.xml
           test -f dist/robots.txt
           test -f dist/404.html
           test -f dist/ads.txt
-          echo "Pages: $(find dist -name '*.html' | wc -l)  CNAME: $(cat dist/CNAME)"
+          test -d dist/_astro
+          test ! -f dist/package.json   # confirms we ship the build, not the source tree
+          echo "HTML pages: $(find dist -name '*.html' | wc -l)  CNAME: $(cat dist/CNAME)"
 
       - name: SEO crawl gate
         run: npm run qa:seo
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload the dist/ directory as the Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
@@ -68,5 +79,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Deploy the uploaded artifact to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
