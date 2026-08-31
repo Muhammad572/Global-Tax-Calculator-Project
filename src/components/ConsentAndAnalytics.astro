@@ -1,84 +1,18 @@
 ---
 /**
- * Google Consent Mode v2 + GA4 + (optional, currently inert) AdSense, plus a
- * self-hosted consent banner.
+ * The consent banner UI + its DOM wiring. The Consent Mode v2 bootstrap, the
+ * gtag.js / adsbygoogle.js tags, and the `window.__ttConsent` API all live in
+ * src/components/HeadAnalytics.astro (rendered in <head>). This component is
+ * rendered at the end of <body>.
  *
  *  - Consent defaults to DENIED for ad_storage, ad_user_data, ad_personalization,
- *    analytics_storage. gtag.js loads so Consent Mode can signal, but sets no
- *    cookies / sends no identifiable data until the visitor accepts.
+ *    analytics_storage (set in HeadAnalytics before any Google tag).
  *  - "Accept" grants all; "Reject" keeps all denied. Choice persists in
  *    localStorage and is re-openable from the footer "Cookie settings" link.
- *  - AdSense's script is injected only after consent AND SITE.adsenseEnabled.
- *
- * The Consent Mode bootstrap must run before gtag.js, so it is inline. The
- * banner's DOM wiring is a bundled module (src/islands/consent.ts) — more
- * robust and debuggable than an inline handler.
  *
  * Good-faith implementation, not legal advice — see /privacy/.
  */
-import { SITE } from "@/data/site";
-const { ga4Id, adsensePublisherId } = SITE;
-const adsenseEnabled = SITE.adsenseEnabled;
-const adsenseVerification = SITE.adsenseVerification;
 ---
-
-<script is:inline define:vars={{ ga4Id, adsensePublisherId, adsenseEnabled, adsenseVerification }}>
-  (function () {
-    var KEY = "tt_consent_v1";
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    window.gtag = gtag;
-
-    var stored = null;
-    try { stored = localStorage.getItem(KEY); } catch (e) {}
-
-    gtag("consent", "default", {
-      ad_storage: "denied",
-      ad_user_data: "denied",
-      ad_personalization: "denied",
-      analytics_storage: "denied",
-      functionality_storage: "granted",
-      security_storage: "granted",
-    });
-    gtag("js", new Date());
-    gtag("config", ga4Id, { anonymize_ip: true });
-
-    function loadAds() {
-      if (document.getElementById("tt-adsense")) return;
-      var s = document.createElement("script");
-      s.id = "tt-adsense";
-      s.async = true;
-      s.crossOrigin = "anonymous";
-      s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + adsensePublisherId;
-      document.head.appendChild(s);
-    }
-
-    function apply(choice) {
-      var v = choice === "granted" ? "granted" : "denied";
-      gtag("consent", "update", {
-        ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v,
-      });
-      if (v === "granted" && adsenseEnabled) loadAds();
-    }
-
-    if (stored === "granted" || stored === "denied") apply(stored);
-
-    // Load the AdSense script site-wide (no ad units) so Google can crawl the
-    // site for the AdSense review. Runs after the Consent Mode default above.
-    if (adsenseVerification) loadAds();
-
-    // Exposed for src/islands/consent.ts
-    window.__ttConsent = {
-      hasChoice: function () { return stored === "granted" || stored === "denied"; },
-      choose: function (choice) {
-        stored = choice === "granted" ? "granted" : "denied";
-        try { localStorage.setItem(KEY, stored); } catch (e) {}
-        apply(stored);
-      },
-    };
-  })();
-</script>
-<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
 
 <div id="tt-consent" class="consent" role="dialog" aria-modal="false" aria-label="Cookie preferences" hidden data-consent>
   <div class="consent__inner">

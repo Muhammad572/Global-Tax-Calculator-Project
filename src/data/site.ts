@@ -15,19 +15,18 @@ export const SITE = {
    */
   adsensePublisherId: "ca-pub-8653293678103388",
   /**
-   * When true, loads adsbygoogle.js site-wide (no ad units) so the AdSense
-   * crawler sees the live ad code during review.
+   * When true, emits the adsbygoogle.js <script> in <head> on every page (via
+   * HeadAnalytics.astro) — the exact snippet the AdSense dashboard asks to
+   * place for the site review. No <ins> ad units exist, so nothing renders.
    *
-   * Kept FALSE by default: loading it makes Google probe for ad-serving
-   * capability (a `test_cookie` on googleads.g.doubleclick.net), which drops
-   * Lighthouse Best Practices 100 -> ~77 and Performance ~99 -> ~96 on every
-   * page. Site ownership is already declared to AdSense two other ways — the
-   * `<meta name="google-adsense-account">` tag (added in BaseLayout) and the
-   * matching publisher id in /ads.txt — which is enough to add the site in the
-   * AdSense dashboard. Flip this to true and redeploy only if a specific review
-   * step asks for the live ad script; it is a one-line change.
+   * TRADE-OFF: loading this script makes Google probe ad-serving capability
+   * with a `test_cookie` on googleads.g.doubleclick.net. Lighthouse flags any
+   * third-party cookie, so Best Practices drops 100 -> ~77 and Performance
+   * ~99 -> ~96 on every page. This is inherent to running AdSense and reverts
+   * only if the script is removed. Enabled because the AdSense review requires
+   * the code on-page and the reviewer does not accept cookies.
    */
-  adsenseVerification: false as boolean,
+  adsenseVerification: true as boolean,
   adsenseEnabled: false as boolean,
   /** Per-placement AdSense slot ids. Empty => that placement renders nothing. */
   adSlots: {

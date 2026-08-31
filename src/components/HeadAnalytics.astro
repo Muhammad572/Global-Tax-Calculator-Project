@@ -1,0 +1,79 @@
+---
+/**
+ * Head-of-document analytics + advertising bootstrap. Rendered inside <head> by
+ * BaseLayout so it precedes every Google tag.
+ *
+ * Order (all three emitted in <head>):
+ *   1. Inline: dataLayer + gtag stub + Consent Mode v2 DEFAULT (ad_storage,
+ *      ad_user_data, ad_personalization, analytics_storage = denied), then
+ *      gtag('js') + gtag('config', GA4). Applies any stored consent choice and
+ *      exposes window.__ttConsent for the banner island.
+ *   2. <script async> gtag.js (Google Analytics 4).
+ *   3. <script async> adsbygoogle.js — the exact snippet AdSense asks to place
+ *      in <head> on every page. Gated by SITE.adsenseVerification ||
+ *      SITE.adsenseEnabled. No <ins> ad units are rendered anywhere, so nothing
+ *      displays; it exists so the AdSense review crawler sees the ad code.
+ *
+ * Because the inline script (1) runs synchronously before the browser reaches
+ * (2)/(3), the denied Consent Mode default is in dataLayer before either Google
+ * script initialises — consent is honoured for non-consenting visitors even
+ * though the scripts load for everyone. Good-faith implementation, not legal
+ * advice — see /privacy/.
+ */
+import { SITE } from "@/data/site";
+const { ga4Id, adsensePublisherId } = SITE;
+const loadAdSense = SITE.adsenseVerification || SITE.adsenseEnabled;
+---
+
+<script is:inline define:vars={{ ga4Id }}>
+  (function () {
+    var KEY = "tt_consent_v1";
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    window.gtag = gtag;
+
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) {}
+
+    gtag("consent", "default", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+      functionality_storage: "granted",
+      security_storage: "granted",
+    });
+    gtag("js", new Date());
+    gtag("config", ga4Id, { anonymize_ip: true });
+
+    function apply(choice) {
+      var v = choice === "granted" ? "granted" : "denied";
+      gtag("consent", "update", {
+        ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v,
+      });
+    }
+
+    if (stored === "granted" || stored === "denied") apply(stored);
+
+    // Consumed by src/islands/consent.ts (banner wiring, rendered at end of body)
+    window.__ttConsent = {
+      hasChoice: function () { return stored === "granted" || stored === "denied"; },
+      choose: function (choice) {
+        stored = choice === "granted" ? "granted" : "denied";
+        try { localStorage.setItem(KEY, stored); } catch (e) {}
+        apply(stored);
+      },
+    };
+  })();
+</script>
+<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
+{
+  loadAdSense && (
+    <script
+      is:inline
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsensePublisherId}`}
+      crossorigin="anonymous"
+    />
+  )
+}

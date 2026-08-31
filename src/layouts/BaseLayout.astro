@@ -4,6 +4,7 @@ import "@/styles/base.css";
 import Seo from "@/components/Seo.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import HeadAnalytics from "@/components/HeadAnalytics.astro";
 import ConsentAndAnalytics from "@/components/ConsentAndAnalytics.astro";
 import { SITE } from "@/data/site";
 
@@ -52,6 +53,7 @@ const { title, description, path, noindex, ogType, jsonLd } = Astro.props;
       ogType={ogType}
       jsonLd={jsonLd}
     />
+    <HeadAnalytics />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>

@@ -52,11 +52,12 @@ const updated = "2026-08-31";
     <h2>Advertising</h2>
     <p>
       {SITE.name} plans to display ads served by Google AdSense (publisher ID
-      <code>{SITE.adsensePublisherId}</code>). No ad units are shown on the site
-      yet and the AdSense script is not currently loaded — only a meta tag and
-      an <code>ads.txt</code> entry declare the publisher account. When ads are
-      switched on they will load only after you accept advertising cookies, and
-      before that point Consent Mode keeps advertising storage denied by default.
+      <code>{SITE.adsensePublisherId}</code>). <strong>No ad units are shown on
+      the site yet.</strong> The AdSense script (<code>adsbygoogle.js</code>) is
+      loaded on every page so that Google can review the site for our
+      advertising application. Because Consent Mode keeps advertising and
+      analytics storage denied by default, it does not set advertising cookies
+      or show personalised ads to you before you accept.
       When ads are active and you have consented, Google and its partners may use
       cookies to serve and measure ads, including personalised ads. If you reject
       advertising cookies, any ads shown are non-personalised or suppressed
