@@ -15,6 +15,10 @@ export const REDIRECTS = {
   "/docs/uk-tax-guide.html": "/guides/",
   "/docs/canada-tax-guide.html": "/guides/",
   "/docs/global-tax-guide.html": "/guides/",
+  // Search Console has this crawled (Aug 2026) though it was never a file in
+  // the old repo — an external or mistyped link to the /docs/*-tax-*.html set.
+  // Send it to the guides hub like its siblings rather than leaving a 404.
+  "/docs/global-tax-comparison.html": "/guides/",
   // The pre-redesign sitemap.xml listed the four tax guides at the site root
   // (they 404'd there even then). Old external links / crawl history may still
   // reference these, so redirect them to the closest current content.
@@ -22,6 +26,7 @@ export const REDIRECTS = {
   "/uk-tax-guide.html": "/guides/",
   "/canada-tax-guide.html": "/guides/",
   "/global-tax-guide.html": "/guides/",
+  "/global-tax-comparison.html": "/guides/",
   "/about.html": "/about/",
   "/contact.html": "/contact/",
   "/privacy-policy.html": "/privacy/",
