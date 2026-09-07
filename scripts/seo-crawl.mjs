@@ -48,7 +48,12 @@ const pages = files.map((f) => {
   };
 });
 
-const indexable = pages.filter((p) => p.url !== "/404" && !(p.robots || "").includes("noindex"));
+// A redirect stub is identified by its instant meta-refresh, NOT by a noindex
+// meta — redirecting pages deliberately no longer carry noindex (see
+// scripts/gen-redirects.mjs). Everything that is neither /404 nor a redirect
+// stub is an indexable content page.
+const isRedirectStub = (p) => /http-equiv="refresh" content="0;\s*url=/.test(p.html);
+const indexable = pages.filter((p) => p.url !== "/404" && !isRedirectStub(p));
 const problems = [];
 const warn = [];
 
@@ -69,8 +74,8 @@ for (const p of indexable) {
 for (const [t, urls] of Object.entries(byTitle)) if (urls.length > 1) problems.push(`Duplicate <title> "${t}": ${urls.join(", ")}`);
 for (const [d, urls] of Object.entries(byDesc)) if (urls.length > 1) problems.push(`Duplicate description: ${urls.join(", ")}`);
 
-// 3. canonical correctness — self-referential for indexable pages; for noindex
-//    redirect stubs the canonical + meta-refresh must point at a real page.
+// 3. canonical correctness — self-referential for indexable pages; for a
+//    redirect stub the canonical + meta-refresh must point at the same real page.
 const indexableUrls = new Set(indexable.map((p) => p.url));
 for (const p of indexable) {
   const expected = SITE + p.url;
@@ -82,7 +87,8 @@ for (const p of pages) {
   // redirect stub
   const refresh = (p.html.match(/http-equiv="refresh" content="0;\s*url=([^"]+)"/) || [])[1];
   const target = (p.canonical || "").replace(SITE, "");
-  if (!refresh) problems.push(`${p.url}: noindex page with no meta-refresh (unexpected stub)`);
+  if (!refresh) problems.push(`${p.url}: non-indexable page with no meta-refresh (unexpected stub)`);
+  if ((p.robots || "").includes("noindex")) problems.push(`${p.url}: redirect stub must not carry a noindex meta (it blocks signal consolidation)`);
   if (refresh && !indexableUrls.has(refresh)) problems.push(`${p.url}: redirect target ${refresh} is not a live page`);
   if (target && !indexableUrls.has(target)) problems.push(`${p.url}: stub canonical ${target} is not a live page`);
   if (refresh && p.canonical && refresh !== target) problems.push(`${p.url}: meta-refresh (${refresh}) != canonical (${target})`);
@@ -153,7 +159,9 @@ if (existsSync(robotsPath)) {
 console.log(`Crawled ${pages.length} HTML pages, ${indexable.length} indexable.\n`);
 console.log("Indexable URLs:");
 for (const p of indexable.sort((a, b) => a.url.localeCompare(b.url))) console.log(`  ${p.url}`);
-console.log(`\nnoindex pages: ${pages.filter((p) => (p.robots || "").includes("noindex")).map((p) => p.url).join(", ") || "(none but /404 is not emitted with meta)"}`);
+console.log(`\nredirect stubs (meta-refresh, out of the index): ${pages.filter(isRedirectStub).map((p) => p.url).join(", ") || "(none)"}`);
+const stray = pages.filter((p) => (p.robots || "").includes("noindex") && p.url !== "/404");
+if (stray.length) console.log(`noindex meta present on: ${stray.map((p) => p.url).join(", ")}`);
 
 if (warn.length) {
   console.log(`\n⚠  ${warn.length} warnings:`);

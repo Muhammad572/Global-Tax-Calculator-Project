@@ -21,13 +21,17 @@ if (existsSync(MARKER)) {
   }
 }
 
+// An instant meta-refresh + self-consistent canonical is what Google treats as
+// a (soft) permanent redirect, so old-URL ranking signal is consolidated onto
+// the new page. Do NOT add `<meta name="robots" content="noindex">` here: on a
+// redirecting page it is a contradictory signal that makes Search Console list
+// the URL under "Excluded by 'noindex' tag" and can stop equity from passing.
 const stub = (to) => `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Page moved — TinyTools</title>
 <link rel="canonical" href="${SITE}${to}">
-<meta name="robots" content="noindex, follow">
 <meta http-equiv="refresh" content="0; url=${to}">
 </head>
 <body>
