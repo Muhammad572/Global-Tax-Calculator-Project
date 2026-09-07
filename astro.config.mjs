@@ -29,7 +29,9 @@ export default defineConfig({
     sitemap({
       filter: (page) =>
         !page.includes("/404") &&
-        !page.includes("/go/"), // redirect stubs are noindex, keep them out of the sitemap
+        !page.includes("/go/"), // keep 404 + any /go/ shortlinks out of the sitemap
+      // Old-URL redirect stubs are plain files in public/, not Astro pages, so
+      // they never reach this filter and are already absent from the sitemap.
       changefreq: "monthly",
       lastmod: new Date(CONTENT_LASTMOD),
     }),
