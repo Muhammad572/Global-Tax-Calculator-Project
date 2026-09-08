@@ -14,65 +14,147 @@ const g = GUIDES_BY_SLUG["how-to-calculate-overtime-pay"]!;
 
   <h2>The formula</h2>
   <p>
-    <code>overtime rate = regular hourly rate × multiplier</code><br />
-    <code>overtime pay = overtime rate × overtime hours</code><br />
-    <code>gross pay = regular hours × regular rate + overtime pay</code>
+    <code>overtime rate = regular hourly rate &times; multiplier</code><br />
+    <code>overtime pay = overtime rate &times; overtime hours</code><br />
+    <code>gross pay = regular hours &times; regular rate + overtime pay</code>
   </p>
   <p>
     Example: $20 an hour, 46 hours in the week, US federal rule. 40 hours at $20
-    is $800. 6 overtime hours at $30 (1.5 × $20) is $180. Gross pay is
+    is $800. 6 overtime hours at $30 (1.5 &times; $20) is $180. Gross pay is
     <strong>$980</strong>.
   </p>
 
   <h2>What "time and a half" means</h2>
   <p>
-    1.5 times the regular rate. On $18 an hour that is $27. "Double time" is 2×
-    ($36). Some awards and contracts use other multipliers.
+    1.5 times the regular rate. On $18 an hour that is $27. "Double time" is 2&times;
+    ($36) — where it applies at all; see
+    <a href="/guides/what-is-double-time-pay/">what is double-time pay</a>. Some
+    awards and contracts use other multipliers.
   </p>
 
   <h2>The regular rate is not always your hourly wage</h2>
+  <p>
+    Under the FLSA, the "regular rate" includes almost all compensation for the
+    week, not just your base wage. It must be recalculated when your pay is not a
+    simple hourly amount:
+  </p>
   <ul>
-    <li><strong>Salaried non-exempt:</strong> divide the weekly salary by the hours it covers to get the regular rate, then apply the formula.</li>
-    <li><strong>Two pay rates in one week:</strong> the regular rate is the weighted average of the rates, based on hours at each.</li>
-    <li><strong>Non-discretionary bonuses and commission:</strong> under US federal law these are added into the regular rate for the weeks they cover, which raises the overtime rate.</li>
+    <li>
+      <strong>Salaried non-exempt:</strong> divide the weekly salary by the
+      hours it is intended to cover. A $800/week salary for a 40-hour week is a
+      $20 regular rate; overtime hours are then paid at $30 on top.
+    </li>
+    <li>
+      <strong>Two pay rates in one week:</strong> the regular rate is the
+      weighted average. 20 hours at $18 and 25 hours at $22 = <code>(360 + 550)
+      &divide; 45 = $20.22</code>; the 5 overtime hours get an extra 0.5 &times;
+      $20.22 on top of their straight-time pay.
+    </li>
+    <li>
+      <strong>Non-discretionary bonuses and commission:</strong> a production or
+      attendance bonus is added into the regular rate for the weeks it covers,
+      which raises the overtime rate for those weeks. A $100 weekly bonus on 50
+      hours adds $2/hour to the regular rate.
+    </li>
+    <li>
+      <strong>Shift differentials</strong> (e.g. +$1.50/hour for nights) are
+      part of the regular rate too.
+    </li>
+    <li>
+      <strong>Excluded:</strong> discretionary bonuses, gifts, paid-leave
+      cash-outs, and reimbursements do not enter the regular rate.
+    </li>
   </ul>
 
-  <h2>Thresholds by location</h2>
-  <p>These are calculation starting points, <strong>not legal advice</strong> — your entitlement depends on your employee classification, award or contract, and current law.</p>
+  <h2>Worked example: salaried non-exempt with a bonus</h2>
+  <p>
+    Salary $1,000/week for 40 hours, plus a $150 non-discretionary bonus, 48
+    hours worked:
+  </p>
+  <ol>
+    <li>Straight-time compensation: $1,000 + $150 = $1,150 for 48 hours.</li>
+    <li>Regular rate: <code>1150 &divide; 48 = $23.96</code>.</li>
+    <li>Overtime premium: <code>0.5 &times; 23.96 &times; 8 = $95.84</code>.</li>
+    <li>Total: <code>1150 + 95.84 = $1,245.84</code>.</li>
+  </ol>
+
+  <h2>Weekly vs daily thresholds</h2>
+  <p>
+    US federal law counts overtime by the <strong>workweek</strong> — over 40
+    hours in a fixed seven-day span — not by the day or the pay period. Working
+    12 hours on Monday and 4 hours a day the rest of the week (28 total) is 40
+    hours: no federal overtime. Some states add daily overtime:
+  </p>
   <table>
     <thead><tr><th>Where</th><th>Overtime threshold</th><th>Rate</th></tr></thead>
     <tbody>
-      <tr><td>US — federal (FLSA)</td><td>Over 40 hours / week</td><td>1.5×</td></tr>
-      <tr><td>US — California</td><td>Over 8 hours / day or 40 / week; over 12 / day</td><td>1.5× then 2×</td></tr>
-      <tr><td>Canada — Ontario</td><td>Over 44 hours / week</td><td>1.5×</td></tr>
-      <tr><td>Canada — federal</td><td>Over 40 hours / week</td><td>1.5×</td></tr>
+      <tr><td>US — federal (FLSA)</td><td>Over 40 hours / week</td><td>1.5&times;</td></tr>
+      <tr><td>US — California</td><td>Over 8 / day or 40 / week; over 12 / day</td><td>1.5&times; then 2&times;</td></tr>
+      <tr><td>US — Alaska, Nevada</td><td>Over 8 hours / day (conditions apply)</td><td>1.5&times;</td></tr>
+      <tr><td>Canada — Ontario</td><td>Over 44 hours / week</td><td>1.5&times;</td></tr>
+      <tr><td>Canada — federal</td><td>Over 40 hours / week</td><td>1.5&times;</td></tr>
       <tr><td>United Kingdom</td><td>No statutory overtime rate — set by contract</td><td>Contractual</td></tr>
-      <tr><td>Australia</td><td>Set by the relevant modern award (often 38-hour week)</td><td>Award-based, often 1.5× then 2×</td></tr>
+      <tr><td>Australia</td><td>Set by the relevant modern award (often 38-hour week)</td><td>Award-based, often 1.5&times; then 2&times;</td></tr>
     </tbody>
   </table>
   <p>
-    The UK's 48-hour Working Time limit caps <em>average</em> weekly hours for
-    health and safety; it does not require any overtime pay.
+    These are calculation starting points, <strong>not legal advice</strong> —
+    your entitlement depends on your classification, award or contract, and
+    current law. The UK's 48-hour Working Time limit caps <em>average</em>
+    weekly hours for health and safety; it does not require overtime pay.
   </p>
 
   <h2>Do salaried employees get overtime?</h2>
   <p>
     Often not. Under the FLSA, employees classified as <em>exempt</em> — which
-    generally requires both a salary above a set level and certain job duties —
-    are not entitled to overtime. <em>Non-exempt</em> employees are, whether they
-    are paid hourly or by salary.
+    generally requires being paid on a salary basis, above the salary threshold,
+    and primarily performing exempt duties — are not entitled to overtime.
+    <em>Non-exempt</em> employees are, whether paid hourly or by salary. The
+    full test is in
+    <a href="/guides/exempt-vs-non-exempt-employees/">exempt vs non-exempt
+    employees</a>.
+  </p>
+
+  <h2>Comp time, and being paid "straight time" for overtime</h2>
+  <p>
+    Private-sector employers generally cannot swap overtime pay for time off
+    ("comp time") — that is only lawful for many public-sector employers. Paying
+    non-exempt overtime at straight time, or averaging hours across two weeks to
+    avoid a 40-hour week, is also not allowed.
+  </p>
+
+  <h2>Is overtime taxed more?</h2>
+  <p>
+    No — overtime is taxed like any wages. A large paycheck can be
+    over-withheld because payroll annualises it, but that evens out at tax time.
+    A temporary 2025&ndash;2028 federal deduction for the overtime premium also
+    exists. See <a href="/guides/is-overtime-taxed-more/">is overtime taxed
+    more?</a>
+  </p>
+
+  <h2>Frequently asked questions</h2>
+  <h3>Does overtime start after 40 or 44 hours?</h3>
+  <p>
+    40 under US federal law and Canadian federal law; 44 in Ontario. Your
+    province, state, or contract may differ.
+  </p>
+  <h3>Is a holiday or vacation day "hours worked" for overtime?</h3>
+  <p>
+    Under federal law, no — only hours actually worked count toward the 40.
+    Some contracts are more generous.
   </p>
 
   <h2>Calculators</h2>
   <ul>
-    <li><a href="/calculators/overtime-calculator/">Overtime Calculator</a> — enter your rate and hours, pick a rule or set your own.</li>
-    <li><a href="/calculators/time-card-calculator/">Time Card Calculator</a> — a full week of shifts with the overtime split applied.</li>
+    <li><a href="/calculators/overtime-calculator/">Overtime Calculator</a> — enter your rate and hours, pick a rule or set your own multiplier and threshold.</li>
+    <li><a href="/calculators/time-card-calculator/">Time Card Calculator</a> — a full week of shifts with the daily and weekly split applied.</li>
     <li><a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a> — gross pay projections including overtime.</li>
   </ul>
 
   <h2>Sources</h2>
   <ul>
     <li><a href="https://www.dol.gov/agencies/whd/overtime" rel="noopener">US Department of Labor, Wage and Hour Division — Overtime Pay</a> (Fair Labor Standards Act)</li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/56a-regular-rate" rel="noopener">US Department of Labor — Fact Sheet #56A: Regular Rate under the FLSA</a></li>
     <li><a href="https://www.dir.ca.gov/dlse/faq_overtime.htm" rel="noopener">California Department of Industrial Relations — Overtime</a></li>
     <li><a href="https://www.ontario.ca/document/your-guide-employment-standards-act-0/overtime" rel="noopener">Ontario — Employment Standards Act: Overtime</a></li>
     <li><a href="https://www.gov.uk/overtime-your-rights" rel="noopener">GOV.UK — Overtime: your rights</a></li>

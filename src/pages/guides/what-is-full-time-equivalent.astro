@@ -1,0 +1,89 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["what-is-full-time-equivalent"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    A <strong>full-time equivalent</strong>, or FTE, converts a group of people
+    working different hours into a single number expressed in full-time units.
+    One person working a full week is 1.0 FTE. Two people each working half a
+    full week are also 1.0 FTE combined. It lets an employer talk about
+    workforce size in a way that is not distorted by part-time schedules.
+  </p>
+
+  <h2>The formula</h2>
+  <p><code>FTE = scheduled hours &divide; full-time hours for the same period</code></p>
+  <p>
+    "Full-time hours" is whatever the organisation defines as full-time —
+    commonly 40 hours a week, sometimes 37.5 or 35. Over a year, 1.0 FTE is
+    usually taken as 2,080 hours (40 &times; 52), and the US Affordable Care Act
+    uses 30 hours a week as its full-time line for employer requirements.
+  </p>
+
+  <h2>A worked example</h2>
+  <p>A small team, with full-time defined as 40 hours a week:</p>
+  <table>
+    <thead><tr><th>Person</th><th>Hours / week</th><th>FTE</th></tr></thead>
+    <tbody>
+      <tr><td>Alex</td><td>40</td><td>1.00</td></tr>
+      <tr><td>Sam</td><td>40</td><td>1.00</td></tr>
+      <tr><td>Priya</td><td>24</td><td>0.60</td></tr>
+      <tr><td>Jordan</td><td>16</td><td>0.40</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>120</strong></td><td><strong>3.00</strong></td></tr>
+    </tbody>
+  </table>
+  <p>
+    Four people, but 3.0 FTE of work. Head count is 4; capacity is 3
+    full-time-equivalent staff.
+  </p>
+
+  <h2>Annualised FTE</h2>
+  <p>
+    For budgeting and grants, FTE is often calculated over a year using total
+    paid hours:
+  </p>
+  <p><code>annual FTE = total annual paid hours &divide; 2,080</code></p>
+  <p>
+    Someone who worked 1,560 hours in a year is <code>1560 &divide; 2080 =
+    0.75</code> FTE. A role filled for only nine months of the year is
+    <code>0.75</code> FTE even if it was full-time while occupied.
+  </p>
+
+  <h2>Where FTE is used</h2>
+  <ul>
+    <li><strong>Budgeting and headcount planning</strong> — approving "2.5 FTE" for a team rather than a fixed number of people.</li>
+    <li><strong>Grant and contract reporting</strong> — funders ask for effort in FTE, not names.</li>
+    <li><strong>Benefits eligibility</strong> — the ACA counts full-time and full-time-equivalent employees to decide whether the employer mandate applies (generally at 50 FTE).</li>
+    <li><strong>Productivity metrics</strong> — output per FTE compares teams of different sizes fairly.</li>
+    <li><strong>Cost modelling</strong> — a fully loaded cost per FTE (salary plus benefits and overhead) is a common planning figure.</li>
+  </ul>
+
+  <h2>FTE vs head count vs hours</h2>
+  <ul>
+    <li><strong>Head count</strong> is the number of people, regardless of hours.</li>
+    <li><strong>FTE</strong> is the number of full-time-equivalent schedules those people add up to.</li>
+    <li><strong>Hours</strong> is the raw total. FTE is just hours divided by a full-time yardstick.</li>
+  </ul>
+  <p>
+    A department can have a head count of 10 and an FTE of 7.5 if several staff
+    are part-time. Neither number is "right" — they answer different questions.
+  </p>
+
+  <h2>Calculate it for your schedule</h2>
+  <p>
+    The <a href="/calculators/working-hours-calculator/">Working Hours
+    Calculator</a> takes hours per week, weeks per year, and PTO and returns
+    hours per week, month, and year plus the full-time-equivalent figure. The
+    <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
+    Calculator</a> is useful for pricing a partial-FTE role.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.irs.gov/affordable-care-act/employers/identifying-full-time-employees" rel="noopener">IRS — Identifying Full-Time Employees (ACA, 30-hour standard and FTE counting)</a></li>
+    <li><a href="https://www.opm.gov/policy-data-oversight/pay-leave/pay-administration/fact-sheets/computing-hourly-rates-of-pay-using-the-2087-hour-divisor/" rel="noopener">US Office of Personnel Management — 2,087-hour work year</a></li>
+    <li><a href="https://www.bls.gov/opub/hom/" rel="noopener">US Bureau of Labor Statistics — Handbook of Methods</a></li>
+  </ul>
+</GuideLayout>

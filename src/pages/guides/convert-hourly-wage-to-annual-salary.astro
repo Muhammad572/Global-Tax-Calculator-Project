@@ -1,0 +1,99 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["convert-hourly-wage-to-annual-salary"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    To turn an hourly wage into a yearly figure, multiply the rate by the hours
+    you work in a week, then by the weeks you work in a year. The quick version
+    everyone uses is:
+  </p>
+  <p><code>annual salary &asymp; hourly rate &times; hours per week &times; 52</code></p>
+  <p>
+    At $25 an hour, 40 hours a week: <code>25 &times; 40 &times; 52 =
+    $52,000</code>. That is the headline number on job postings and the one
+    used to compare an hourly role to a salaried offer. It is an
+    approximation, and this guide covers what it leaves out.
+  </p>
+
+  <h2>The 2,080-hour shortcut</h2>
+  <p>
+    <code>40 &times; 52 = 2,080</code>, so full-time annual pay is just
+    <code>hourly rate &times; 2,080</code>. Handy conversions:
+  </p>
+  <table>
+    <thead><tr><th>Hourly</th><th>&times; 2,080</th><th>Per month</th></tr></thead>
+    <tbody>
+      <tr><td>$15</td><td>$31,200</td><td>$2,600</td></tr>
+      <tr><td>$20</td><td>$41,600</td><td>$3,467</td></tr>
+      <tr><td>$25</td><td>$52,000</td><td>$4,333</td></tr>
+      <tr><td>$30</td><td>$62,400</td><td>$5,200</td></tr>
+      <tr><td>$40</td><td>$83,200</td><td>$6,933</td></tr>
+      <tr><td>$50</td><td>$104,000</td><td>$8,667</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Going the other way, divide a salary by 2,080 for the equivalent rate:
+    $60,000 &divide; 2,080 &asymp; $28.85 an hour. See
+    <a href="/guides/how-many-work-hours-in-a-year/">how many work hours are in
+    a year</a> for why 2,080 is the convention and how it drifts.
+  </p>
+
+  <h2>What the quick formula overstates</h2>
+  <p>
+    Using 52 full weeks assumes you are paid for every hour of every week. An
+    hourly worker usually is not:
+  </p>
+  <ul>
+    <li><strong>Unpaid time off.</strong> If you take two weeks off without pay, you work 50 weeks, not 52. <code>25 &times; 40 &times; 50 = $50,000</code>.</li>
+    <li><strong>Unpaid holidays.</strong> Many hourly jobs do not pay for public holidays. Ten unpaid holidays is another ~80 hours, about $2,000 at $25/hr.</li>
+    <li><strong>Variable hours.</strong> If your schedule swings between 30 and 40 hours, your real annual pay tracks the average, not the peak.</li>
+    <li><strong>Gaps between jobs or shifts cut short.</strong> Seasonal and on-call work rarely hits 2,080 paid hours.</li>
+  </ul>
+
+  <h2>What it can understate</h2>
+  <ul>
+    <li><strong>Overtime.</strong> If you regularly work 45 hours, the 5 overtime hours are paid at 1.5&times;. At $25/hr that is <code>(40 &times; 25 + 5 &times; 37.50) &times; 52 = $61,750</code>, well above the $52,000 headline.</li>
+    <li><strong>Shift differentials and bonuses</strong> add to the real total.</li>
+  </ul>
+
+  <h2>Gross is not take-home</h2>
+  <p>
+    Every figure above is <em>gross</em> — before tax. Federal income tax, Social
+    Security and Medicare (<a href="/guides/what-are-fica-taxes/">FICA</a>), and
+    state tax reduce what reaches your account. A $52,000 gross salary commonly
+    lands somewhere in the low-to-mid $40,000s in take-home, depending on your
+    state, filing status, and pre-tax benefits. See
+    <a href="/guides/gross-pay-vs-take-home-pay/">gross pay vs take-home pay</a>.
+  </p>
+
+  <h2>Comparing an hourly job to a salaried offer</h2>
+  <p>
+    Put both on the same basis before deciding:
+  </p>
+  <ol>
+    <li>Convert the hourly rate using your <em>realistic</em> paid weeks, not 52.</li>
+    <li>Add expected overtime for the hourly role; salaried exempt roles usually pay none.</li>
+    <li>Value benefits separately — paid leave, health premiums, and retirement match can be worth several thousand dollars a year.</li>
+    <li>Compare take-home, not gross, if the pre-tax benefit packages differ.</li>
+  </ol>
+
+  <h2>Run your numbers</h2>
+  <p>
+    The <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
+    Calculator</a> converts in both directions and lets you set weeks per year
+    and PTO. The <a href="/calculators/hourly-pay-calculator/">Hourly Pay
+    Calculator</a> projects weekly, monthly, and annual gross including
+    overtime, and the <a href="/calculators/working-hours-calculator/">Working
+    Hours Calculator</a> works out your real annual hours.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.bls.gov/opub/reports/weekly-earnings/" rel="noopener">US Bureau of Labor Statistics — usual weekly earnings</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/23-flsa-overtime-pay" rel="noopener">US Department of Labor — Fact Sheet #23: Overtime Pay</a></li>
+    <li><a href="https://www.opm.gov/policy-data-oversight/pay-leave/pay-administration/fact-sheets/computing-hourly-rates-of-pay-using-the-2087-hour-divisor/" rel="noopener">US Office of Personnel Management — the 2,087-hour divisor</a></li>
+  </ul>
+</GuideLayout>

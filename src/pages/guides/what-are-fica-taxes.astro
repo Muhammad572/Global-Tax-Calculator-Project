@@ -1,0 +1,94 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["what-are-fica-taxes"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    FICA stands for the <strong>Federal Insurance Contributions Act</strong>. It
+    is the payroll tax that funds Social Security and Medicare, and it is
+    withheld from essentially every US paycheck. On your pay stub it usually
+    appears as two lines: "Social Security" (or "OASDI") and "Medicare".
+  </p>
+
+  <h2>The two parts</h2>
+  <table>
+    <thead><tr><th>Component</th><th>Employee rate</th><th>Applies to</th></tr></thead>
+    <tbody>
+      <tr><td>Social Security (OASDI)</td><td>6.2%</td><td>Wages up to the annual wage base — <strong>$184,500 for 2026</strong></td></tr>
+      <tr><td>Medicare</td><td>1.45%</td><td>All wages, no cap</td></tr>
+      <tr><td>Additional Medicare Tax</td><td>+0.9%</td><td>Wages above $200,000 in a year (single filers; other thresholds by filing status)</td></tr>
+    </tbody>
+  </table>
+  <p>
+    For most workers, FICA is a flat <strong>7.65%</strong> of gross wages
+    (6.2% + 1.45%). It does not depend on your filing status, dependents, or
+    Form W-4 — those only affect income-tax withholding.
+  </p>
+
+  <h2>The Social Security wage base</h2>
+  <p>
+    Social Security tax only applies to the first slice of your wages each year.
+    For 2026 that limit is $184,500. Once your year-to-date wages pass it, the
+    6.2% line stops and your paychecks get slightly larger for the rest of the
+    year. Medicare has no equivalent cap — the 1.45% continues on every dollar.
+  </p>
+  <p>
+    The wage base is adjusted for average-wage growth most years, so it
+    generally rises. If you change jobs mid-year, each employer restarts the
+    count, so you can over-pay Social Security across two employers — you claim
+    the excess back on your tax return.
+  </p>
+
+  <h2>The Additional Medicare Tax</h2>
+  <p>
+    High earners pay an extra 0.9% Medicare tax on wages above a threshold
+    ($200,000 for single filers, $250,000 for married filing jointly,
+    $125,000 for married filing separately). Employers withhold it once your
+    pay with them passes $200,000 regardless of filing status; any mismatch
+    with your actual liability is reconciled on your return.
+  </p>
+
+  <h2>Your employer pays too</h2>
+  <p>
+    FICA is split. You pay 6.2% + 1.45%; your employer <em>matches</em> the
+    6.2% + 1.45% out of its own funds (the employer does not match the extra
+    0.9%). Self-employed people pay both halves themselves through
+    <strong>SECA</strong> — 12.4% Social Security and 2.9% Medicare — but can
+    deduct the employer-equivalent half.
+  </p>
+
+  <h2>What FICA does and does not reduce</h2>
+  <ul>
+    <li><strong>Pre-tax health premiums, HSA, and FSA</strong> contributions are exempt from FICA — they lower the wages the 7.65% is applied to.</li>
+    <li><strong>Traditional 401(k) contributions are NOT exempt from FICA.</strong> They reduce income-tax withholding but Social Security and Medicare are still taken on the full amount. (Roth 401(k) is the same for FICA.)</li>
+    <li>FICA is withheld on overtime, bonuses, and commissions like any other wages.</li>
+  </ul>
+
+  <h2>Quick check on your pay stub</h2>
+  <ol>
+    <li>Take this period's gross pay and subtract any pre-tax health, HSA, or FSA amounts.</li>
+    <li>Multiply by 0.062 — that should match the Social Security line.</li>
+    <li>Multiply the same figure by 0.0145 — that should match the Medicare line.</li>
+    <li>If Social Security looks low or missing, check whether your YTD wages have passed $184,500.</li>
+  </ol>
+
+  <h2>See it in a paycheck estimate</h2>
+  <p>
+    The <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a> shows
+    Social Security, Medicare, and the Additional Medicare Tax as separate
+    lines, using the 2026 figures above. The
+    <a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a>
+    rolls FICA into an annual take-home estimate from a salary.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.ssa.gov/oact/cola/cbb.html" rel="noopener">Social Security Administration — Contribution and Benefit Base</a></li>
+    <li><a href="https://www.irs.gov/taxtopics/tc751" rel="noopener">IRS — Topic no. 751, Social Security and Medicare withholding rates</a></li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax" rel="noopener">IRS — Additional Medicare Tax</a></li>
+    <li><a href="https://www.irs.gov/taxtopics/tc756" rel="noopener">IRS — Topic no. 756, Employment taxes for household employees</a></li>
+  </ul>
+  <p>The exact tables the calculators use are on the <a href="/methodology/">Methodology &amp; Sources</a> page.</p>
+</GuideLayout>

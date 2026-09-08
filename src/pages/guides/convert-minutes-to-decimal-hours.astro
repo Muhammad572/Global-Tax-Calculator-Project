@@ -1,0 +1,103 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["convert-minutes-to-decimal-hours"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    Payroll systems multiply hours by a pay rate, so they need time as a
+    <strong>decimal</strong> — 8.75 hours, not 8 hours 45 minutes. Converting is
+    one division:
+  </p>
+  <p><code>decimal hours = whole hours + (minutes &divide; 60)</code></p>
+  <p>
+    8 hours 45 minutes is <code>8 + 45/60 = 8 + 0.75 = 8.75</code>. The reverse
+    is <code>minutes = decimal part &times; 60</code>: the ".2" in 6.2 hours is
+    <code>0.2 &times; 60 = 12</code> minutes.
+  </p>
+
+  <h2>The five you should memorise</h2>
+  <table>
+    <thead><tr><th>Minutes</th><th>Decimal</th></tr></thead>
+    <tbody>
+      <tr><td>15 minutes</td><td>0.25</td></tr>
+      <tr><td>20 minutes</td><td>0.33</td></tr>
+      <tr><td>30 minutes</td><td>0.50</td></tr>
+      <tr><td>40 minutes</td><td>0.67</td></tr>
+      <tr><td>45 minutes</td><td>0.75</td></tr>
+    </tbody>
+  </table>
+  <p>
+    A common mistake is writing 8 hours 30 minutes as "8.30". The decimal for
+    30 minutes is 0.50, so it is <strong>8.50</strong> hours. "8.30" would be
+    18 minutes.
+  </p>
+
+  <h2>Full minute-to-decimal chart</h2>
+  <table>
+    <thead><tr><th>Min</th><th>Dec</th><th>Min</th><th>Dec</th><th>Min</th><th>Dec</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>0.02</td><td>21</td><td>0.35</td><td>41</td><td>0.68</td></tr>
+      <tr><td>2</td><td>0.03</td><td>22</td><td>0.37</td><td>42</td><td>0.70</td></tr>
+      <tr><td>3</td><td>0.05</td><td>23</td><td>0.38</td><td>43</td><td>0.72</td></tr>
+      <tr><td>4</td><td>0.07</td><td>24</td><td>0.40</td><td>44</td><td>0.73</td></tr>
+      <tr><td>5</td><td>0.08</td><td>25</td><td>0.42</td><td>45</td><td>0.75</td></tr>
+      <tr><td>6</td><td>0.10</td><td>26</td><td>0.43</td><td>46</td><td>0.77</td></tr>
+      <tr><td>7</td><td>0.12</td><td>27</td><td>0.45</td><td>47</td><td>0.78</td></tr>
+      <tr><td>8</td><td>0.13</td><td>28</td><td>0.47</td><td>48</td><td>0.80</td></tr>
+      <tr><td>9</td><td>0.15</td><td>29</td><td>0.48</td><td>49</td><td>0.82</td></tr>
+      <tr><td>10</td><td>0.17</td><td>30</td><td>0.50</td><td>50</td><td>0.83</td></tr>
+      <tr><td>11</td><td>0.18</td><td>31</td><td>0.52</td><td>51</td><td>0.85</td></tr>
+      <tr><td>12</td><td>0.20</td><td>32</td><td>0.53</td><td>52</td><td>0.87</td></tr>
+      <tr><td>13</td><td>0.22</td><td>33</td><td>0.55</td><td>53</td><td>0.88</td></tr>
+      <tr><td>14</td><td>0.23</td><td>34</td><td>0.57</td><td>54</td><td>0.90</td></tr>
+      <tr><td>15</td><td>0.25</td><td>35</td><td>0.58</td><td>55</td><td>0.92</td></tr>
+      <tr><td>16</td><td>0.27</td><td>36</td><td>0.60</td><td>56</td><td>0.93</td></tr>
+      <tr><td>17</td><td>0.28</td><td>37</td><td>0.62</td><td>57</td><td>0.95</td></tr>
+      <tr><td>18</td><td>0.30</td><td>38</td><td>0.63</td><td>58</td><td>0.97</td></tr>
+      <tr><td>19</td><td>0.32</td><td>39</td><td>0.65</td><td>59</td><td>0.98</td></tr>
+      <tr><td>20</td><td>0.33</td><td>40</td><td>0.67</td><td>60</td><td>1.00</td></tr>
+    </tbody>
+  </table>
+  <p>Values are rounded to two decimals. Payroll systems keep more precision internally.</p>
+
+  <h2>Rounding: keep the thirds exact</h2>
+  <p>
+    10, 20, 40, and 50 minutes are repeating decimals (0.1666…, 0.3333… and so
+    on). If you round each shift's minutes to two decimals and then add them up,
+    small errors accumulate. The reliable method:
+  </p>
+  <ol>
+    <li>Add up <em>total minutes</em> for the day or week first.</li>
+    <li>Divide the grand total by 60 once, at the end.</li>
+    <li>Round only the final figure, to two decimals.</li>
+  </ol>
+  <p>
+    Example: three shifts of 7h 50m, 8h 10m, and 6h 20m. Minutes:
+    470 + 490 + 380 = 1,340. <code>1340 &divide; 60 = 22.33</code> hours.
+  </p>
+
+  <h2>Decimal hours vs time-clock rounding</h2>
+  <p>
+    Converting to decimal is exact arithmetic. It is different from an employer
+    <em>rounding your punch times</em> to the nearest 5 or 15 minutes before the
+    conversion — that is a separate policy with its own rules, covered in
+    <a href="/guides/time-clock-rounding-rules/">time clock rounding rules</a>.
+  </p>
+
+  <h2>Convert instantly</h2>
+  <p>
+    The <a href="/calculators/decimal-hours-calculator/">Decimal Hours
+    Calculator</a> converts in both directions and shows the chart. The
+    <a href="/calculators/hours-worked-calculator/">Hours Worked Calculator</a>
+    and <a href="/calculators/time-clock-calculator/">Time Clock Calculator</a>
+    take clock times and give you a decimal total directly.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/53-flsa-hospitals-residential-care" rel="noopener">US Department of Labor — computing hours worked (Fact Sheet examples)</a></li>
+    <li><a href="https://www.ecfr.gov/current/title-29/subtitle-B/chapter-V/subchapter-B/part-785" rel="noopener">29 CFR Part 785 — Hours Worked under the FLSA</a></li>
+  </ul>
+</GuideLayout>

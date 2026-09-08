@@ -7,58 +7,123 @@ const g = GUIDES_BY_SLUG["salary-vs-hourly-pay"]!;
 <GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
   <p>
     A salaried worker earns a fixed amount each pay period regardless of exact
-    hours. An hourly worker is paid for each hour recorded. The pay structure
-    changes overtime rights, income stability, and often benefits.
+    hours. An hourly worker is paid for each hour recorded. That one structural
+    difference ripples through your overtime rights, income stability, benefits,
+    and how you should compare two job offers.
   </p>
 
   <h2>The core difference</h2>
   <table>
-    <thead><tr><th></th><th>Salary</th><th>Hourly</th></tr></thead>
+    <thead><tr><th>&nbsp;</th><th>Salary</th><th>Hourly</th></tr></thead>
     <tbody>
       <tr><td>Paycheck</td><td>Fixed each period</td><td>Varies with hours worked</td></tr>
-      <tr><td>Overtime</td><td>Only if non-exempt</td><td>Yes (non-exempt), usually 1.5× over 40 hrs/week</td></tr>
+      <tr><td>Overtime</td><td>Only if non-exempt</td><td>Yes (non-exempt), usually 1.5&times; over 40 hrs/week</td></tr>
       <tr><td>Short weeks</td><td>Usually paid in full</td><td>Paid only for hours worked</td></tr>
-      <tr><td>Benefits</td><td>More often included</td><td>Varies; sometimes limited</td></tr>
+      <tr><td>Extra hours</td><td>Often unpaid (if exempt)</td><td>Paid, often at a premium</td></tr>
+      <tr><td>Benefits</td><td>More often included</td><td>Varies; sometimes limited or pro-rated</td></tr>
+      <tr><td>Schedule</td><td>More flexible, more "always on"</td><td>More defined start/stop</td></tr>
     </tbody>
   </table>
 
-  <h2>Exempt vs non-exempt is what decides overtime</h2>
+  <h2>Exempt vs non-exempt decides overtime</h2>
   <p>
-    Under the US Fair Labor Standards Act, an employee is <strong>exempt</strong>
-    from overtime only if they meet both a salary test (paid a set minimum salary)
-    and a duties test (executive, administrative, professional, and some other
-    categories). Everyone else is <strong>non-exempt</strong> and must receive
-    overtime for hours over 40 in a workweek — including many salaried employees.
-    Being paid a salary does not by itself remove your right to overtime.
+    Being paid a salary does <em>not</em> by itself remove your right to
+    overtime. Under the US Fair Labor Standards Act you are exempt only if you
+    meet a salary-basis test, a salary-level test, and a duties test. Everyone
+    else — including many salaried employees — is non-exempt and must receive
+    overtime for hours over 40 in a workweek. The full three-part test is in
+    <a href="/guides/exempt-vs-non-exempt-employees/">exempt vs non-exempt
+    employees</a>.
   </p>
 
-  <h2>Comparing two offers</h2>
+  <h2>Pros and cons of salary</h2>
+  <p><strong>Upsides:</strong></p>
+  <ul>
+    <li>A predictable paycheck, even in weeks with a holiday or a slow patch.</li>
+    <li>Usually stronger benefits: paid leave, retirement match, health coverage.</li>
+    <li>More schedule autonomy in many roles.</li>
+    <li>Often a signal of seniority, which can help future negotiation.</li>
+  </ul>
+  <p><strong>Downsides:</strong></p>
+  <ul>
+    <li>If you are exempt, extra hours are unpaid — a 55-hour week pays the same as a 40-hour week.</li>
+    <li>Your <em>effective</em> hourly rate falls as your hours rise.</li>
+    <li>Blurred boundaries between work and personal time.</li>
+  </ul>
+
+  <h2>Pros and cons of hourly</h2>
+  <p><strong>Upsides:</strong></p>
+  <ul>
+    <li>Every hour is paid, and overtime is paid at a premium.</li>
+    <li>Clear boundaries — when the shift ends, work ends.</li>
+    <li>Picking up extra shifts directly increases pay.</li>
+  </ul>
+  <p><strong>Downsides:</strong></p>
+  <ul>
+    <li>Income drops in short weeks, holidays, or when hours are cut.</li>
+    <li>Benefits may be thinner or require a minimum-hours threshold.</li>
+    <li>Less schedule control; last-minute changes are more common.</li>
+  </ul>
+
+  <h2>The "promotion to salary" trap</h2>
   <p>
-    Put both on the same basis. To compare a salary with an hourly rate, convert
-    the salary: <code>hourly = salary ÷ (hours per week × weeks per year)</code>,
-    usually ÷ 2,080. Then adjust for the hours each job actually expects — a role
-    that wants 50-hour weeks has a much lower real hourly rate than salary ÷ 2,080
-    suggests.
+    Moving from an hourly role with regular overtime to a salaried exempt role
+    can be a pay cut in disguise. If you earned $25/hour and routinely worked
+    48-hour weeks, your gross was roughly <code>(40 &times; 25 + 8 &times;
+    37.50) &times; 52 = $67,600</code>. A "$65,000 salary" promotion with no
+    overtime is less money for the same hours. Always compare against your
+    <em>actual</em> recent earnings, not your base rate.
   </p>
+
+  <h2>Comparing two offers on equal terms</h2>
+  <ol>
+    <li>Convert the salary to an hourly figure: <code>salary &divide; (hours per week &times; weeks per year)</code>, usually &divide; 2,080. See <a href="/guides/convert-hourly-wage-to-annual-salary/">converting an hourly wage to a salary</a>.</li>
+    <li>Adjust for the hours each job really expects. A role that wants 50-hour weeks has a much lower real rate than salary &divide; 2,080 suggests.</li>
+    <li>Add expected overtime to the hourly offer; exempt salaried roles pay none.</li>
+    <li>Value the benefits separately — paid leave, employer health contribution, and retirement match can be worth several thousand dollars a year.</li>
+    <li>Compare <em>take-home</em>, not gross, if the pre-tax benefit packages differ — see <a href="/guides/gross-pay-vs-take-home-pay/">gross pay vs take-home pay</a>.</li>
+  </ol>
   <p>
     The <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
     Calculator</a> does the conversion, shows the effective rate after paid time
     off, and compares up to three amounts side by side.
   </p>
 
+  <h2>A third option: contract and gig work</h2>
+  <p>
+    Independent contractors set their own rate but receive no overtime, no paid
+    leave, and no employer benefits, and they pay both halves of Social Security
+    and Medicare (<a href="/guides/what-are-fica-taxes/">SECA</a>). A contract
+    rate usually needs to be 25&ndash;50% above an equivalent salary to break
+    even. Misclassifying an employee as a contractor to avoid these costs is
+    unlawful.
+  </p>
+
   <h2>Which is better?</h2>
   <p>
     Neither, universally. Salary suits predictable roles and people who value a
     steady paycheck and benefits. Hourly suits variable schedules, roles with
-    regular overtime (where the premium can add up), and anyone who wants to be
-    paid for every hour. Read the offer for expected hours, overtime policy,
-    benefits eligibility, and whether the role is classified exempt or non-exempt.
+    regular overtime, and anyone who wants to be paid for every hour. Read the
+    offer for expected hours, the overtime policy, benefits eligibility, and
+    whether the role is classified exempt or non-exempt.
   </p>
 
-  <h2>Related</h2>
+  <h2>Frequently asked questions</h2>
+  <h3>Is salary always better than hourly?</h3>
+  <p>
+    No. If you work significant overtime, a non-exempt hourly role can pay more
+    for the same hours because of the 1.5&times; premium.
+  </p>
+  <h3>Can a salaried employee get overtime?</h3>
+  <p>
+    Yes, if they are non-exempt. The salary is then divided by the hours it
+    covers to find the regular rate, and overtime is paid on top.
+  </p>
+
+  <h2>Sources</h2>
   <ul>
-    <li><a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a> — gross pay with overtime</li>
-    <li><a href="/guides/how-to-calculate-overtime-pay/">How to calculate overtime pay</a></li>
-    <li><a href="/guides/gross-pay-vs-take-home-pay/">Gross pay vs take-home pay</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/17a-overtime" rel="noopener">US Department of Labor — Fact Sheet #17A: white-collar exemptions</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/23-flsa-overtime-pay" rel="noopener">US Department of Labor — Fact Sheet #23: Overtime Pay</a></li>
+    <li><a href="https://www.bls.gov/ebs/" rel="noopener">US Bureau of Labor Statistics — Employee Benefits Survey</a></li>
   </ul>
 </GuideLayout>

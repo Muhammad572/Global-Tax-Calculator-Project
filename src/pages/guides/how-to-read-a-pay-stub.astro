@@ -1,0 +1,142 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["how-to-read-a-pay-stub"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    A pay stub (or pay slip, earnings statement, or check stub) is the summary
+    that comes with each paycheck. It shows what you earned, what was taken out,
+    and what landed in your account. Every stub is laid out differently, but the
+    same handful of sections appear on all of them. This guide walks through
+    each one for a typical US private-sector stub.
+  </p>
+
+  <h2>The four sections of a pay stub</h2>
+  <ol>
+    <li><strong>Header</strong> — employer name, your name, the pay period start and end dates, the pay date, and often a check or deposit number.</li>
+    <li><strong>Earnings</strong> — gross pay, broken out by type (regular, overtime, bonus, holiday, PTO).</li>
+    <li><strong>Deductions and taxes</strong> — everything subtracted from gross pay, usually split into taxes and other deductions.</li>
+    <li><strong>Summary</strong> — gross pay, total deductions, and net pay (take-home), each shown for the current period and year-to-date.</li>
+  </ol>
+
+  <h2>"Current" vs "YTD"</h2>
+  <p>
+    Almost every number on a stub appears twice: once for this pay period
+    (<em>current</em>) and once as a running total for the calendar year so far
+    (<em>YTD</em>, year-to-date). YTD figures reset to zero on the first
+    paycheck of each year. They are useful for checking that your withholding
+    is on track and for loan or rental applications that ask for
+    year-to-date income.
+  </p>
+
+  <h2>Earnings</h2>
+  <p>
+    Gross pay is your total earnings before anything is removed. On an hourly
+    stub it is a set of lines like:
+  </p>
+  <table>
+    <thead><tr><th>Type</th><th>Hours</th><th>Rate</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>Regular</td><td>80.00</td><td>$22.00</td><td>$1,760.00</td></tr>
+      <tr><td>Overtime</td><td>5.00</td><td>$33.00</td><td>$165.00</td></tr>
+      <tr><td>Holiday</td><td>8.00</td><td>$22.00</td><td>$176.00</td></tr>
+      <tr><td><strong>Gross pay</strong></td><td>93.00</td><td>&nbsp;</td><td><strong>$2,101.00</strong></td></tr>
+    </tbody>
+  </table>
+  <p>
+    A salaried stub usually shows a single "Salary" line equal to your annual
+    salary divided by the number of pay periods in the year. If you see hours on
+    a salaried stub, they are informational and do not change the amount.
+  </p>
+
+  <h2>Taxes withheld</h2>
+  <p>
+    These are amounts your employer sends to tax authorities on your behalf.
+    Withholding is a prepayment, not the final tax — you settle up when you
+    file a return.
+  </p>
+  <ul>
+    <li><strong>Federal income tax</strong> (often "Fed W/H" or "FITW") — based on your Form W-4, your pay, and IRS withholding tables.</li>
+    <li><strong>Social Security</strong> ("OASDI" or "SS") — 6.2% of wages up to the annual wage base ($184,500 for 2026).</li>
+    <li><strong>Medicare</strong> — 1.45% of all wages, with an extra 0.9% on wages above $200,000 in a year.</li>
+    <li><strong>State income tax</strong> — in the 41 states that tax wages. Nine states do not.</li>
+    <li><strong>Local tax</strong> — some cities and school districts (for example parts of Pennsylvania, Ohio, and New York City) levy their own.</li>
+  </ul>
+  <p>
+    Social Security and Medicare together are called <a href="/guides/what-are-fica-taxes/">FICA</a>.
+  </p>
+
+  <h2>Pre-tax vs post-tax deductions</h2>
+  <p>
+    The order matters. <strong>Pre-tax</strong> deductions come out of gross pay
+    <em>before</em> income tax is calculated, so they lower your taxable wages:
+  </p>
+  <ul>
+    <li>Traditional 401(k) or 403(b) contributions</li>
+    <li>Health, dental, and vision insurance premiums (under a Section 125 plan)</li>
+    <li>Health savings account (HSA) and flexible spending account (FSA) contributions</li>
+  </ul>
+  <p>
+    <strong>Post-tax</strong> deductions come out after tax and do not reduce
+    taxable wages:
+  </p>
+  <ul>
+    <li>Roth 401(k) contributions</li>
+    <li>Wage garnishments and child support</li>
+    <li>Union dues, charitable giving, and repayment of a payroll advance</li>
+    <li>Disability or life insurance, depending on how the plan is set up</li>
+  </ul>
+  <p>
+    This is why two people with the same salary can have very different
+    take-home pay: pre-tax benefits shrink the paycheck now but also shrink the
+    tax bill.
+  </p>
+
+  <h2>Employer contributions and imputed income</h2>
+  <p>
+    Some stubs list amounts your employer pays that are not deducted from you —
+    the employer share of FICA, a 401(k) match, or the employer portion of
+    health premiums. These are shown for transparency. You may also see
+    <em>imputed income</em>: the taxable value of a benefit like group-term
+    life insurance over $50,000, added to taxable wages but not paid to you in
+    cash.
+  </p>
+
+  <h2>How to check your stub is right</h2>
+  <ol>
+    <li>Multiply your hourly rate by regular hours. It should match the regular earnings line to the cent.</li>
+    <li>Check overtime is your regular rate &times; 1.5 (or your state/contract multiplier) &times; overtime hours.</li>
+    <li>Social Security should be almost exactly 6.2% of this period's gross (minus any pre-tax health or FSA amounts).</li>
+    <li>Medicare should be almost exactly 1.45% of the same figure.</li>
+    <li>Add every deduction and subtract from gross. The result should equal net pay.</li>
+    <li>Compare YTD gross to your rate &times; hours worked so far this year.</li>
+  </ol>
+  <p>
+    If the numbers do not reconcile, raise it with payroll in writing and keep
+    a copy of the stub. Underpayment errors are common with overtime,
+    shift differentials, and the first check after a raise.
+  </p>
+
+  <h2>Estimate your own paycheck</h2>
+  <p>
+    The <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a> takes
+    your gross pay, filing status, state, and pre-tax deductions and returns an
+    itemised estimate of federal tax, FICA, and state withholding — the same
+    lines you see on a stub. The
+    <a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a>
+    does it from an annual salary, and the
+    <a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a>
+    builds the gross earnings side from a rate and hours.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/21-flsa-recordkeeping" rel="noopener">US Department of Labor — Fact Sheet #21: Recordkeeping Requirements under the FLSA</a></li>
+    <li><a href="https://www.irs.gov/taxtopics/tc751" rel="noopener">IRS — Topic no. 751, Social Security and Medicare withholding rates</a></li>
+    <li><a href="https://www.irs.gov/forms-pubs/about-publication-15-t" rel="noopener">IRS — Publication 15-T, Federal Income Tax Withholding Methods</a></li>
+    <li><a href="https://www.consumerfinance.gov/consumer-tools/managing-someone-elses-money/" rel="noopener">Consumer Financial Protection Bureau — understanding your pay</a></li>
+  </ul>
+  <p>See the <a href="/methodology/">Methodology &amp; Sources</a> page for the exact tables used in the calculators.</p>
+</GuideLayout>

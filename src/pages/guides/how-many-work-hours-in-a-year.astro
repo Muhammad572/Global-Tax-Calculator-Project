@@ -1,79 +1,125 @@
 ---
 import GuideLayout from "@/layouts/GuideLayout.astro";
 import { GUIDES_BY_SLUG } from "@/data/guides";
-import { businessDaysInYear } from "@tinytools/calc";
 const g = GUIDES_BY_SLUG["how-many-work-hours-in-a-year"]!;
-
-const years = [2025, 2026, 2027, 2028].map((y) => ({
-  y,
-  days: businessDaysInYear(y),
-  hours: businessDaysInYear(y) * 8,
-}));
 ---
 
 <GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
   <p>
     A standard full-time work year is <strong>2,080 hours</strong>: 40 hours a
-    week × 52 weeks. That is the figure used to convert salaries to hourly rates
-    and to budget headcount. But the hours you <em>actually</em> work are usually
+    week &times; 52 weeks. That is the figure used to convert salaries to hourly
+    rates and to plan headcount. But the hours you actually work are usually
     fewer, and the number of working days shifts from year to year.
   </p>
 
   <h2>The standard: 2,080 hours</h2>
-  <p><code>40 hours/week × 52 weeks = 2,080 hours</code></p>
+  <p><code>40 hours/week &times; 52 weeks = 2,080 hours</code></p>
   <p>
-    Divide an annual salary by 2,080 for the equivalent hourly rate: $60,000 ÷
-    2,080 ≈ $28.85. Use the
-    <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
-    Calculator</a> for other schedules.
+    Divide an annual salary by 2,080 for the equivalent hourly rate:
+    <code>$60,000 &divide; 2,080 &asymp; $28.85</code>. Multiply an hourly rate
+    by 2,080 for the annual figure. The full method and its limits are in
+    <a href="/guides/convert-hourly-wage-to-annual-salary/">converting an hourly
+    wage to an annual salary</a>.
+  </p>
+
+  <h2>The 2,087-hour version</h2>
+  <p>
+    The US federal government uses <strong>2,087 hours</strong> as its official
+    work-year divisor. It is the average once you account for the fact that the
+    calendar repeats on a 28-year cycle with a mix of 260, 261, and 262
+    weekday years. For most private-sector purposes 2,080 is close enough;
+    2,087 matters for precise federal hourly-rate calculations.
   </p>
 
   <h2>Working days by year</h2>
   <p>
-    Count only Monday–Friday dates and the total moves between roughly 260 and
-    262, depending on how weekends fall and whether it is a leap year. Public
-    holidays (which vary by country) reduce it further.
+    Count only Monday&ndash;Friday dates and the total moves between roughly 260
+    and 262, depending on how weekends fall and whether it is a leap year.
   </p>
   <table>
-    <thead><tr><th>Year</th><th>Weekdays (Mon–Fri)</th><th>Hours at 8/day</th></tr></thead>
+    <thead><tr><th>Year</th><th>Weekdays (Mon&ndash;Fri)</th><th>Hours at 8/day</th></tr></thead>
     <tbody>
-      {years.map((r) => (<tr><td>{r.y}</td><td>{r.days}</td><td>{r.hours.toLocaleString()}</td></tr>))}
+      <tr><td>2025</td><td>261</td><td>2,088</td></tr>
+      <tr><td>2026</td><td>261</td><td>2,088</td></tr>
+      <tr><td>2027</td><td>261</td><td>2,088</td></tr>
+      <tr><td>2028</td><td>260</td><td>2,080</td></tr>
+      <tr><td>2029</td><td>261</td><td>2,088</td></tr>
     </tbody>
   </table>
   <p>
     These exclude public holidays. Subtract your country's holidays — typically
-    8–13 days — for actual working days.
+    8&ndash;13 days in the US, 8 in England and Wales — for actual working days.
   </p>
 
   <h2>Hours you actually work</h2>
-  <p><code>hours worked = 2,080 − (PTO days + holidays) × hours per workday</code></p>
+  <p><code>hours worked = 2,080 &minus; (PTO days + holidays) &times; hours per workday</code></p>
   <p>
-    With 15 vacation days and 10 public holidays at 8 hours each, that is 2,080 −
-    200 = <strong>1,880 hours</strong>. Part-time and compressed schedules change
-    the starting figure.
+    With 15 vacation days and 10 public holidays at 8 hours each, that is
+    <code>2,080 &minus; 200 = 1,880 hours</code>. Add sick days and the real
+    figure for a typical US full-time job lands around 1,850&ndash;1,900
+    productive hours a year.
   </p>
+
+  <h2>Part-time and other schedules</h2>
   <table>
     <thead><tr><th>Hours/week</th><th>Per year (52 wk)</th><th>Per month</th></tr></thead>
     <tbody>
-      <tr><td>40</td><td>2,080</td><td>173.3</td></tr>
-      <tr><td>37.5</td><td>1,950</td><td>162.5</td></tr>
-      <tr><td>35</td><td>1,820</td><td>151.7</td></tr>
-      <tr><td>30</td><td>1,560</td><td>130.0</td></tr>
+      <tr><td>40</td><td>2,080</td><td>173.33</td></tr>
+      <tr><td>37.5</td><td>1,950</td><td>162.50</td></tr>
+      <tr><td>35</td><td>1,820</td><td>151.67</td></tr>
+      <tr><td>32</td><td>1,664</td><td>138.67</td></tr>
+      <tr><td>30</td><td>1,560</td><td>130.00</td></tr>
+      <tr><td>25</td><td>1,300</td><td>108.33</td></tr>
+      <tr><td>20</td><td>1,040</td><td>86.67</td></tr>
     </tbody>
   </table>
+  <p>
+    Expressed as a share of full-time, 30 hours a week is a
+    <a href="/guides/what-is-full-time-equivalent/">0.75 FTE</a>.
+  </p>
+
+  <h2>Hours in a month, quarter, and other periods</h2>
+  <ul>
+    <li><strong>Month:</strong> 2,080 &divide; 12 = <strong>173.33 hours</strong>. Individual months range from about 160 (a 20-workday month) to 184 (a 23-workday month).</li>
+    <li><strong>Quarter:</strong> roughly <strong>520 hours</strong> (13 weeks &times; 40).</li>
+    <li><strong>Business days in a month:</strong> usually 20&ndash;23.</li>
+    <li><strong>Work weeks in a year:</strong> 52 (plus one or two extra days), which is why a biweekly payroll sometimes has a <a href="/guides/biweekly-vs-semimonthly-pay/">27th paycheck</a>.</li>
+  </ul>
 
   <h2>Why it matters</h2>
   <ul>
     <li><strong>Salary comparisons:</strong> a job expecting 45-hour weeks has a lower real hourly rate than one at 40.</li>
-    <li><strong>Contractor rates:</strong> contractors have no paid time off, so they need a higher rate to match an equivalent salary.</li>
-    <li><strong>Project planning:</strong> a full-time employee provides roughly 1,850–1,900 productive hours a year, not 2,080.</li>
+    <li><strong>Contractor rates:</strong> contractors have no paid time off, so they need a higher rate to match an equivalent salary — and they rarely bill a full 2,080 hours.</li>
+    <li><strong>Project planning:</strong> a full-time employee provides roughly 1,850&ndash;1,900 productive hours a year, not 2,080.</li>
+    <li><strong>Accrual rates:</strong> PTO that accrues "per hour worked" is based on actual hours, so it is a little under the headline entitlement.</li>
   </ul>
+
+  <h2>Frequently asked questions</h2>
+  <h3>Is a work year 2,080 or 2,087 hours?</h3>
+  <p>
+    2,080 for everyday salary-to-hourly math; 2,087 is the US federal
+    government's precise average across the 28-year calendar cycle.
+  </p>
+  <h3>How many hours is full-time?</h3>
+  <p>
+    Commonly 40 a week, but employers may set 35 or 37.5. The US Affordable Care
+    Act uses 30 hours a week as its full-time line for employer requirements.
+  </p>
 
   <h2>Calculate it for your schedule</h2>
   <p>
     The <a href="/calculators/working-hours-calculator/">Working Hours
     Calculator</a> takes your hours per week, weeks per year, PTO, and holidays
-    and returns hours per week, month, and year, plus working days and full-time
-    equivalent.
+    and returns hours per week, month, and year, plus working days and
+    full-time equivalent. The
+    <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
+    Calculator</a> uses it to convert pay accurately.
   </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.opm.gov/policy-data-oversight/pay-leave/pay-administration/fact-sheets/computing-hourly-rates-of-pay-using-the-2087-hour-divisor/" rel="noopener">US Office of Personnel Management — the 2,087-hour divisor</a></li>
+    <li><a href="https://www.bls.gov/news.release/atus.nr0.htm" rel="noopener">US Bureau of Labor Statistics — American Time Use Survey</a></li>
+    <li><a href="https://www.gov.uk/bank-holidays" rel="noopener">GOV.UK — UK bank holidays</a></li>
+  </ul>
 </GuideLayout>

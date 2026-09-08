@@ -6,25 +6,63 @@ const g = GUIDES_BY_SLUG["how-to-calculate-hours-worked"]!;
 
 <GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
   <p>
-    Calculating hours worked is subtraction plus one conversion: elapsed time
-    between clock-in and clock-out, minus unpaid breaks, converted to decimal
-    hours for payroll. Here is the method, with the parts that trip people up.
+    Calculating hours worked is subtraction plus one conversion: the elapsed
+    time between clock-in and clock-out, minus unpaid breaks, converted to
+    decimal hours for payroll. Simple in principle — but overnight shifts,
+    multiple breaks, and the minutes-to-decimal step catch people out. Here is
+    the full method with worked examples.
   </p>
 
   <h2>The four steps</h2>
   <ol>
-    <li><strong>Write both times in the same format.</strong> Convert to a 24-hour clock if that is easier: 1:30 PM becomes 13:30.</li>
-    <li><strong>Subtract the start time from the end time.</strong> 8:00 to 16:30 is 8 hours 30 minutes.</li>
+    <li><strong>Put both times in the same format.</strong> A 24-hour clock is easiest for arithmetic: 1:30 PM becomes 13:30, 9:00 AM stays 09:00.</li>
+    <li><strong>Subtract start from end.</strong> 08:00 to 16:30 is 8 hours 30 minutes.</li>
     <li><strong>Subtract unpaid breaks.</strong> A 30-minute unpaid lunch leaves 8 hours 0 minutes.</li>
-    <li><strong>Convert the minutes to a decimal</strong> by dividing by 60. 30 ÷ 60 = 0.5, so the day is 8.00 hours.</li>
+    <li><strong>Convert minutes to a decimal</strong> by dividing by 60. 30 &divide; 60 = 0.5, so the day is 8.00 hours.</li>
   </ol>
-  <p><code>hours worked = (end − start) − unpaid break, then minutes ÷ 60</code></p>
+  <p><code>hours worked = (end &minus; start) &minus; unpaid break, then minutes &divide; 60</code></p>
+
+  <h2>Worked example: a single day</h2>
+  <p>
+    You clock in at 7:45 AM, take an unpaid 45-minute lunch, and clock out at
+    5:15 PM.
+  </p>
+  <ol>
+    <li>07:45 to 17:15 is 9 hours 30 minutes.</li>
+    <li>Minus 45 minutes unpaid break = 8 hours 45 minutes.</li>
+    <li>45 &divide; 60 = 0.75, so the day is <strong>8.75 hours</strong>.</li>
+  </ol>
 
   <h2>Overnight shifts</h2>
   <p>
     When the end time is earlier than the start time, the shift crossed
-    midnight. Add 24 hours before subtracting. A shift from 22:00 to 06:00 is
-    (06:00 + 24:00) − 22:00 = 8 hours.
+    midnight. Add 24 hours to the end time before subtracting. A shift from
+    22:00 to 06:00 is <code>(06:00 + 24:00) &minus; 22:00 = 8 hours</code>. If
+    there was a 30-minute unpaid break, the paid total is 7.5 hours.
+  </p>
+  <p>
+    For overtime and daily-overtime states, an overnight shift is usually
+    credited to the day it <em>started</em>, but check your employer's workweek
+    definition — see <a href="/guides/what-is-a-pay-period/">what is a pay
+    period</a>.
+  </p>
+
+  <h2>Split shifts and multiple breaks</h2>
+  <p>
+    If you leave and come back, treat each segment separately and add them:
+  </p>
+  <table>
+    <thead><tr><th>Segment</th><th>In</th><th>Out</th><th>Paid time</th></tr></thead>
+    <tbody>
+      <tr><td>Morning</td><td>09:00</td><td>12:30</td><td>3h 30m</td></tr>
+      <tr><td>Afternoon</td><td>16:00</td><td>20:00</td><td>4h 00m</td></tr>
+      <tr><td><strong>Total</strong></td><td>&nbsp;</td><td>&nbsp;</td><td><strong>7h 30m = 7.50</strong></td></tr>
+    </tbody>
+  </table>
+  <p>
+    The unpaid gap between 12:30 and 16:00 is not worked time. Some states
+    require a "split shift premium" (extra pay for the day), which is separate
+    from hours worked.
   </p>
 
   <h2>Minutes to decimal — the common mistake</h2>
@@ -33,32 +71,79 @@ const g = GUIDES_BY_SLUG["how-to-calculate-hours-worked"]!;
     fraction of 60, not of 100.
   </p>
   <table>
-    <thead><tr><th>Minutes</th><th>Decimal</th></tr></thead>
+    <thead><tr><th>Minutes</th><th>Decimal</th><th>Minutes</th><th>Decimal</th></tr></thead>
     <tbody>
-      <tr><td>15</td><td>0.25</td></tr>
-      <tr><td>20</td><td>0.33</td></tr>
-      <tr><td>30</td><td>0.50</td></tr>
-      <tr><td>45</td><td>0.75</td></tr>
-      <tr><td>50</td><td>0.83</td></tr>
+      <tr><td>5</td><td>0.08</td><td>35</td><td>0.58</td></tr>
+      <tr><td>10</td><td>0.17</td><td>40</td><td>0.67</td></tr>
+      <tr><td>15</td><td>0.25</td><td>45</td><td>0.75</td></tr>
+      <tr><td>20</td><td>0.33</td><td>50</td><td>0.83</td></tr>
+      <tr><td>30</td><td>0.50</td><td>55</td><td>0.92</td></tr>
     </tbody>
   </table>
-  <p>The <a href="/calculators/decimal-hours-calculator/">Decimal Hours Calculator</a> has the full 0–59 chart and a bulk converter.</p>
-
-  <h2>Rounding</h2>
   <p>
-    Many employers round each punch to the nearest quarter hour or tenth of an
-    hour. In the US, rounding is allowed under the Fair Labor Standards Act only
-    if it does not consistently favour the employer over time. The well-known
-    "7-minute rule" rounds 1–7 minutes down and 8–14 minutes up to the nearest
-    quarter hour. Record your actual times; round only if your workplace policy
-    says to.
+    The full 1&ndash;59 chart and the method for keeping the repeating decimals
+    exact are in
+    <a href="/guides/convert-minutes-to-decimal-hours/">how to convert minutes
+    to decimal hours</a>.
   </p>
+
+  <h2>Which time counts as "worked"?</h2>
+  <p>
+    Under the FLSA, compensable time is broader than time at your main task:
+  </p>
+  <ul>
+    <li><strong>Short breaks</strong> (roughly 5&ndash;20 minutes) are generally paid; <strong>bona fide meal breaks</strong> of 30 minutes or more, free of duties, are not.</li>
+    <li><strong>Work before or after a punch</strong> — setup, security checks, required gear — is usually compensable.</li>
+    <li><strong>Waiting time</strong> is paid if you are "engaged to wait"; unpaid if you are genuinely free and off duty.</li>
+    <li><strong>Travel</strong> between job sites during the day is paid; a normal home-to-work commute is not.</li>
+    <li><strong>On-call time</strong> is paid if restrictions mean you cannot use it for your own purposes.</li>
+  </ul>
 
   <h2>A full week</h2>
   <p>
-    Add the daily decimal totals. Overtime, where it applies, is usually
-    calculated on the weekly total (over 40 hours under US federal law, over 44
-    in Ontario). See <a href="/guides/how-to-calculate-overtime-pay/">how to calculate overtime pay</a>.
+    Add the daily decimal totals. Overtime, where it applies, is calculated on
+    the weekly total (over 40 hours under US federal law, over 44 in Ontario),
+    not on the pay period. See
+    <a href="/guides/how-to-calculate-overtime-pay/">how to calculate overtime
+    pay</a>.
+  </p>
+  <table>
+    <thead><tr><th>Day</th><th>Worked</th></tr></thead>
+    <tbody>
+      <tr><td>Mon</td><td>8.00</td></tr>
+      <tr><td>Tue</td><td>8.75</td></tr>
+      <tr><td>Wed</td><td>7.50</td></tr>
+      <tr><td>Thu</td><td>8.25</td></tr>
+      <tr><td>Fri</td><td>9.00</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>41.50</strong> &rarr; 40 regular + 1.5 overtime</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Rounding</h2>
+  <p>
+    Many employers round each punch to the nearest quarter or tenth of an hour.
+    In the US, rounding is allowed only if it does not consistently favour the
+    employer over time — the "7-minute rule" and its limits are covered in
+    <a href="/guides/time-clock-rounding-rules/">time clock rounding rules</a>.
+    Record your actual times; round only if your workplace policy requires it.
+  </p>
+
+  <h2>Frequently asked questions</h2>
+  <h3>How do I calculate hours and minutes for payroll?</h3>
+  <p>
+    Work out hours and minutes first, then convert the minutes to a decimal by
+    dividing by 60. Payroll multiplies decimal hours by your rate.
+  </p>
+  <h3>Do I subtract lunch if I worked through it?</h3>
+  <p>
+    No. You are only unpaid for a meal break if you were actually relieved of
+    duty. Working through lunch is paid time; note it on your record.
+  </p>
+  <h3>How are hours worked calculated on a time card?</h3>
+  <p>
+    Per day: clock-out minus clock-in, minus unpaid breaks. Then sum the days
+    for the pay period. See <a href="/guides/how-time-cards-work/">how time
+    cards work</a>.
   </p>
 
   <h2>Let a calculator do it</h2>
@@ -66,5 +151,12 @@ const g = GUIDES_BY_SLUG["how-to-calculate-hours-worked"]!;
     <li><a href="/calculators/hours-worked-calculator/">Hours Worked Calculator</a> — one shift or a split shift, with a break.</li>
     <li><a href="/calculators/time-card-calculator/">Time Card Calculator</a> — a full week, with overtime and gross pay.</li>
     <li><a href="/calculators/time-clock-calculator/">Time Clock Calculator</a> — a list of clock-in/out punches for payroll.</li>
+  </ul>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/22-flsa-hours-worked" rel="noopener">US Department of Labor — Fact Sheet #22: Hours Worked Under the FLSA</a></li>
+    <li><a href="https://www.ecfr.gov/current/title-29/subtitle-B/chapter-V/subchapter-B/part-785" rel="noopener">29 CFR Part 785 — Hours Worked</a></li>
+    <li><a href="https://www.ontario.ca/document/your-guide-employment-standards-act-0/hours-work" rel="noopener">Ontario — Employment Standards Act: Hours of Work</a></li>
   </ul>
 </GuideLayout>

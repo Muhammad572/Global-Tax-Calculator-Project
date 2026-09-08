@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import AdSlot from "@/components/AdSlot.astro";
 import { SITE } from "@/data/site";
+import { GUIDES_BY_SLUG } from "@/data/guides";
 
 interface Props {
   title: string; // H1
@@ -13,6 +14,11 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
 }
 const { title, metaTitle, description, slug, updated, jsonLd = [] } = Astro.props;
+
+const self = GUIDES_BY_SLUG[slug];
+const relatedGuides = (self?.related ?? [])
+  .map((s) => GUIDES_BY_SLUG[s])
+  .filter((g): g is NonNullable<typeof g> => Boolean(g));
 
 const article = {
   "@context": "https://schema.org",
@@ -51,6 +57,22 @@ const article = {
         </p>
       </header>
       <slot />
+
+      {
+        relatedGuides.length > 0 && (
+          <nav class="guide__related" aria-label="Related guides">
+            <h2>Related guides</h2>
+            <ul>
+              {relatedGuides.map((g) => (
+                <li>
+                  <a href={`/guides/${g.slug}/`}>{g.title}</a> — {g.summary}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )
+      }
+
       <AdSlot placement="in-content" />
     </article>
   </div>
@@ -84,5 +106,24 @@ const article = {
     margin-bottom: 0.75rem;
     border-radius: 2px;
     background: var(--accent-gradient);
+  }
+  .guide__related {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.35rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, #ffffff, #fdfbf8);
+    box-shadow: var(--shadow-card), var(--shadow-inset);
+  }
+  .guide__related h2 {
+    margin-top: 0;
+    font-size: 1.05rem;
+  }
+  .guide__related h2::before {
+    display: none;
+  }
+  .guide__related ul {
+    margin: 0.6rem 0 0;
+    padding-left: 1.1rem;
   }
 </style>

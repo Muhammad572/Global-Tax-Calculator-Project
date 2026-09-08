@@ -1,0 +1,98 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["is-overtime-taxed-more"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    The short answer: <strong>no, overtime is not taxed at a higher rate.</strong>
+    A dollar earned as overtime is taxed exactly like a dollar of regular pay.
+    What people notice is that a bigger-than-usual paycheck often has a bigger
+    share withheld — and that is a withholding quirk, not a tax on overtime.
+  </p>
+
+  <h2>Why a big paycheck looks over-taxed</h2>
+  <p>
+    Employers calculate federal income tax withholding by <em>annualising</em>
+    each paycheck: they assume every check this year will be the size of this
+    one, work out the tax on that inflated annual figure, and withhold a
+    proportional slice.
+  </p>
+  <p>
+    If you normally earn $1,500 a week but this week you earned $2,400 with
+    overtime, payroll briefly treats you as a <code>$2,400 &times; 52 =
+    $124,800</code> earner and withholds at that higher bracket — just for that
+    check. Social Security (6.2%) and Medicare (1.45%) are flat percentages, so
+    those rise in exact proportion and nothing unusual happens there.
+  </p>
+
+  <h2>It evens out</h2>
+  <p>
+    Your actual income tax is settled once a year when you file a return. It is
+    based on your real total income, not on any single paycheck. If the
+    annualising method caused too much to be withheld from your overtime weeks,
+    the excess comes back as a larger refund (or a smaller amount owed). You do
+    not lose it.
+  </p>
+  <p>
+    The trade-off is timing: over-withholding is an interest-free loan to the
+    government until you file. If you regularly work overtime and want more in
+    each check instead of a bigger refund, you can adjust your Form W-4 — but do
+    it carefully, because under-withholding can leave you with a bill.
+  </p>
+
+  <h2>The bonus method (supplemental wages)</h2>
+  <p>
+    Overtime paid in your normal paycheck is withheld with your normal wages.
+    But if overtime or a bonus is paid <em>separately</em>, the employer may use
+    the IRS <strong>supplemental wage</strong> method: a flat 22% federal
+    withholding on amounts up to $1 million. That flat 22% can be higher or
+    lower than your real marginal rate, which again squares up at tax time.
+  </p>
+
+  <h2>The 2025–2028 federal overtime deduction</h2>
+  <p>
+    A 2025 federal law created a temporary <strong>deduction for qualified
+    overtime pay</strong> for tax years 2025 through 2028. In outline:
+  </p>
+  <ul>
+    <li>It applies to the "half" premium portion of FLSA overtime — the extra 0.5&times; on top of your regular rate, not the whole time-and-a-half amount.</li>
+    <li>The deduction is capped (reported figures are $12,500 for a single filer and $25,000 for a joint return) and phases out at higher incomes.</li>
+    <li>It is an income-tax deduction you claim on your return. It does <em>not</em> exempt overtime from Social Security or Medicare, and it does not change what your employer withholds unless IRS guidance says otherwise.</li>
+    <li>Your employer reports qualifying overtime so you can claim it.</li>
+  </ul>
+  <p>
+    Because this provision is new, temporary, and subject to IRS guidance,
+    confirm the current rules and amounts with the
+    <a href="https://www.irs.gov/" rel="noopener">IRS</a> or a tax professional
+    before relying on them.
+  </p>
+
+  <h2>What actually reduces your overtime take-home</h2>
+  <ul>
+    <li><strong>Bracket creep within the year:</strong> extra income can push part of your earnings into a higher marginal bracket — but only the amount above each threshold is taxed at the higher rate.</li>
+    <li><strong>Percentage-based deductions:</strong> a 401(k) set at 6% takes 6% of the bigger check too (this is saving, not tax).</li>
+    <li><strong>Wage garnishments:</strong> some are calculated as a percentage of disposable earnings, so they scale with the check.</li>
+  </ul>
+
+  <h2>See the numbers</h2>
+  <p>
+    The <a href="/calculators/overtime-calculator/">Overtime Calculator</a> shows
+    your gross overtime pay. Put that gross into the
+    <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a> to see an
+    itemised federal, FICA, and state withholding estimate for the period, and
+    compare it with a normal week. The
+    <a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a>
+    shows the annual picture.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.irs.gov/forms-pubs/about-publication-15-t" rel="noopener">IRS — Publication 15-T, Federal Income Tax Withholding Methods</a> (percentage and wage-bracket methods)</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/supplemental-wages" rel="noopener">IRS — Supplemental wages</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/23-flsa-overtime-pay" rel="noopener">US Department of Labor — Fact Sheet #23: Overtime Pay</a></li>
+    <li><a href="https://www.irs.gov/" rel="noopener">IRS — current guidance on the deduction for qualified overtime compensation</a></li>
+  </ul>
+  <p>This guide is general information, not tax advice — see the <a href="/disclaimer/">Disclaimer</a>.</p>
+</GuideLayout>

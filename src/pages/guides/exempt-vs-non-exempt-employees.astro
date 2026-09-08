@@ -1,0 +1,113 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["exempt-vs-non-exempt-employees"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    Under the US Fair Labor Standards Act (FLSA), every employee is either
+    <strong>non-exempt</strong> — entitled to at least the minimum wage and
+    overtime after 40 hours in a workweek — or <strong>exempt</strong> from
+    those rules. Whether you get overtime depends entirely on which side of that
+    line you fall, and it is not a matter of what your job is called.
+  </p>
+
+  <h2>The three-part test for exemption</h2>
+  <p>
+    To be exempt under the common "white collar" exemptions, an employee
+    generally must meet <em>all three</em> of the following. Fail any one and
+    you are non-exempt.
+  </p>
+  <ol>
+    <li>
+      <strong>Salary basis.</strong> You are paid a predetermined amount each
+      pay period that does not drop because of the quantity or quality of your
+      work. Docking a salaried exempt worker for a few hours off usually breaks
+      this test.
+    </li>
+    <li>
+      <strong>Salary level.</strong> That amount is at least the federal
+      threshold. As of the current federal rule this is <strong>$684 per week
+      ($35,568 per year)</strong>. A 2024 rule raised it, but courts vacated
+      that increase in late 2024, so the $684 figure applies federally unless
+      and until it changes. Several states set a higher floor.
+    </li>
+    <li>
+      <strong>Duties.</strong> Your primary duties fit an exemption category —
+      executive, administrative, professional, outside sales, or certain
+      computer roles. The title on your contract is irrelevant; what matters is
+      what you actually do day to day.
+    </li>
+  </ol>
+
+  <h2>The duties tests in brief</h2>
+  <ul>
+    <li><strong>Executive:</strong> primary duty is managing; regularly directs the work of at least two full-time employees; has real say in hiring and firing.</li>
+    <li><strong>Administrative:</strong> primary duty is office or non-manual work directly related to management or business operations, and includes the exercise of independent judgement on significant matters.</li>
+    <li><strong>Professional:</strong> work requiring advanced knowledge in a field of science or learning usually acquired by prolonged specialised instruction (law, medicine, engineering, accounting), or creative/artistic work.</li>
+    <li><strong>Outside sales:</strong> primary duty is making sales, and you are customarily away from the employer's place of business. No salary threshold applies.</li>
+    <li><strong>Highly compensated:</strong> total annual pay at or above a high threshold and you customarily perform at least one exempt duty.</li>
+  </ul>
+
+  <h2>Jobs that are always non-exempt</h2>
+  <p>
+    Regardless of pay, "blue collar" workers and first responders are
+    non-exempt: construction and maintenance workers, technicians, police,
+    firefighters, paramedics, and similar roles. Paying them a salary does not
+    make them exempt — they are still owed overtime.
+  </p>
+
+  <h2>Salaried does not mean exempt</h2>
+  <p>
+    This is the most common misunderstanding. A <strong>salaried non-exempt</strong>
+    employee is paid a fixed salary <em>and</em> is still entitled to overtime.
+    Their regular rate for overtime is the weekly salary divided by the hours it
+    is intended to cover, and overtime hours are paid on top. See
+    <a href="/guides/how-to-calculate-overtime-pay/">how to calculate overtime
+    pay</a> and <a href="/guides/salary-vs-hourly-pay/">salary vs hourly pay</a>.
+  </p>
+
+  <h2>Misclassification</h2>
+  <p>
+    Treating a non-exempt worker as exempt — to avoid paying overtime — is a
+    frequent FLSA violation. Warning signs:
+  </p>
+  <ul>
+    <li>A "manager" or "coordinator" title but no real authority and mostly the same tasks as the team.</li>
+    <li>Salary below $684 a week (or your state's higher figure) with no overtime paid.</li>
+    <li>Being told salaried employees "never get overtime" as a blanket rule.</li>
+    <li>Deductions from a salaried worker's pay for partial-day absences, which can itself destroy the exemption.</li>
+  </ul>
+  <p>
+    Back pay for unpaid overtime can generally be claimed for two years (three
+    if the violation was wilful). Complaints go to the Department of Labor's
+    Wage and Hour Division or the equivalent state agency.
+  </p>
+
+  <h2>State rules can be stricter</h2>
+  <p>
+    States may set a higher salary threshold, a stricter duties test, or daily
+    overtime. California, for example, ties its exempt salary floor to twice the
+    state minimum wage and requires overtime after 8 hours in a day. Where state
+    and federal rules differ, the one more favourable to the employee applies.
+  </p>
+
+  <h2>Check your overtime</h2>
+  <p>
+    If you are (or should be) non-exempt, the
+    <a href="/calculators/overtime-calculator/">Overtime Calculator</a> works out
+    what time-and-a-half on your hours comes to, and the
+    <a href="/calculators/time-card-calculator/">Time Card Calculator</a> applies
+    the split across a full week of shifts.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/17a-overtime" rel="noopener">US Department of Labor — Fact Sheet #17A: Exemption for Executive, Administrative, Professional, Computer &amp; Outside Sales Employees</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/17g-overtime-salary" rel="noopener">US Department of Labor — Fact Sheet #17G: Salary Basis Requirement</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/17i-overtime-blue-collar" rel="noopener">US Department of Labor — Fact Sheet #17I: Blue-Collar Workers and First Responders</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/overtime" rel="noopener">US Department of Labor — Overtime Pay (current salary threshold)</a></li>
+  </ul>
+  <p>This is general information, not legal advice — see the <a href="/disclaimer/">Disclaimer</a>.</p>
+</GuideLayout>

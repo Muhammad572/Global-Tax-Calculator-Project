@@ -1,0 +1,97 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["what-is-double-time-pay"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    <strong>Double time</strong> is twice your regular hourly rate — a
+    multiplier of 2.0, compared with 1.5 for standard "time and a half"
+    overtime. On $22 an hour, double time is $44 an hour.
+  </p>
+
+  <h2>There is no federal double-time requirement</h2>
+  <p>
+    The US Fair Labor Standards Act only requires <em>time and a half</em> after
+    40 hours in a workweek. It says nothing about double time, and nothing about
+    extra pay for weekends, nights, or holidays. Any double time you receive
+    comes from one of these instead:
+  </p>
+  <ul>
+    <li><strong>State law</strong> — most notably California (see below).</li>
+    <li><strong>A union contract or collective agreement</strong> — common in manufacturing, transport, and the trades.</li>
+    <li><strong>Employer policy</strong> — some employers voluntarily pay double time for holidays or for the seventh consecutive workday.</li>
+  </ul>
+
+  <h2>California's daily double-time rule</h2>
+  <p>
+    California is the main place double time is required by law. For non-exempt
+    employees:
+  </p>
+  <table>
+    <thead><tr><th>Situation</th><th>Rate</th></tr></thead>
+    <tbody>
+      <tr><td>Over 8 hours in a workday, up to 12</td><td>1.5&times;</td></tr>
+      <tr><td>Over 12 hours in a workday</td><td>2.0&times;</td></tr>
+      <tr><td>First 8 hours on the 7th consecutive day in a workweek</td><td>1.5&times;</td></tr>
+      <tr><td>Over 8 hours on the 7th consecutive day</td><td>2.0&times;</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Example: a 14-hour shift in California is 8 hours at regular pay, 4 hours at
+    1.5&times;, and 2 hours at 2.0&times;. A few other states have day-based
+    overtime (Alaska, Nevada, and others at 1.5&times; over 8 hours) but not the
+    2.0&times; tier.
+  </p>
+
+  <h2>"Double time and a half"</h2>
+  <p>
+    Some contracts use a 2.5&times; rate — often called "double time and a
+    half" — for holidays worked or for extreme overtime. Again, this is
+    contractual, not a legal minimum anywhere in the US.
+  </p>
+
+  <h2>How to calculate it</h2>
+  <p><code>double-time pay = regular hourly rate &times; 2 &times; double-time hours</code></p>
+  <p>
+    The tricky part is the same as with any overtime: the <em>regular rate</em>
+    may not equal your base wage. Non-discretionary bonuses, shift
+    differentials, and multiple pay rates in a week all feed into it under
+    federal and California law. See
+    <a href="/guides/how-to-calculate-overtime-pay/">how to calculate overtime
+    pay</a> for the regular-rate rules.
+  </p>
+
+  <h2>Holidays: usually not double time</h2>
+  <p>
+    In the US private sector there is no legal right to premium pay for working
+    a public holiday. "Holiday pay" at 1.5&times; or 2&times; is an employer
+    benefit. Federal employees and many union members do have holiday premium
+    provisions; check your contract or employee handbook.
+  </p>
+
+  <h2>Is double time taxed differently?</h2>
+  <p>
+    No. Like all overtime, double-time pay is taxed as ordinary wages. A large
+    paycheck can be over-withheld because payroll annualises it, but that evens
+    out when you file — see <a href="/guides/is-overtime-taxed-more/">is
+    overtime taxed more?</a>
+  </p>
+
+  <h2>Calculate a shift with a double-time tier</h2>
+  <p>
+    The <a href="/calculators/overtime-calculator/">Overtime Calculator</a> lets
+    you pick the California rule (which applies the 1.5&times; and 2.0&times;
+    tiers) or set a custom multiplier. The
+    <a href="/calculators/time-card-calculator/">Time Card Calculator</a> applies
+    daily and weekly overtime across a full week of shifts.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.dir.ca.gov/dlse/faq_overtime.htm" rel="noopener">California Department of Industrial Relations — Overtime FAQ (daily double time)</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/23-flsa-overtime-pay" rel="noopener">US Department of Labor — Fact Sheet #23: Overtime Pay (no federal double-time or holiday premium)</a></li>
+    <li><a href="https://www.dol.gov/general/topic/workhours/overtime" rel="noopener">US Department of Labor — Overtime</a></li>
+  </ul>
+</GuideLayout>

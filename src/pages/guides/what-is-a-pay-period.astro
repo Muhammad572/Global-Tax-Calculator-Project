@@ -1,0 +1,98 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["what-is-a-pay-period"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    A <strong>pay period</strong> is the recurring stretch of time that one
+    paycheck covers. If you are paid every other Friday for the two weeks that
+    just ended, that two-week block is your pay period. It is set by your
+    employer and stays the same from one paycheck to the next.
+  </p>
+
+  <h2>Pay period vs pay date</h2>
+  <p>
+    These are two different things:
+  </p>
+  <ul>
+    <li>The <strong>pay period</strong> is the work time being paid for — for example, the 1st through the 15th.</li>
+    <li>The <strong>pay date</strong> (payday) is when the money actually arrives — for example, the 22nd.</li>
+  </ul>
+  <p>
+    The gap between them is the <em>payroll lag</em>: the days payroll needs to
+    collect hours, run the calculation, and send payments. A lag of a few days
+    to a full period is normal. It is also why your first paycheck at a new job
+    can feel delayed and your last one arrives after you have left.
+  </p>
+
+  <h2>The four common pay periods</h2>
+  <table>
+    <thead><tr><th>Type</th><th>Frequency</th><th>Paychecks / year</th><th>Typical use</th></tr></thead>
+    <tbody>
+      <tr><td>Weekly</td><td>Every week</td><td>52</td><td>Construction, trades, hospitality, agriculture</td></tr>
+      <tr><td>Biweekly</td><td>Every two weeks</td><td>26 (sometimes 27)</td><td>The most common US schedule overall</td></tr>
+      <tr><td>Semimonthly</td><td>Twice a month (fixed dates)</td><td>24</td><td>Salaried office roles</td></tr>
+      <tr><td>Monthly</td><td>Once a month</td><td>12</td><td>Some executive, academic, and international payrolls</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Biweekly and semimonthly are easy to mix up. Biweekly is every 14 days, so
+    the payday drifts through the month and lands 26 times a year. Semimonthly
+    is on set dates such as the 15th and the last day, exactly 24 times a year.
+    See <a href="/guides/biweekly-vs-semimonthly-pay/">biweekly vs semimonthly
+    pay</a> for the full comparison.
+  </p>
+
+  <h2>The workweek is a separate clock</h2>
+  <p>
+    For overtime, US federal law does not use the pay period at all. It uses a
+    fixed, recurring <strong>workweek</strong>: any 168 consecutive hours (seven
+    24-hour days) that the employer designates. Overtime is owed for hours over
+    40 in that workweek, even if the pay period contains two workweeks or splits
+    one down the middle.
+  </p>
+  <p>
+    Example: you are paid semimonthly, and a workweek runs Sunday to Saturday.
+    The period ending on the 15th (a Wednesday) cuts that week in half. Your
+    employer still has to add up all the hours in the Sunday-to-Saturday week to
+    decide whether any were overtime, then pay the overtime on whichever
+    paycheck covers those days.
+  </p>
+
+  <h2>Why the pay period matters to you</h2>
+  <ul>
+    <li><strong>Budgeting:</strong> a weekly earner and a monthly earner on the same salary manage cash flow very differently.</li>
+    <li><strong>Deductions:</strong> health premiums and other fixed deductions are an annual figure divided by the number of pay periods, so a semimonthly check has a larger deduction than a biweekly one for the same benefit.</li>
+    <li><strong>Starting and leaving a job:</strong> the payroll lag means your first check may only cover part of a period, and your final check comes on the next regular payday (or sooner, where state law requires).</li>
+    <li><strong>Overtime disputes:</strong> if you think overtime is missing, you need to know both your pay period and your employer's designated workweek to check the math.</li>
+  </ul>
+
+  <h2>Salaried pay and the pay period</h2>
+  <p>
+    For a salaried employee, each paycheck is the annual salary divided by the
+    number of pay periods: <code>salary &divide; 24</code> semimonthly,
+    <code>salary &divide; 26</code> biweekly. The amount is the same every
+    period regardless of how many working days it contains, which is part of
+    what "salary basis" means under the
+    <a href="/guides/exempt-vs-non-exempt-employees/">FLSA exemption rules</a>.
+  </p>
+
+  <h2>Check a specific paycheck</h2>
+  <p>
+    The <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a> takes
+    a pay frequency and shows the withholding and net pay for one period. The
+    <a href="/calculators/time-card-calculator/">Time Card Calculator</a> adds up
+    a week or two of shifts, and the
+    <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
+    Calculator</a> converts a salary across every pay frequency.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/23-flsa-overtime-pay" rel="noopener">US Department of Labor — Fact Sheet #23: Overtime Pay Requirements of the FLSA</a> (workweek definition)</li>
+    <li><a href="https://www.dol.gov/agencies/whd/state/payday" rel="noopener">US Department of Labor — State Payday Requirements</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/17g-overtime-salary" rel="noopener">US Department of Labor — Fact Sheet #17G: Salary Basis Requirement</a></li>
+  </ul>
+</GuideLayout>

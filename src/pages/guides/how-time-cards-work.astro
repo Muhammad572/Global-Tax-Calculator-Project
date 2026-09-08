@@ -7,72 +7,124 @@ const g = GUIDES_BY_SLUG["how-time-cards-work"]!;
 <GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
   <p>
     A time card is a record of when you started and stopped work each day in a
-    pay period. Payroll uses it to work out how many hours to pay you for,
-    including overtime. It can be a paper sheet, a spreadsheet, or entries in a
-    time-tracking app.
+    pay period. Payroll uses it to decide how many hours to pay you for,
+    including overtime. It can be a paper sheet, a spreadsheet, a punch-clock
+    card, or entries in a time-tracking app — the principle is the same.
   </p>
 
   <h2>What a time card records</h2>
   <ul>
-    <li>The <strong>date</strong> and <strong>day</strong>.</li>
+    <li>The <strong>date</strong> and <strong>day of the week</strong>.</li>
     <li><strong>Clock in</strong> and <strong>clock out</strong> times — one pair per shift, or more if you leave and return.</li>
-    <li><strong>Unpaid breaks</strong>, usually lunch, in minutes.</li>
-    <li>Sometimes a <strong>job or project code</strong> so hours can be allocated.</li>
+    <li><strong>Unpaid breaks</strong>, usually the meal break, in minutes.</li>
+    <li>Sometimes a <strong>job, project, or department code</strong> so hours can be allocated to the right budget.</li>
+    <li>A <strong>total</strong> per day and per period, and often a space for your signature and a supervisor's approval.</li>
   </ul>
+
+  <h2>Paper, punch clock, or app</h2>
+  <table>
+    <thead><tr><th>Type</th><th>How time is captured</th><th>Watch for</th></tr></thead>
+    <tbody>
+      <tr><td>Paper / spreadsheet</td><td>You write the times</td><td>Estimating from memory; math errors in the totals</td></tr>
+      <tr><td>Mechanical punch clock</td><td>Stamps a card</td><td>Rounding of the stamped time</td></tr>
+      <tr><td>App or web portal</td><td>Button press, sometimes GPS-tagged</td><td>Auto-deducted meal breaks you did not take</td></tr>
+      <tr><td>Biometric (fingerprint / face)</td><td>Scan on a shared terminal</td><td>Queue time before your shift; scanner misreads</td></tr>
+    </tbody>
+  </table>
 
   <h2>Filling one out</h2>
   <ol>
-    <li>Record your actual start and finish times to the minute, as you go — not from memory at the end of the week.</li>
-    <li>Note the length of any unpaid break.</li>
-    <li>At the end of each day, work out the hours: <code>(clock out − clock in) − unpaid break</code>.</li>
+    <li>Record your actual start and finish times to the minute, as they happen — not from memory at the end of the week.</li>
+    <li>Note the length of any unpaid break. If you worked through it, record that you did and do not deduct it.</li>
+    <li>At the end of each day, work out the hours: <code>(clock out &minus; clock in) &minus; unpaid break</code>.</li>
     <li>At the end of the period, add the daily totals and convert to decimal hours for payroll.</li>
-    <li>Sign it if your employer requires a signature, and keep your own copy.</li>
+    <li>Sign it if a signature is required, submit it by the deadline, and keep your own copy.</li>
   </ol>
   <p>
     The <a href="/calculators/time-card-calculator/">Time Card Calculator</a> does
-    steps 3–4 for a whole week and applies overtime. For a stack of raw punches,
-    the <a href="/calculators/time-clock-calculator/">Time Clock Calculator</a>
+    steps 3&ndash;4 for a whole week and applies the overtime split. For a stack
+    of raw in/out punches, the
+    <a href="/calculators/time-clock-calculator/">Time Clock Calculator</a>
     totals them into decimal hours.
   </p>
 
-  <h2>Pay periods</h2>
+  <h2>Pay periods and the workweek</h2>
   <p>
-    A time card covers one pay period. Common periods are weekly (52 a year),
-    biweekly (26), and semi-monthly (24, on set dates like the 15th and last
-    day). Overtime is generally figured on each <em>workweek</em>, even when the
-    pay period is longer.
+    A time card covers one pay period — commonly weekly (52 a year), biweekly
+    (26), or semimonthly (24, on set dates). Overtime is calculated on each
+    <em>workweek</em>, a fixed seven-day span the employer defines, even when
+    the pay period is longer or splits a week. See
+    <a href="/guides/what-is-a-pay-period/">what is a pay period</a> and
+    <a href="/guides/biweekly-vs-semimonthly-pay/">biweekly vs semimonthly
+    pay</a>.
   </p>
 
   <h2>How employers round punch times</h2>
   <p>
-    Rounding to the nearest 5, 6 (a tenth of an hour), or 15 minutes is common.
-    In the US, the FLSA allows rounding only if, over time, it does not
-    systematically underpay employees. The "7-minute rule" for 15-minute
-    rounding sends 1–7 minutes down and 8–14 up. Rounding must be applied the
-    same way whether it helps or hurts the worker.
+    Rounding each punch to the nearest 5, 6 (a tenth of an hour), or 15 minutes
+    is common. In the US the FLSA allows it only if, over time, it does not
+    systematically underpay employees, and it must be applied the same way
+    whether it helps or hurts the worker. The details and the "7-minute rule"
+    are in <a href="/guides/time-clock-rounding-rules/">time clock rounding
+    rules</a>.
   </p>
 
-  <h2>Record-keeping</h2>
+  <h2>Corrections and missed punches</h2>
+  <p>
+    If you forget to clock in or out, tell your supervisor the same day and
+    submit a written correction with the actual times. Do not leave it blank or
+    guess later. Employers can edit time records, but they must reflect the
+    hours you actually worked; an edit that removes real worked time is a
+    violation.
+  </p>
+
+  <h2>Record-keeping requirements</h2>
   <p>
     US employers must keep accurate records of hours worked for non-exempt
-    employees, generally for at least two to three years depending on the record.
-    Your own copy of each time card is your evidence if there is ever a dispute
-    about hours or pay.
+    employees. Basic payroll records are kept for at least three years, and the
+    records used to compute pay (time cards, schedules, wage-rate tables) for at
+    least two. Your own copy of each time card is your evidence if there is ever
+    a dispute about hours or pay.
+  </p>
+
+  <h2>Do salaried employees fill out time cards?</h2>
+  <p>
+    Exempt salaried employees are not legally required to track hours for pay,
+    but many still submit time records for project costing, leave tracking, or
+    client billing. Salaried <em>non-exempt</em> employees should track hours,
+    because they are still owed overtime — see
+    <a href="/guides/exempt-vs-non-exempt-employees/">exempt vs non-exempt
+    employees</a>.
   </p>
 
   <h2>Common mistakes that cost hours</h2>
   <ul>
-    <li>Logging scheduled hours instead of actual hours worked.</li>
-    <li>Forgetting an overnight shift crosses midnight.</li>
-    <li>Deducting a lunch that was not actually taken.</li>
-    <li>Writing 7 hours 30 minutes as 7.30 instead of 7.50.</li>
-    <li>Not recording short shifts, callbacks, or time spent on required tasks before or after a shift.</li>
+    <li>Logging <em>scheduled</em> hours instead of <em>actual</em> hours worked.</li>
+    <li>Forgetting that an overnight shift crosses midnight.</li>
+    <li>Letting the system auto-deduct a lunch that was not actually taken.</li>
+    <li>Writing 7 hours 30 minutes as "7.30" instead of 7.50.</li>
+    <li>Not recording short shifts, call-backs, or required tasks done before or after clocking.</li>
+    <li>Missing the submission deadline and being paid an estimate instead.</li>
   </ul>
 
-  <h2>Related</h2>
+  <h2>Frequently asked questions</h2>
+  <h3>What if my employer changed my time card?</h3>
+  <p>
+    Ask for the reason in writing and compare it against your own record.
+    Legitimate corrections happen; removing worked time does not. Persistent
+    discrepancies can be reported to the Department of Labor or your state
+    labour agency.
+  </p>
+  <h3>Can I be disciplined for a time-card error?</h3>
+  <p>
+    For an honest mistake, usually not. Deliberately falsifying a time card —
+    yours or a coworker's ("buddy punching") — is grounds for termination.
+  </p>
+
+  <h2>Sources</h2>
   <ul>
-    <li><a href="/guides/how-to-calculate-hours-worked/">How to calculate hours worked</a></li>
-    <li><a href="/guides/how-to-calculate-overtime-pay/">How to calculate overtime pay</a></li>
-    <li><a href="/calculators/hours-worked-calculator/">Hours Worked Calculator</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/21-flsa-recordkeeping" rel="noopener">US Department of Labor — Fact Sheet #21: Recordkeeping Requirements under the FLSA</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/22-flsa-hours-worked" rel="noopener">US Department of Labor — Fact Sheet #22: Hours Worked</a></li>
+    <li><a href="https://www.ecfr.gov/current/title-29/subtitle-B/chapter-V/subchapter-B/part-785/section-785.48" rel="noopener">29 CFR 785.48 — Use of time clocks</a></li>
   </ul>
 </GuideLayout>

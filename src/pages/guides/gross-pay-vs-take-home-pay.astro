@@ -8,75 +8,125 @@ const g = GUIDES_BY_SLUG["gross-pay-vs-take-home-pay"]!;
   <p>
     <strong>Gross pay</strong> is what you earn before anything is taken out.
     <strong>Take-home pay</strong> (net pay) is what actually lands in your
-    account after deductions. The gap is usually 20–35% of gross, depending on
-    your income, where you live, and your benefit elections.
+    account. For most US workers the gap is 20&ndash;35% of gross, depending on
+    income, state, and benefit elections.
   </p>
-  <p><code>take-home pay = gross pay − pre-tax deductions − taxes withheld − post-tax deductions</code></p>
+  <p><code>take-home = gross &minus; pre-tax deductions &minus; taxes withheld &minus; post-tax deductions</code></p>
 
   <h2>What comes out of a US paycheck</h2>
   <h3>1. Pre-tax deductions</h3>
   <p>
-    Taken before tax is calculated, so they also lower your taxable income:
-    traditional 401(k) or 403(b) contributions, HSA and FSA contributions, and
-    health, dental, and vision premiums paid through a Section 125 plan.
+    Taken before income tax is calculated, so they also lower your taxable
+    wages: traditional 401(k) or 403(b) contributions, HSA and FSA
+    contributions, and health, dental, and vision premiums paid through a
+    Section 125 plan. Note that 401(k) contributions still have Social Security
+    and Medicare taken on them — only the health-type deductions escape
+    <a href="/guides/what-are-fica-taxes/">FICA</a>.
   </p>
 
   <h3>2. Federal income tax withholding</h3>
   <p>
     A running prepayment toward your annual federal tax bill. Your employer uses
-    the IRS Publication 15-T method and the information on your Form W-4 (filing
-    status, dependents, other income, extra withholding). It is an estimate — the
-    exact amount is settled on your tax return.
+    the IRS Publication 15-T method and your Form W-4 (filing status,
+    dependents, other income, extra withholding). It is an estimate — the exact
+    figure is settled on your tax return, which is why you get a refund or owe.
   </p>
 
   <h3>3. FICA — Social Security and Medicare</h3>
   <ul>
-    <li><strong>Social Security:</strong> 6.2% of wages, up to the annual wage base ($184,500 for 2026). Nothing is withheld above that.</li>
-    <li><strong>Medicare:</strong> 1.45% of all wages, with no cap.</li>
-    <li><strong>Additional Medicare:</strong> an extra 0.9% on wages over $200,000 in a year. Employers withhold it regardless of filing status.</li>
+    <li><strong>Social Security:</strong> 6.2% of wages up to the annual wage base ($184,500 for 2026). Nothing above that.</li>
+    <li><strong>Medicare:</strong> 1.45% of all wages, no cap.</li>
+    <li><strong>Additional Medicare:</strong> an extra 0.9% on wages over $200,000 in a year.</li>
   </ul>
 
-  <h3>4. State (and sometimes local) income tax withholding</h3>
+  <h3>4. State (and sometimes local) income tax</h3>
   <p>
     Most states withhold income tax; nine do not tax wage income at all. Some
     cities — New York City, Yonkers, and Philadelphia among them — add a local
-    tax. Rules and rates vary widely.
+    tax. This is the single biggest reason two people on the same salary have
+    different take-home.
   </p>
 
   <h3>5. Post-tax deductions</h3>
   <p>
-    Taken after tax: Roth 401(k) contributions, disability insurance premiums,
-    union dues, garnishments, and charitable payroll deductions.
+    Taken after tax: Roth 401(k) contributions, disability and some life
+    insurance, union dues, charitable payroll giving, and wage garnishments.
+    Garnishments follow a legal priority order — child support first, then
+    federal tax levies, then other court orders.
   </p>
+
+  <h2>A worked example</h2>
+  <p>
+    Single filer, paid $2,500 gross semimonthly ($60,000/year), in a state with
+    no income tax, contributing 5% to a traditional 401(k) and $100 to health
+    premiums:
+  </p>
+  <table>
+    <thead><tr><th>Line</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>Gross pay</td><td>$2,500.00</td></tr>
+      <tr><td>Health premium (pre-tax)</td><td>&minus;$100.00</td></tr>
+      <tr><td>401(k) 5% (pre-tax for income tax)</td><td>&minus;$125.00</td></tr>
+      <tr><td>Federal income tax withholding (approx.)</td><td>&minus;$205.00</td></tr>
+      <tr><td>Social Security — 6.2% of $2,400</td><td>&minus;$148.80</td></tr>
+      <tr><td>Medicare — 1.45% of $2,400</td><td>&minus;$34.80</td></tr>
+      <tr><td><strong>Take-home pay</strong></td><td><strong>&asymp; $1,886</strong></td></tr>
+    </tbody>
+  </table>
+  <p>
+    FICA is calculated on $2,400 because the health premium is FICA-exempt but
+    the 401(k) is not. Figures are illustrative — your W-4 entries change the
+    federal withholding.
+  </p>
+
+  <h2>How to legitimately increase your take-home</h2>
+  <ul>
+    <li><strong>Fix an inaccurate W-4.</strong> Over-withholding gives you a big refund but a smaller paycheck all year. The IRS Tax Withholding Estimator can dial it in.</li>
+    <li><strong>Use pre-tax benefits you would pay for anyway</strong> — HSA, FSA, commuter benefits — so those dollars skip income tax (and FICA, for the health-type ones).</li>
+    <li><strong>Review post-tax deductions</strong> for anything you no longer need.</li>
+  </ul>
+  <p>Cutting your 401(k) raises take-home now but reduces retirement savings and the tax deferral — a trade-off, not a free gain.</p>
 
   <h2>Reading a pay stub</h2>
   <p>
-    A stub shows gross pay for the period, each deduction on its own line
-    (usually with a year-to-date column), and net pay at the bottom. Check that
-    your gross matches your hours and rate, and that your filing status and any
-    pre-tax elections look right.
+    A stub shows gross for the period, each deduction on its own line with a
+    year-to-date column, and net pay at the bottom. The line-by-line walkthrough
+    is in <a href="/guides/how-to-read-a-pay-stub/">how to read a pay stub</a>.
   </p>
 
   <h2>Estimate your take-home</h2>
   <ul>
     <li><a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a> — from an annual salary, per year / month / paycheck.</li>
-    <li><a href="/calculators/paycheck-calculator/">Paycheck Calculator</a> — one paycheck, with the full deduction stack.</li>
+    <li><a href="/calculators/paycheck-calculator/">Paycheck Calculator</a> — one paycheck, with the full deduction stack itemised.</li>
   </ul>
   <p>
-    Both currently support US tax year 2026: federal, FICA, and the states
-    California, New York, Illinois, and Pennsylvania, plus the no-income-tax
-    states. Other states, local taxes, and other countries are not yet modelled —
-    the tools say so rather than guessing.
+    Both support US tax year 2026: federal, FICA, and the states California,
+    New York, Illinois, and Pennsylvania, plus the no-income-tax states. Other
+    states, local taxes, and other countries are not yet modelled — the tools
+    say so rather than guessing.
+  </p>
+
+  <h2>Frequently asked questions</h2>
+  <h3>Why is my paycheck so much less than my salary &divide; 24?</h3>
+  <p>
+    Because salary &divide; 24 is gross. Subtract federal tax, FICA (7.65%),
+    state tax, and your benefit elections to get net.
+  </p>
+  <h3>Does everyone lose the same percentage?</h3>
+  <p>
+    No. It rises with income (higher brackets) and varies a lot by state — a
+    high earner in California keeps a smaller share than the same earner in
+    Texas.
   </p>
 
   <h2>Sources</h2>
   <ul>
     <li><a href="https://www.irs.gov/forms-pubs/about-publication-15-t" rel="noopener">IRS Publication 15-T — Federal Income Tax Withholding Methods</a></li>
     <li><a href="https://www.ssa.gov/oact/cola/cbb.html" rel="noopener">Social Security Administration — Contribution and Benefit Base</a></li>
-    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax" rel="noopener">IRS — Additional Medicare Tax</a></li>
+    <li><a href="https://www.irs.gov/individuals/tax-withholding-estimator" rel="noopener">IRS — Tax Withholding Estimator</a></li>
   </ul>
   <p>
-    The full list of state withholding sources and the exact figures used is on
-    the <a href="/methodology/">Methodology &amp; Sources</a> page.
+    The full list of state withholding sources and exact figures is on the
+    <a href="/methodology/">Methodology &amp; Sources</a> page.
   </p>
 </GuideLayout>

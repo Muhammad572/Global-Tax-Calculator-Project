@@ -1,0 +1,109 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["time-clock-rounding-rules"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    Many employers do not pay from the exact minute you clock in. They
+    <strong>round</strong> punch times to a set increment — usually the nearest
+    5, 6, or 15 minutes — before calculating pay. US federal rules allow this,
+    but only within limits. This guide explains the well-known "7-minute rule",
+    when rounding is lawful, and how to check whether it is costing you.
+  </p>
+
+  <h2>Why employers round</h2>
+  <p>
+    Rounding dates back to mechanical punch clocks and is still used to keep
+    payroll tidy. The FLSA regulation (29 CFR 785.48) permits recording time
+    "to the nearest 5 minutes, or to the nearest one-tenth or quarter of an
+    hour", <em>provided</em> the practice does not, over time, fail to
+    compensate employees for all the time they actually work.
+  </p>
+
+  <h2>The 7-minute rule (15-minute rounding)</h2>
+  <p>
+    With quarter-hour rounding, each punch is moved to the nearest :00, :15,
+    :30, or :45. The midpoint is 7&frac12; minutes:
+  </p>
+  <ul>
+    <li>Clock in at <strong>8:07</strong> &rarr; rounds back to 8:00 (you gain up to 7 minutes).</li>
+    <li>Clock in at <strong>8:08</strong> &rarr; rounds forward to 8:15 (you lose up to 7 minutes).</li>
+  </ul>
+  <table>
+    <thead><tr><th>Actual punch</th><th>Minutes past the quarter</th><th>Rounds to</th></tr></thead>
+    <tbody>
+      <tr><td>9:00–9:07</td><td>0–7</td><td>9:00</td></tr>
+      <tr><td>9:08–9:14</td><td>8–14</td><td>9:15</td></tr>
+      <tr><td>9:15–9:22</td><td>0–7</td><td>9:15</td></tr>
+      <tr><td>9:23–9:29</td><td>8–14</td><td>9:30</td></tr>
+    </tbody>
+  </table>
+
+  <h2>When rounding is legal — and when it is not</h2>
+  <p>
+    Rounding is acceptable only if it is <strong>neutral</strong>: over a period
+    of time it should balance out, sometimes favouring the employee and
+    sometimes the employer. It is unlawful when it is systematically
+    one-sided, for example:
+  </p>
+  <ul>
+    <li>Rounding clock-ins <em>up</em> and clock-outs <em>down</em> (always against the worker).</li>
+    <li>Only rounding in the employer's favour ("grace periods" that never add time).</li>
+    <li>Editing or auto-deducting time for work that was actually performed, such as a missed break the employee worked through.</li>
+  </ul>
+  <p>
+    Courts have increasingly scrutinised rounding, and some states —
+    <strong>California</strong> in particular — have effectively rejected it for
+    hourly employees where exact time records exist. Where state law is stricter
+    or does not allow rounding, the state rule wins.
+  </p>
+
+  <h2>Rounding is not the same as decimal conversion</h2>
+  <p>
+    Turning 8 hours 45 minutes into 8.75 is exact arithmetic, not rounding — see
+    <a href="/guides/convert-minutes-to-decimal-hours/">how to convert minutes
+    to decimal hours</a>. Rounding changes the <em>times</em> before any
+    conversion happens.
+  </p>
+
+  <h2>Work that happens before or after a punch</h2>
+  <p>
+    Rounding cannot be used to avoid paying for real work. If you are required
+    to be at your station, boot up systems, or put on protective gear before
+    clocking in, that time is generally compensable ("donning and doffing" and
+    preliminary/postliminary activity rules). A rounding policy does not
+    override that.
+  </p>
+
+  <h2>How to check your own total</h2>
+  <ol>
+    <li>Write down your actual in and out times for the week from your own notes.</li>
+    <li>Add up the real minutes worked and convert once to decimal hours.</li>
+    <li>Compare with the hours on your pay stub.</li>
+    <li>A small difference that sometimes favours you is normal. A difference that is always against you, week after week, is a red flag.</li>
+  </ol>
+  <p>
+    Raise a persistent shortfall with payroll in writing. Unpaid-time claims go
+    to the Department of Labor's Wage and Hour Division or your state labour
+    agency, and back pay can usually be recovered for two years.
+  </p>
+
+  <h2>Add up your real hours</h2>
+  <p>
+    The <a href="/calculators/time-clock-calculator/">Time Clock Calculator</a>
+    turns a list of in/out punches into a decimal total with no rounding, so you
+    can compare it against your paid hours. The
+    <a href="/calculators/time-card-calculator/">Time Card Calculator</a> does
+    the same across a full week with breaks and overtime.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.ecfr.gov/current/title-29/subtitle-B/chapter-V/subchapter-B/part-785/subject-group-ECFR0f4a132da22cf82/section-785.48" rel="noopener">29 CFR 785.48 — Use of time clocks (rounding practices)</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/22-flsa-hours-worked" rel="noopener">US Department of Labor — Fact Sheet #22: Hours Worked Under the FLSA</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/21-flsa-recordkeeping" rel="noopener">US Department of Labor — Fact Sheet #21: Recordkeeping</a></li>
+    <li><a href="https://www.dir.ca.gov/dlse/faq_hoursworked.htm" rel="noopener">California DIR — Hours Worked FAQ</a></li>
+  </ul>
+</GuideLayout>

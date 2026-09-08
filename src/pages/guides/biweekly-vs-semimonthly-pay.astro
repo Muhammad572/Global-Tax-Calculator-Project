@@ -1,0 +1,105 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["biweekly-vs-semimonthly-pay"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    Biweekly and semimonthly sound similar and are often confused, but they
+    produce different numbers of paychecks, different paycheck sizes, and
+    different paydays. If you are comparing job offers or setting a budget, the
+    distinction matters.
+  </p>
+
+  <h2>The core difference</h2>
+  <table>
+    <thead><tr><th>&nbsp;</th><th>Biweekly</th><th>Semimonthly</th></tr></thead>
+    <tbody>
+      <tr><td>How often</td><td>Every two weeks (e.g. every other Friday)</td><td>Twice a month (e.g. the 15th and last day)</td></tr>
+      <tr><td>Paychecks per year</td><td>26 (occasionally 27)</td><td>24</td></tr>
+      <tr><td>Paycheck size for a $60,000 salary</td><td>$2,307.69</td><td>$2,500.00</td></tr>
+      <tr><td>Payday</td><td>Same weekday, drifts through the month</td><td>Fixed dates, weekday varies</td></tr>
+      <tr><td>Hours per check (hourly staff)</td><td>Always 80 for a 40-hour week</td><td>Varies: 80–96 depending on the period</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Why 26 vs 24 changes your paycheck</h2>
+  <p>
+    Your annual pay is the same either way; it is just divided into more or
+    fewer slices. A $60,000 salary is <code>60000 &divide; 26 = $2,307.69</code>
+    biweekly or <code>60000 &divide; 24 = $2,500.00</code> semimonthly. The
+    semimonthly checks are larger, but there are two fewer of them.
+  </p>
+  <p>
+    Because most months have two paydays under either system, a biweekly
+    schedule produces <strong>two months a year with three paychecks</strong>.
+    Many people treat those "extra" checks as a chance to save or pay down
+    debt, since their monthly budget is usually built around two.
+  </p>
+
+  <h2>The 27-paycheck year</h2>
+  <p>
+    A biweekly schedule pays 26 times in most years, but every 11 years or so a
+    calendar quirk creates a 27th payday. Employers handle it in one of two
+    ways: divide the annual salary by 27 that year (each check is slightly
+    smaller) or pay the normal amount 27 times (you earn a little extra). Ask
+    which applies before assuming your paycheck dropped by mistake.
+  </p>
+
+  <h2>Effect on hourly workers</h2>
+  <p>
+    For hourly staff, biweekly is simpler: a pay period is exactly two
+    workweeks, so a standard schedule is always 80 hours and overtime is
+    calculated cleanly within each week.
+  </p>
+  <p>
+    Semimonthly splits awkwardly across weeks. A period running the 1st to the
+    15th might contain 11 working days one month and 12 the next, and a single
+    workweek can straddle two pay periods. Overtime is still calculated by the
+    <em>workweek</em>, not the pay period, so payroll has to track hours across
+    the boundary. This is the main reason employers with many hourly workers
+    prefer biweekly.
+  </p>
+
+  <h2>Effect on benefit deductions</h2>
+  <p>
+    Deductions like health premiums are an annual amount spread across
+    paychecks. Semimonthly is tidy: the yearly premium divided by 24, the same
+    every check. Biweekly employers usually divide by 24 as well and simply
+    take <em>no</em> premium deduction on the two extra "third" paychecks each
+    year — so those checks are a little bigger still. Retirement contributions
+    set as a percentage come out of every check regardless.
+  </p>
+
+  <h2>Which is better for you?</h2>
+  <ul>
+    <li><strong>Budgeting to a monthly cycle:</strong> semimonthly lines up with rent and bills — two predictable paydays on roughly the same dates.</li>
+    <li><strong>Building in forced savings:</strong> biweekly's two bonus-feeling paychecks a year are easier to save when your budget already runs on two.</li>
+    <li><strong>Hourly with variable overtime:</strong> biweekly makes your pay easier to predict and check.</li>
+  </ul>
+  <p>
+    In practice you rarely get to choose — it is set by the employer. Weekly
+    (52 checks) and monthly (12) are the other options; weekly is common in
+    construction and hospitality, monthly for some salaried and executive
+    roles.
+  </p>
+
+  <h2>Work out your paycheck</h2>
+  <p>
+    The <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a> lets
+    you pick a pay frequency and see the withholding and net pay for one check.
+    The <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
+    Calculator</a> converts an annual figure to weekly, biweekly, semimonthly,
+    and monthly amounts side by side, and the
+    <a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a>
+    shows the per-paycheck take-home for a salary.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.bls.gov/ces/publications/highlights/2023/current-employment-statistics-highlights-11-2023.htm" rel="noopener">US Bureau of Labor Statistics — length of pay periods in the Current Employment Statistics survey</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/23-flsa-overtime-pay" rel="noopener">US Department of Labor — Fact Sheet #23: Overtime Pay Requirements of the FLSA</a> (workweek basis)</li>
+    <li><a href="https://www.dol.gov/agencies/whd/state/payday" rel="noopener">US Department of Labor — State Payday Requirements</a></li>
+  </ul>
+</GuideLayout>
