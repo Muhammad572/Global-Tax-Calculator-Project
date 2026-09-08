@@ -55,10 +55,45 @@ const itemList = {
         </section>
       ))
     }
+
+    <section class="prose choose">
+      <h2>Which one do I need?</h2>
+      <ul>
+        <li><strong>I have start and end times for one shift</strong> &rarr; <a href="/calculators/hours-worked-calculator/">Hours Worked Calculator</a>.</li>
+        <li><strong>I have a whole week of shifts with breaks</strong> &rarr; <a href="/calculators/time-card-calculator/">Time Card Calculator</a>.</li>
+        <li><strong>I have a column of clock-in / clock-out punches</strong> &rarr; <a href="/calculators/time-clock-calculator/">Time Clock Calculator</a>.</li>
+        <li><strong>I just need to add or subtract times</strong> (no pay) &rarr; <a href="/calculators/time-calculator/">Time Calculator</a>.</li>
+        <li><strong>I need to turn minutes into decimal hours</strong> &rarr; <a href="/calculators/decimal-hours-calculator/">Decimal Hours Calculator</a>.</li>
+        <li><strong>I want hours per week / month / year and FTE</strong> &rarr; <a href="/calculators/working-hours-calculator/">Working Hours Calculator</a>.</li>
+        <li><strong>I want the overtime split on my hours</strong> &rarr; <a href="/calculators/overtime-calculator/">Overtime Calculator</a>.</li>
+        <li><strong>I have an hourly rate and want weekly / annual pay</strong> &rarr; <a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a>.</li>
+        <li><strong>I want to convert a salary to an hourly rate (or back)</strong> &rarr; <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly Calculator</a>.</li>
+        <li><strong>I want an estimate of one paycheck after tax</strong> &rarr; <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a>.</li>
+        <li><strong>I want annual take-home from a salary</strong> &rarr; <a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a>.</li>
+      </ul>
+
+      <h2>How they work</h2>
+      <p>
+        Every calculator runs on one shared, unit-tested calculation engine, so
+        the same inputs always produce the same result. Nothing you enter leaves
+        your browser — see the <a href="/privacy/">Privacy Policy</a>. Hours and
+        overtime arithmetic is exact; pay and tax figures are withholding
+        <em>estimates</em> for {SITE.markets.join(", ")}, with US tax coverage
+        limited to federal, FICA, and a defined set of states for 2026. Where a
+        jurisdiction is not modelled the tool says so. Full detail is on the
+        <a href="/methodology/">Methodology &amp; Sources</a> page, and the
+        <a href="/guides/">guides</a> explain the rules behind each result.
+      </p>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
+  .choose {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
   .hub-head {
     margin-bottom: 1.5rem;
   }

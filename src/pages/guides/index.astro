@@ -2,7 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/data/site";
-import { GUIDES } from "@/data/guides";
+import { GUIDES, GUIDES_BY_SLUG } from "@/data/guides";
 import { TOOLS_BY_SLUG } from "@/data/tools";
 
 const itemList = {
@@ -15,6 +15,50 @@ const itemList = {
     url: new URL(`/guides/${g.slug}/`, SITE.url).href,
   })),
 };
+
+const GROUPS: { title: string; blurb: string; slugs: string[] }[] = [
+  {
+    title: "Hours & timekeeping",
+    blurb: "Turning clock times into paid hours, and the rules employers follow.",
+    slugs: [
+      "how-to-calculate-hours-worked",
+      "how-time-cards-work",
+      "time-clock-rounding-rules",
+      "convert-minutes-to-decimal-hours",
+    ],
+  },
+  {
+    title: "Overtime",
+    blurb: "The formula, the thresholds, and who is actually entitled to it.",
+    slugs: [
+      "how-to-calculate-overtime-pay",
+      "what-is-double-time-pay",
+      "exempt-vs-non-exempt-employees",
+      "is-overtime-taxed-more",
+    ],
+  },
+  {
+    title: "Salary & a work year",
+    blurb: "Converting between hourly and annual pay, and how many hours a year holds.",
+    slugs: [
+      "salary-vs-hourly-pay",
+      "convert-hourly-wage-to-annual-salary",
+      "how-many-work-hours-in-a-year",
+      "what-is-full-time-equivalent",
+    ],
+  },
+  {
+    title: "Paycheck & deductions",
+    blurb: "Why take-home is less than gross, and how to read what came out.",
+    slugs: [
+      "gross-pay-vs-take-home-pay",
+      "how-to-read-a-pay-stub",
+      "what-are-fica-taxes",
+      "what-is-a-pay-period",
+      "biweekly-vs-semimonthly-pay",
+    ],
+  },
+];
 ---
 
 <BaseLayout
@@ -29,44 +73,71 @@ const itemList = {
       <p class="eyebrow">Learn the rules</p>
       <h1>Guides</h1>
       <p class="lead">
-        Plain explanations of how work-hours and pay calculations work — the rules,
-        the formulas, and the edge cases. Each guide links to the calculator that
-        does the maths for you.
+        Plain explanations of how work-hours and pay calculations work — the
+        rules, the formulas, and the edge cases. Each guide links to the
+        calculator that does the maths for you and cites its primary source
+        (US Department of Labor, IRS, state agencies) so you can check it.
       </p>
     </header>
 
-    <ul class="guide-list">
-      {
-        GUIDES.map((g) => (
-          <li>
-            <a href={`/guides/${g.slug}/`}>
-              <span class="guide-list__title">{g.title}</span>
-              <span class="guide-list__summary">{g.summary}</span>
-            </a>
-            <p class="guide-list__tools">
-              Related:{" "}
-              {g.supports.map((s, i) => {
-                const t = TOOLS_BY_SLUG[s];
-                return t ? (
-                  <>
-                    {i > 0 ? ", " : ""}
-                    <a href={`/calculators/${t.slug}/`}>{t.title}</a>
-                  </>
-                ) : null;
+    <div class="prose guides-note">
+      <p>
+        There are {GUIDES.length} guides, grouped below to match the four
+        families of calculators. They are written for the US, with notes for
+        Canada, the UK, and Australia where the rules differ. Everything here is
+        general information, not legal or tax advice — see the
+        <a href="/disclaimer/">Disclaimer</a>.
+      </p>
+    </div>
+
+    {
+      GROUPS.map((grp) => (
+        <section class="guide-group">
+          <h2>{grp.title}</h2>
+          <p class="guide-group__blurb">{grp.blurb}</p>
+          <ul class="guide-list">
+            {grp.slugs
+              .map((s) => GUIDES_BY_SLUG[s])
+              .filter(Boolean)
+              .map((gm) => {
+                const guide = gm!;
+                return (
+                  <li>
+                    <a href={`/guides/${guide.slug}/`}>
+                      <span class="guide-list__title">{guide.title}</span>
+                      <span class="guide-list__summary">{guide.summary}</span>
+                    </a>
+                    <p class="guide-list__tools">
+                      Related:{" "}
+                      {guide.supports.map((s, i) => {
+                        const t = TOOLS_BY_SLUG[s];
+                        return t ? (
+                          <>
+                            {i > 0 ? ", " : ""}
+                            <a href={`/calculators/${t.slug}/`}>{t.title}</a>
+                          </>
+                        ) : null;
+                      })}
+                    </p>
+                  </li>
+                );
               })}
-            </p>
-          </li>
-        ))
-      }
-    </ul>
+          </ul>
+        </section>
+      ))
+    }
   </div>
 </BaseLayout>
 
 <style>
-  .hub-head { margin-bottom: 1.75rem; }
+  .hub-head { margin-bottom: 1.25rem; }
   .hub-head h1 { margin-top: 0.4rem; }
-  .lead { max-width: 58ch; margin-top: 0.6rem; color: var(--ink-soft); font-size: 1.05rem; }
-  .guide-list { margin-top: 1.5rem; padding: 0; list-style: none; display: grid; gap: 0.9rem; }
+  .lead { max-width: 60ch; margin-top: 0.6rem; color: var(--ink-soft); font-size: 1.05rem; }
+  .guides-note { max-width: 62ch; margin-bottom: 2.25rem; color: var(--ink-soft); }
+  .guide-group { margin-top: 2.5rem; }
+  .guide-group > h2 { margin: 0; font-size: 1.3rem; }
+  .guide-group__blurb { margin: 0.25rem 0 0; color: var(--ink-faint); }
+  .guide-list { margin-top: 1rem; padding: 0; list-style: none; display: grid; gap: 0.9rem; }
   .guide-list > li {
     padding: 1.25rem 1.35rem;
     border: 1px solid var(--border);

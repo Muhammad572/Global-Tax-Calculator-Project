@@ -98,19 +98,85 @@ const p1 = TOOLS.filter((t) => t.priority === "P1");
     }
 
     <section class="prose home-about">
-      <h2>Why a dedicated tool?</h2>
+      <h2>What you can work out here</h2>
+      <p>
+        {SITE.name} covers one chain of everyday questions: <strong>hours
+        worked &rarr; time card &rarr; overtime &rarr; pay &rarr; salary &rarr;
+        paycheck</strong>. Start from clock times and a calculator turns them
+        into decimal hours; feed those into the overtime split; apply your rate
+        to get gross pay; convert between hourly and annual; and estimate the
+        tax withholding that separates gross from take-home.
+      </p>
+      <ul>
+        <li>
+          <strong>Work hours.</strong> The
+          <a href="/calculators/time-card-calculator/">Time Card</a>,
+          <a href="/calculators/hours-worked-calculator/">Hours Worked</a>,
+          <a href="/calculators/time-clock-calculator/">Time Clock</a>,
+          <a href="/calculators/working-hours-calculator/">Working Hours</a>,
+          <a href="/calculators/time-calculator/">Time</a>, and
+          <a href="/calculators/decimal-hours-calculator/">Decimal Hours</a>
+          calculators add up shifts, subtract breaks, handle overnight hours,
+          and convert minutes to the decimal hours payroll needs.
+        </li>
+        <li>
+          <strong>Overtime.</strong> The
+          <a href="/calculators/overtime-calculator/">Overtime Calculator</a>
+          applies time-and-a-half (and daily double-time where it exists) using
+          US federal, California, Ontario, UK, or Australian rules, or a
+          threshold and multiplier you set.
+        </li>
+        <li>
+          <strong>Pay and salary.</strong>
+          <a href="/calculators/hourly-pay-calculator/">Hourly Pay</a> projects
+          a rate across a week, month, and year;
+          <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly</a>
+          converts in both directions with PTO adjustments.
+        </li>
+        <li>
+          <strong>Paycheck.</strong> The
+          <a href="/calculators/paycheck-calculator/">Paycheck</a> and
+          <a href="/calculators/take-home-pay-calculator/">Take-Home Pay</a>
+          calculators estimate US federal income tax, Social Security, Medicare,
+          and state withholding for 2026.
+        </li>
+      </ul>
+
+      <h2>How the calculators work</h2>
       <p>
         A chatbot can answer "what's time and a half on $22?" But a real
         timesheet — seven days, lunch breaks, an overnight shift, an overtime
-        threshold that depends on where you work — is a structured problem. These
-        calculators keep the inputs organised, show the formula, and let you
-        copy, print, or share the result.
+        threshold that depends on where you work — is a structured problem. Each
+        calculator here keeps the inputs organised, shows the formula it used,
+        and lets you copy, print, or share the result.
       </p>
       <p>
-        Calculations run entirely in your browser. Nothing you type is sent
-        anywhere. Pay and tax figures are estimates for {SITE.markets.join(", ")};
-        see the <a href="/methodology/">Methodology &amp; Sources</a> and the
-        <a href="/disclaimer/">Disclaimer</a>.
+        Everything runs as client-side JavaScript in your browser. The hours,
+        rates, salaries, and tax settings you enter are never sent to a server
+        or stored — see the <a href="/privacy/">Privacy Policy</a>. The
+        calculation logic is a single tested engine shared across every tool, so
+        the same inputs always give the same answer, and the tax tables are
+        versioned to a specific year.
+      </p>
+
+      <h2>Accuracy and scope</h2>
+      <p>
+        Hours and overtime math is exact. Pay and tax figures are
+        <em>estimates</em> of payroll withholding for
+        {SITE.markets.join(", ")}, useful for planning and for checking a pay
+        stub — not a substitute for your employer's payroll or professional
+        advice. Tax coverage is US federal plus FICA and a set of states
+        (California, New York, Illinois, Pennsylvania, and the nine
+        no-income-tax states) for 2026; where a jurisdiction is not modelled the
+        tool says so rather than guessing. Full details are on the
+        <a href="/methodology/">Methodology &amp; Sources</a> page, and the
+        limits are set out in the <a href="/disclaimer/">Disclaimer</a>.
+      </p>
+      <p>
+        New to any of this? The <a href="/guides/">guides</a> explain the rules
+        behind the numbers — how overtime thresholds work, what comes out of a
+        paycheck, how to read a pay stub, and the difference between biweekly
+        and semimonthly pay.
       </p>
     </section>
   </div>
