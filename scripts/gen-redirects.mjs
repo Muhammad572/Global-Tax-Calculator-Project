@@ -10,11 +10,17 @@ const SITE = "https://tinytools.live";
 const PUBLIC = new URL("../public/", import.meta.url).pathname;
 const MARKER = join(PUBLIC, ".redirects-generated.json");
 
+// A "from" key is either a legacy flat file (e.g. /calculator.html) or a
+// directory-style route matching the site's trailingSlash:"always" convention
+// (e.g. /calculators/hourly-to-salary-calculator/), which GitHub Pages serves
+// via that directory's index.html.
+const filePath = (from) => join(PUBLIC, (from.endsWith("/") ? from + "index.html" : from).replace(/^\//, ""));
+
 // Remove previously generated stubs so a deleted mapping doesn't linger.
 if (existsSync(MARKER)) {
   try {
     for (const p of JSON.parse(readFileSync(MARKER, "utf8"))) {
-      rmSync(join(PUBLIC, p.replace(/^\//, "")), { force: true });
+      rmSync(filePath(p), { force: true });
     }
   } catch {
     /* ignore */
@@ -43,7 +49,7 @@ const stub = (to) => `<!doctype html>
 
 const written = [];
 for (const [from, to] of Object.entries(REDIRECTS)) {
-  const dest = join(PUBLIC, from.replace(/^\//, ""));
+  const dest = filePath(from);
   mkdirSync(dirname(dest), { recursive: true });
   writeFileSync(dest, stub(to));
   written.push(from);

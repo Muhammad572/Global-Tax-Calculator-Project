@@ -30,4 +30,10 @@ export const REDIRECTS = {
   "/about.html": "/about/",
   "/contact.html": "/contact/",
   "/privacy-policy.html": "/privacy/",
+  // Search Console shows meaningful impressions ("salary to hourly" 113,
+  // "salary to hourly calculator" 53) landing on this 404. No separate
+  // "hourly to salary" calculator exists or should exist — the Salary to
+  // Hourly Calculator is bidirectional (it has a Hourly -> annual salary
+  // mode). Redirect instead of building a duplicate tool.
+  "/calculators/hourly-to-salary-calculator/": "/calculators/salary-to-hourly-calculator/",
 };

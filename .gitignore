@@ -15,7 +15,9 @@ dist/
 /public/uk-tax-guide.html
 /public/canada-tax-guide.html
 /public/global-tax-guide.html
+/public/global-tax-comparison.html
 /public/docs/
+/public/calculators/hourly-to-salary-calculator/
 
 # test / coverage
 coverage/
