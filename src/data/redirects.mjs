@@ -4,6 +4,7 @@
  * into public/) and by scripts/seo-crawl.mjs (validates the targets resolve).
  * GitHub Pages has no server 301s; Google treats a meta-refresh + canonical
  * stub as a soft redirect and passes most signal. No blanket redirect to `/`.
+ * A value is either the target path, or `{ to, strict }` (see below).
  */
 export const REDIRECTS = {
   "/calculator.html": "/calculators/take-home-pay-calculator/",
@@ -35,5 +36,14 @@ export const REDIRECTS = {
   // "hourly to salary" calculator exists or should exist — the Salary to
   // Hourly Calculator is bidirectional (it has a Hourly -> annual salary
   // mode). Redirect instead of building a duplicate tool.
-  "/calculators/hourly-to-salary-calculator/": "/calculators/salary-to-hourly-calculator/",
+  //
+  // `strict: true` emits the meta refresh exactly as Google documents it —
+  // absolute target URL, no whitespace after the semicolon. This URL was
+  // crawled by Googlebot (Sep 20) while serving the relative/spaced form and
+  // Search Console reported "Redirect error", so it gets the strictest form.
+  // Other stubs are left untouched.
+  "/calculators/hourly-to-salary-calculator/": {
+    to: "/calculators/salary-to-hourly-calculator/",
+    strict: true,
+  },
 };

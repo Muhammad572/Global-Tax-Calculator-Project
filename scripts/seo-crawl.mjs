@@ -85,7 +85,9 @@ for (const p of indexable) {
 for (const p of pages) {
   if (p.url === "/404" || indexableUrls.has(p.url)) continue;
   // redirect stub
-  const refresh = (p.html.match(/http-equiv="refresh" content="0;\s*url=([^"]+)"/) || [])[1];
+  // The refresh target may be a path (legacy stubs) or an absolute same-site URL
+  // (strict stubs); normalise to a path so it can be compared with the canonical.
+  const refresh = ((p.html.match(/http-equiv="refresh" content="0;\s*url=([^"]+)"/) || [])[1] || "").replace(SITE, "") || undefined;
   const target = (p.canonical || "").replace(SITE, "");
   if (!refresh) problems.push(`${p.url}: non-indexable page with no meta-refresh (unexpected stub)`);
   if ((p.robots || "").includes("noindex")) problems.push(`${p.url}: redirect stub must not carry a noindex meta (it blocks signal consolidation)`);
