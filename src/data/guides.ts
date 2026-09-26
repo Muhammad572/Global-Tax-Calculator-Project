@@ -39,7 +39,7 @@ export const GUIDES: GuideMeta[] = [
     title: "How to Calculate Overtime Pay",
     metaTitle: "How to Calculate Overtime Pay: Formula & Rules",
     description:
-      "How overtime pay is calculated: the time-and-a-half formula, weekly vs daily thresholds, the regular rate, and the rules in the US, Canada, UK and Australia.",
+      "How overtime pay is calculated: the time-and-a-half formula, weekly vs daily thresholds, the regular rate, and rules in the US, Canada, UK and Australia.",
     updated: "2026-09-07",
     targets: ["how to calculate overtime pay", "how is overtime pay calculated", "what is time and a half", "overtime after 40 or 44 hours"],
     supports: ["overtime-calculator", "time-card-calculator", "hourly-pay-calculator"],
@@ -137,7 +137,7 @@ export const GUIDES: GuideMeta[] = [
     title: "Is Overtime Taxed More?",
     metaTitle: "Is Overtime Taxed More? How Overtime Withholding Works",
     description:
-      "Overtime isn't taxed at a higher rate, but a big paycheck can be over-withheld. Why it evens out at tax time, plus the temporary 2025–2028 overtime deduction.",
+      "Overtime isn't taxed at a higher rate, but a big paycheck can be over-withheld. Why it evens out at tax time, and the 2025–2028 overtime deduction.",
     updated: "2026-09-07",
     targets: ["is overtime taxed more", "why is overtime taxed so much", "does overtime get taxed higher", "no tax on overtime"],
     supports: ["overtime-calculator", "paycheck-calculator", "take-home-pay-calculator"],
@@ -149,7 +149,7 @@ export const GUIDES: GuideMeta[] = [
     title: "What Are FICA Taxes?",
     metaTitle: "What Are FICA Taxes? Social Security & Medicare (2026)",
     description:
-      "FICA is the Social Security and Medicare tax on every US paycheck: 6.2% up to the $184,500 wage base for 2026, 1.45% Medicare, plus 0.9% Additional Medicare.",
+      "FICA is the Social Security and Medicare tax on every US paycheck: 6.2% up to the $184,500 2026 wage base, 1.45% Medicare, plus 0.9% Additional Medicare.",
     updated: "2026-09-07",
     targets: ["what is FICA", "what are FICA taxes", "FICA tax rate 2026", "social security and medicare tax"],
     supports: ["paycheck-calculator", "take-home-pay-calculator"],
@@ -163,7 +163,7 @@ export const GUIDES: GuideMeta[] = [
     title: "How to Convert an Hourly Wage to an Annual Salary",
     metaTitle: "Hourly to Salary: How to Convert Your Wage to a Year",
     description:
-      "Multiply your hourly rate by hours per week and by 52 for the headline annual figure, then adjust for unpaid time off, overtime, and gross vs take-home pay.",
+      "Multiply your hourly rate by hours per week and by 52 for the annual figure, then adjust for unpaid time off, overtime, and gross vs take-home pay.",
     updated: "2026-09-07",
     targets: ["hourly to salary", "how much is 25 an hour annually", "convert hourly to yearly", "hourly wage to salary"],
     supports: ["salary-to-hourly-calculator", "hourly-pay-calculator", "working-hours-calculator"],
@@ -225,7 +225,7 @@ export const GUIDES: GuideMeta[] = [
     title: "What Is Double-Time Pay?",
     metaTitle: "What Is Double Time? Rate, Rules & When It Applies",
     description:
-      "Double time is 2× your regular rate. No US federal law requires it — it comes from state law such as California's, union contracts, or policy. When it applies.",
+      "Double time is 2× your regular rate. No US federal law requires it; it comes from state law like California's, union contracts or policy. When it applies.",
     updated: "2026-09-07",
     targets: ["what is double time", "double time pay", "double time and a half", "when do you get double time"],
     supports: ["overtime-calculator", "time-card-calculator", "hourly-pay-calculator"],
