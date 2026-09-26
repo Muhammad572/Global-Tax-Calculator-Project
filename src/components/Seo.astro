@@ -24,10 +24,18 @@ const {
 
 const canonicalPath = path ?? Astro.url.pathname;
 const canonical = new URL(canonicalPath, SITE.url).href;
-// Homepage gets the descriptor; inner pages keep the title short (~60 chars) with
-// just the brand suffix so Google doesn't truncate the meaningful part.
+// Homepage gets the descriptor; inner pages get the brand suffix only while the
+// whole title stays within ~60 chars. Past that Google truncates from the right,
+// so the brand is dropped rather than cutting into the meaningful part (the
+// WebSite JSON-LD already supplies the site name shown in results).
+const TITLE_MAX = 60;
+const branded = `${title} | ${SITE.name}`;
 const fullTitle =
-  title === SITE.name ? `${SITE.name} — ${SITE.descriptor}` : `${title} | ${SITE.name}`;
+  title === SITE.name
+    ? `${SITE.name} — ${SITE.descriptor}`
+    : branded.length <= TITLE_MAX
+      ? branded
+      : title;
 
 // Raster PNG: Facebook / X / LinkedIn / Slack scrapers do not render SVG.
 const ogImage = new URL("/og-image.png", SITE.url).href;

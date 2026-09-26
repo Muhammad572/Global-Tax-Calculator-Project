@@ -42,7 +42,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Time Card Calculator",
     metaTitle: "Time Card Calculator with Breaks & Overtime",
     description:
-      "Free weekly time card calculator. Enter start and end times for each day, subtract lunch and breaks, handle overnight shifts, and get total hours, overtime, and gross pay.",
+      "Free weekly time card calculator: enter daily start and end times, subtract breaks, handle overnight shifts, and get total hours, overtime, and gross pay.",
     cluster: "work-hours",
     priority: "P1",
     summary: "A full weekly timesheet: daily start/end times, breaks, overnight shifts, overtime, and gross pay.",
@@ -54,7 +54,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Hours Worked Calculator",
     metaTitle: "Hours Worked Calculator — Time Between Two Times",
     description:
-      "Work out how many hours you worked between two times. Subtract an unpaid break, handle shifts past midnight, and see the result in hours and minutes or decimal hours.",
+      "Work out how many hours you worked between two times. Subtract an unpaid break, handle overnight shifts, and get hours and minutes or decimal hours.",
     cluster: "work-hours",
     priority: "P1",
     summary: "The quick one: how many hours between a start and end time, minus a break.",
@@ -66,7 +66,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Overtime Calculator",
     metaTitle: "Overtime Calculator — Time and a Half & Double Time",
     description:
-      "Calculate overtime pay from your hourly rate and hours worked. Choose an overtime rule (US 40h, California daily, Ontario 44h, UK, Australia) or set your own threshold and multiplier.",
+      "Calculate overtime pay from your hourly rate and hours. Pick a rule (US 40h, California daily, Ontario 44h, UK, Australia) or set your own threshold.",
     cluster: "overtime",
     priority: "P1",
     summary: "Regular vs overtime hours and pay, with selectable jurisdiction rules or a custom threshold.",
@@ -125,7 +125,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Salary to Hourly Calculator",
     metaTitle: "Salary to Hourly Calculator — Convert Annual Pay",
     description:
-      "Convert an annual salary to an hourly rate (and back), plus weekly, biweekly, semi-monthly, and monthly. Adjust hours per week and unpaid weeks off, and see your real hourly rate after PTO.",
+      "Convert salary to hourly pay, or hourly to annual salary, plus weekly, biweekly and monthly amounts. Adjust hours and PTO to see your real hourly rate.",
     cluster: "pay-salary",
     priority: "P3",
     summary: "Annual ↔ hourly ↔ every pay frequency, with schedule and PTO adjustments.",
@@ -149,7 +149,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Paycheck Calculator",
     metaTitle: "Paycheck Calculator 2026 — Estimate Your Take-Home Pay",
     description:
-      "Estimate your paycheck after federal tax, Social Security, Medicare, and state income tax withholding. 2026 rates. Supported states: CA, NY, IL, PA, and the no-income-tax states.",
+      "Estimate your paycheck after 2026 federal tax, Social Security, Medicare and state withholding. Covers CA, NY, IL, PA and the no-income-tax states.",
     cluster: "paycheck",
     priority: "P4",
     summary: "Gross pay → federal + FICA + state withholding → net pay, for one pay period (US, 2026).",

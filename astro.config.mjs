@@ -8,7 +8,7 @@ const SITE = "https://tinytools.live";
 // Stable sitemap <lastmod>. Bump this only when site content materially changes,
 // so unchanged pages don't get a fresh lastmod on every rebuild (which trains
 // crawlers to ignore the signal). Per-page dates live in src/data/guides.ts.
-const CONTENT_LASTMOD = "2026-09-07";
+const CONTENT_LASTMOD = "2026-09-26";
 
 export default defineConfig({
   site: SITE,
