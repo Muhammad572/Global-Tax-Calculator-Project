@@ -5,6 +5,8 @@ import Faq from "@/components/Faq.astro";
 
 const commonSalaries = [30000, 40000, 50000, 60000, 70000, 80000, 100000, 120000];
 const hourly = (s: number) => (s / 2080).toFixed(2);
+const commonRates = [15, 18, 20, 22, 25, 30, 35, 40, 50];
+const annual = (r: number) => r * 2080;
 
 const faq = [
   {
@@ -24,6 +26,18 @@ const faq = [
     a: "About $28.85 an hour at 40 hours a week, 52 weeks a year ($60,000 ÷ 2,080). At 37.5 hours a week it's $30.77.",
   },
   {
+    q: "How do I convert an hourly wage to an annual salary?",
+    a: "Multiply your hourly rate by the hours you work in a week, then by the weeks you are paid in a year. At 40 hours a week for 52 weeks that is your rate × 2,080, so $25 an hour is $52,000 a year. In this calculator choose <em>Hourly → annual salary</em> as the direction, enter your rate, and adjust hours per week and paid weeks per year if your schedule is different.",
+  },
+  {
+    q: "$20 an hour is how much a year?",
+    a: "$41,600 a year before tax at 40 hours a week for 52 weeks ($20 × 2,080), or about $3,467 a month. With two unpaid weeks off it is $40,000.",
+  },
+  {
+    q: "Why is my real annual pay different from my rate × 2,080?",
+    a: "2,080 assumes you are paid for every hour of a full year. Unpaid time off, unpaid holidays, and cut shifts lower it; regular overtime raises it. The <a href='/guides/convert-hourly-wage-to-annual-salary/'>hourly-to-salary guide</a> walks through both adjustments.",
+  },
+  {
     q: "Should I use 2,080 hours?",
     a: "It's the standard full-time figure (40 × 52) and makes offers comparable. Use a smaller number if you work part-time or your standard week isn't 40 hours.",
   },
@@ -32,7 +46,7 @@ const faq = [
 
 <ToolLayout
   slug="salary-to-hourly-calculator"
-  intro="Convert an annual salary to an hourly rate — and to weekly, biweekly, semi-monthly, and monthly pay. See your effective hourly rate after vacation and holidays, and compare up to three salaries side by side."
+  intro="Convert an annual salary to an hourly rate, or an hourly rate to an annual salary — with weekly, biweekly, semi-monthly, and monthly pay. See your effective hourly rate after vacation and holidays, and compare up to three amounts side by side."
 >
   <CalcShell id="salary-hourly" label="Salary to hourly converter">
     <fieldset>
@@ -110,6 +124,26 @@ const faq = [
         ))}
       </tbody>
     </table>
+
+    <h2>Hourly to salary: common hourly rates</h2>
+    <p>
+      Going the other way, set the direction to <em>Hourly → annual salary</em>.
+      At 40 hours a week for 52 weeks, an hourly rate is multiplied by 2,080:
+    </p>
+    <table>
+      <thead><tr><th>Hourly rate</th><th>Per year</th><th>Per month</th></tr></thead>
+      <tbody>
+        {commonRates.map((r) => (
+          <tr><td>${r}</td><td>${annual(r).toLocaleString()}</td><td>${(annual(r) / 12).toLocaleString(undefined, { maximumFractionDigits: 0 })}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      These are gross figures before tax and assume you are paid for every
+      week. Unpaid time off lowers them and overtime raises them — see
+      <a href="/guides/convert-hourly-wage-to-annual-salary/">how to convert an
+      hourly wage to an annual salary</a>.
+    </p>
 
     <h2>Why compare in hourly terms?</h2>
     <p>
