@@ -5,7 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import RelatedTools from "@/components/RelatedTools.astro";
 import AdSlot from "@/components/AdSlot.astro";
 import { TOOLS_BY_SLUG, CLUSTERS } from "@/data/tools";
-import { GUIDES_BY_SLUG } from "@/data/guides";
+import { GUIDES } from "@/data/guides";
 
 interface Props {
   slug: string;
@@ -18,6 +18,12 @@ const { slug, intro, jsonLd = [] } = Astro.props;
 const tool = TOOLS_BY_SLUG[slug];
 if (!tool) throw new Error(`ToolLayout: unknown tool slug "${slug}"`);
 const clusterLabel = CLUSTERS.find((c) => c.id === tool.cluster)?.label ?? "Calculator";
+
+// Every guide that lists this tool in `supports`, the tool's primary guide first —
+// gives each guide contextual inbound links from the calculators it explains.
+const toolGuides = GUIDES.filter((g) => g.supports.includes(slug)).sort(
+  (a, b) => Number(b.slug === tool.guide) - Number(a.slug === tool.guide),
+);
 
 const webApp = {
   "@context": "https://schema.org",
@@ -62,11 +68,17 @@ const webApp = {
     <div class="tool__body prose">
       <slot name="content" />
       {
-        tool.guide && GUIDES_BY_SLUG[tool.guide] && (
-          <p class="tool__further">
-            Further reading:{" "}
-            <a href={`/guides/${tool.guide}/`}>{GUIDES_BY_SLUG[tool.guide]!.title}</a>
-          </p>
+        toolGuides.length > 0 && (
+          <aside class="tool__guides" aria-labelledby="tool-guides-h">
+            <h2 id="tool-guides-h">Guides for this calculator</h2>
+            <ul>
+              {toolGuides.map((g) => (
+                <li>
+                  <a href={`/guides/${g.slug}/`}>{g.title}</a>
+                </li>
+              ))}
+            </ul>
+          </aside>
         )
       }
     </div>
@@ -99,12 +111,19 @@ const webApp = {
   .tool__body {
     margin-top: 1.5rem;
   }
-  .tool__further {
-    margin-top: 1.75rem;
-    padding: 0.85rem 1.1rem;
+  .tool__guides {
+    margin-top: 2rem;
+    padding: 1rem 1.25rem 1.1rem;
     border-left: 3px solid var(--accent);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     background: var(--paper-sunk);
-    font-size: 0.95rem;
+  }
+  .tool__guides h2 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .tool__guides ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.1rem;
   }
 </style>

@@ -4,8 +4,22 @@ import AdSlot from "@/components/AdSlot.astro";
 import ClusterIcon from "@/components/ClusterIcon.astro";
 import { SITE } from "@/data/site";
 import { CLUSTERS, TOOLS, toolsInCluster } from "@/data/tools";
+import { GUIDES, GUIDES_BY_SLUG } from "@/data/guides";
 
 const p1 = TOOLS.filter((t) => t.priority === "P1");
+
+// The guides people search for most, linked straight from the homepage so the
+// guide pages sit one click from the site's strongest URL.
+const popularGuides = [
+  "how-to-calculate-overtime-pay",
+  "how-to-read-a-pay-stub",
+  "gross-pay-vs-take-home-pay",
+  "salary-vs-hourly-pay",
+  "how-to-calculate-hours-worked",
+  "how-many-work-hours-in-a-year",
+]
+  .map((s) => GUIDES_BY_SLUG[s])
+  .filter((g): g is NonNullable<typeof g> => Boolean(g));
 ---
 
 <BaseLayout
@@ -96,6 +110,30 @@ const p1 = TOOLS.filter((t) => t.priority === "P1");
         </section>
       ))
     }
+
+    <section class="home-guides" aria-labelledby="home-guides-h">
+      <h2 id="home-guides-h">Guides: the rules behind the numbers</h2>
+      <p class="home-guides__blurb">
+        Short, sourced explanations of how hours, overtime, and paychecks are
+        worked out.
+      </p>
+      <ul class="tool-grid">
+        {
+          popularGuides.map((g) => (
+            <li>
+              <a class="tool-card" href={`/guides/${g.slug}/`}>
+                <span class="tool-card__name">{g.title}</span>
+                <span class="tool-card__desc">{g.summary}</span>
+                <span class="tool-card__cta" aria-hidden="true">Read the guide</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="home-guides__all">
+        <a href="/guides/">All {GUIDES.length} guides &rarr;</a>
+      </p>
+    </section>
 
     <section class="prose home-about">
       <h2>What you can work out here</h2>
@@ -505,6 +543,17 @@ const p1 = TOOLS.filter((t) => t.priority === "P1");
     transform: translateX(3px);
   }
 
+  .home-guides {
+    margin-top: clamp(2.5rem, 1.5rem + 3vw, 3.75rem);
+  }
+  .home-guides__blurb {
+    margin-top: 0.15rem;
+    color: var(--ink-faint);
+  }
+  .home-guides__all {
+    margin-top: 1rem;
+    font-weight: 560;
+  }
   .home-about {
     margin-top: clamp(3rem, 2rem + 3vw, 4.5rem);
   }
