@@ -4,6 +4,8 @@ import BaseLayout from "./BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import RelatedTools from "@/components/RelatedTools.astro";
 import AdSlot from "@/components/AdSlot.astro";
+import AuthorBox from "@/components/AuthorBox.astro";
+import { authorPerson } from "@/data/site";
 import { TOOLS_BY_SLUG, CLUSTERS } from "@/data/tools";
 import { GUIDES } from "@/data/guides";
 
@@ -33,6 +35,7 @@ const webApp = {
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   description: tool.description,
+  author: authorPerson(),
 };
 ---
 
@@ -81,6 +84,7 @@ const webApp = {
           </aside>
         )
       }
+      <AuthorBox kind="tool" />
     </div>
 
     <AdSlot placement="in-content" />

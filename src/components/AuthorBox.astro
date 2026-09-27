@@ -1,0 +1,68 @@
+---
+import { AUTHOR, AUTHOR_ANCHOR } from "@/data/site";
+
+interface Props {
+  /** "guide" -> "Written by", "tool" -> "Built by". */
+  kind: "guide" | "tool";
+}
+const { kind } = Astro.props;
+const label = kind === "guide" ? "Written by" : "Built by";
+---
+
+<aside class="author-box" aria-label={`${label} ${AUTHOR.name}`}>
+  <p class="author-box__label">{label}</p>
+  <p class="author-box__who">
+    <a href={AUTHOR_ANCHOR}>{AUTHOR.name}</a>
+    <span>{AUTHOR.jobTitle}</span>
+  </p>
+  <p class="author-box__bio">{AUTHOR.bio}</p>
+  <p class="author-box__note">
+    Rules and figures are cited to their primary sources — see
+    <a href="/methodology/">Methodology &amp; Sources</a>.
+  </p>
+</aside>
+
+<style>
+  .author-box {
+    margin-top: 2.5rem;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, #ffffff, #fdfbf8);
+    box-shadow: var(--shadow-card), var(--shadow-inset);
+    max-width: var(--content-width);
+  }
+  .author-box p {
+    margin: 0;
+  }
+  .author-box__label {
+    font-size: 0.72rem;
+    font-weight: 620;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .author-box__who {
+    margin-top: 0.3rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.15rem 0.7rem;
+    font-weight: 640;
+  }
+  .author-box__who span {
+    font-weight: 480;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+  .author-box__bio {
+    margin-top: 0.45rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .author-box__note {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+</style>

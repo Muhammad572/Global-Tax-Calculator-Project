@@ -44,6 +44,31 @@ export const SITE = {
   markets: ["United States", "Canada", "United Kingdom", "Australia"],
 } as const;
 
+/** The named person behind the tools — used for bylines and Person markup. */
+export const AUTHOR = {
+  name: "Muhammad Wajih Ul Hassan",
+  jobTitle: "Lead Developer & Software Engineer",
+  url: "https://hastech.online",
+  bio: "Senior Software Engineer and Application Developer specializing in workplace tools, financial calculators, and utility apps. Founder of HasTech.",
+  employer: { name: "HasTech", url: "https://hastech.online" },
+} as const;
+
+export const AUTHOR_ANCHOR = "/about/#author";
+
+/** schema.org Person for the author, reusable inside Article / WebApplication JSON-LD. */
+export function authorPerson(): Record<string, unknown> {
+  return {
+    "@type": "Person",
+    "@id": `${SITE.url}${AUTHOR_ANCHOR}`,
+    name: AUTHOR.name,
+    jobTitle: AUTHOR.jobTitle,
+    description: AUTHOR.bio,
+    url: AUTHOR.url,
+    sameAs: [AUTHOR.url],
+    worksFor: { "@type": "Organization", name: AUTHOR.employer.name, url: AUTHOR.employer.url },
+  };
+}
+
 export type NavItem = { label: string; href: string };
 
 export const PRIMARY_NAV: NavItem[] = [

@@ -1,13 +1,14 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
-import { SITE } from "@/data/site";
+import { SITE, AUTHOR, authorPerson } from "@/data/site";
 ---
 
 <BaseLayout
   title="About"
   description="TinyTools builds free, accurate work-hours, overtime and pay calculators for the US, Canada, UK and Australia — how they work and how they stay accurate."
   path="/about/"
+  jsonLd={[{ "@context": "https://schema.org", ...authorPerson() }]}
 >
   <div class="container prose">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
@@ -18,6 +19,20 @@ import { SITE } from "@/data/site";
       turning work hours into pay. Time cards, hours worked, overtime, salary and
       hourly conversions, and take-home pay estimates for the United States,
       Canada, the United Kingdom, and Australia.
+    </p>
+
+    <h2 id="author">Who builds {SITE.name}</h2>
+    <p>
+      <strong>{AUTHOR.name}</strong> — {AUTHOR.jobTitle}. {AUTHOR.bio}
+      ({AUTHOR.employer.name}: <a href={AUTHOR.url} rel="noopener">{AUTHOR.url.replace("https://", "")}</a>)
+    </p>
+    <p>
+      He is responsible for every calculator and guide here. He is a software
+      engineer, not a payroll, tax, or legal professional: the tools apply
+      published rules and rates, each one is cited to the statute or agency
+      publication it comes from, and the results are estimates. For your own
+      situation, confirm with your employer's payroll team or a qualified
+      adviser.
     </p>
 
     <h2>What we're trying to do</h2>

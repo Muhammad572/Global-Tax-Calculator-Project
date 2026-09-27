@@ -2,7 +2,8 @@
 import BaseLayout from "./BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import AdSlot from "@/components/AdSlot.astro";
-import { SITE } from "@/data/site";
+import { SITE, AUTHOR, AUTHOR_ANCHOR, authorPerson } from "@/data/site";
+import AuthorBox from "@/components/AuthorBox.astro";
 import { GUIDES_BY_SLUG } from "@/data/guides";
 
 interface Props {
@@ -27,7 +28,7 @@ const article = {
   description,
   datePublished: updated,
   dateModified: updated,
-  author: { "@type": "Organization", name: SITE.name },
+  author: authorPerson(),
   publisher: { "@type": "Organization", name: SITE.name },
   mainEntityOfPage: new URL(`/guides/${slug}/`, SITE.url).href,
 };
@@ -53,10 +54,13 @@ const article = {
         <p class="eyebrow">Guide</p>
         <h1>{title}</h1>
         <p class="guide__meta">
+          By <a href={AUTHOR_ANCHOR}>{AUTHOR.name}</a>, {AUTHOR.jobTitle} ·
           Updated <time datetime={updated}>{new Date(updated).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</time>
         </p>
       </header>
       <slot />
+
+      <AuthorBox kind="guide" />
 
       {
         relatedGuides.length > 0 && (
