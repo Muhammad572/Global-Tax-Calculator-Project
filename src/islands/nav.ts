@@ -2,7 +2,8 @@
  * Progressive enhancement for the header menu. The markup is a native
  * <details>/<summary> that works with no JS. This adds: close on outside click,
  * close on Escape, close on link click, close on resize to desktop, close on
- * browser back/forward, a mobile body-scroll lock, and aria-expanded sync.
+ * browser back/forward, and a mobile body-scroll lock. The native <summary>
+ * already exposes its expanded state, so no aria-expanded is set.
  */
 
 const MOBILE = window.matchMedia("(max-width: 47.999rem)");
@@ -38,7 +39,6 @@ export function initNav(): void {
 
   // React to the <details> open/close (covers summary click, Enter, Space).
   details.addEventListener("toggle", () => {
-    summary.setAttribute("aria-expanded", String(details.open));
     if (details.open) {
       document.addEventListener("click", onDocClick, true);
       document.addEventListener("keydown", onKey);

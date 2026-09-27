@@ -34,6 +34,9 @@ export default defineConfig({
       // they never reach this filter and are already absent from the sitemap.
       changefreq: "monthly",
       lastmod: new Date(CONTENT_LASTMOD),
+      // Homepage is the primary crawl entry point: flag it daily / 1.0.
+      serialize: (item) =>
+        item.url === `${SITE}/` ? { ...item, changefreq: "daily", priority: 1.0 } : item,
     }),
   ],
   devToolbar: { enabled: false },
