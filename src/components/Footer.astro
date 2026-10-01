@@ -1,6 +1,18 @@
 ---
 import { SITE, FOOTER_LEGAL } from "@/data/site";
 import { CLUSTERS, toolsInCluster } from "@/data/tools";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+
+// Sitewide links to the newest guides so every page passes them a crawl path.
+const popularGuides = [
+  "uk-overtime-pay-rules",
+  "overtime-with-two-pay-rates",
+  "are-breaks-paid",
+  "27-pay-periods",
+  "how-to-calculate-pto-accrual",
+]
+  .map((s) => GUIDES_BY_SLUG[s])
+  .filter((g): g is NonNullable<typeof g> => Boolean(g));
 const year = new Date().getFullYear();
 ---
 
@@ -40,6 +52,16 @@ const year = new Date().getFullYear();
           </nav>
         ))
       }
+      <nav class="site-footer__col" aria-label="Popular guides">
+        <p class="site-footer__title">Popular guides</p>
+        <ul>
+          {popularGuides.map((g) => (
+            <li>
+              <a href={`/guides/${g.slug}/`}>{g.title}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
       <nav class="site-footer__col" aria-label="Company">
         <p class="site-footer__title">Company</p>
         <ul>
