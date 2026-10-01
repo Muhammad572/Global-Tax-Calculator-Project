@@ -5,9 +5,11 @@ const DIST = new URL("../dist/", import.meta.url).pathname;
 const read = (u) => readFileSync(DIST + "calculators/" + u + "/index.html", "utf8");
 
 const GROUPS = [
-  { name: "work-hours 5-way", slugs: ["time-card-calculator", "time-clock-calculator", "hours-worked-calculator", "working-hours-calculator", "time-calculator"] },
+  // Oct 2026: working-hours was merged into hours-worked and take-home into
+  // paycheck (see src/data/redirects.mjs), which retired the "paycheck pair".
+  { name: "work-hours 4-way", slugs: ["time-card-calculator", "time-clock-calculator", "hours-worked-calculator", "time-calculator"] },
   { name: "salary/hourly pair", slugs: ["salary-to-hourly-calculator", "hourly-pay-calculator"] },
-  { name: "paycheck pair", slugs: ["paycheck-calculator", "take-home-pay-calculator"] },
+  { name: "pay pair", slugs: ["paycheck-calculator", "hourly-pay-calculator"] },
 ];
 
 function features(html) {

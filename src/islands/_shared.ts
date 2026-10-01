@@ -61,13 +61,25 @@ export function hydrateFromUrl(form: HTMLFormElement, keys: string[]): void {
     } else if (field instanceof HTMLSelectElement) {
       field.value = value;
       touched = true;
+    } else if (field instanceof RadioNodeList) {
+      // Radio group (e.g. the Paycheck Calculator's pay mode). Check the
+      // matching radio rather than assigning .value, which isn't settable
+      // in every DOM implementation.
+      for (const r of Array.from(field)) {
+        if (r instanceof HTMLInputElement) r.checked = r.value === value;
+      }
+      touched = true;
     }
   }
   if (touched) form.dataset.hydrated = "1";
 }
 
 export function writeUrl(form: HTMLFormElement, keys: string[]): void {
-  const params = new URLSearchParams();
+  // Start from the current query and only rewrite this form's keys, so two
+  // calculators on one page (Hours Worked hosts the schedule tool too) don't
+  // erase each other's shareable state.
+  const params = new URLSearchParams(location.search);
+  for (const key of keys) params.delete(key);
   for (const key of keys) {
     const field = form.elements.namedItem(key);
     if (field instanceof HTMLInputElement) {
@@ -77,6 +89,8 @@ export function writeUrl(form: HTMLFormElement, keys: string[]): void {
         params.set(key, field.value.trim());
       }
     } else if (field instanceof HTMLSelectElement && field.value) {
+      params.set(key, field.value);
+    } else if (field instanceof RadioNodeList && field.value) {
       params.set(key, field.value);
     }
   }

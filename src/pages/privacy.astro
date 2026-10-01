@@ -2,10 +2,11 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/data/site";
-const updated = "2026-08-31";
+const updated = "2026-10-01";
 ---
 
 <BaseLayout
+  ads={false}
   title="Privacy Policy"
   description="How TinyTools handles data: calculator inputs stay in your browser, analytics and ad cookies need your consent, and you can change your choice at any time."
   path="/privacy/"
@@ -13,7 +14,7 @@ const updated = "2026-08-31";
   <div class="container prose">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]} />
     <h1>Privacy Policy</h1>
-    <p>Last updated: <time datetime={updated}>31 August 2026</time></p>
+    <p>Last updated: <time datetime={updated}>1 October 2026</time></p>
 
     <p>
       This policy explains what information {SITE.name} ("we", "us") collects when
@@ -54,8 +55,9 @@ const updated = "2026-08-31";
       {SITE.name} plans to display ads served by Google AdSense (publisher ID
       <code>{SITE.adsensePublisherId}</code>). <strong>No ad units are shown on
       the site yet.</strong> The AdSense script (<code>adsbygoogle.js</code>) is
-      loaded on every page so that Google can review the site for our
-      advertising application. Because Consent Mode keeps advertising and
+      loaded on our calculator and guide pages (not on this page, the other
+      legal pages, the contact page, or error pages) so that Google can review
+      the site for our advertising application. Because Consent Mode keeps advertising and
       analytics storage denied by default, it does not set advertising cookies
       or show personalised ads to you before you accept.
       When ads are active and you have consented, Google and its partners may use

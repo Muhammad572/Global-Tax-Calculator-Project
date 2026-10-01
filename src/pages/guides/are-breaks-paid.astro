@@ -1,0 +1,149 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["are-breaks-paid"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    In the US, <strong>short breaks are paid and meal breaks usually
+    aren't</strong>. Under federal law, rest breaks of about 20 minutes or less
+    count as work time. A genuine meal break of 30 minutes or more, where
+    you're completely relieved of duty, doesn't have to be paid. Federal law
+    doesn't require employers to give breaks at all, but some states do,
+    California above all. In Canada and the UK, required breaks are generally
+    unpaid unless your contract says otherwise.
+  </p>
+
+  <h2>United States: the federal rule</h2>
+  <p>The Fair Labor Standards Act doesn't require breaks, but if they're given:</p>
+  <table>
+    <thead><tr><th>Break</th><th>Paid?</th><th>Condition</th></tr></thead>
+    <tbody>
+      <tr><td>Rest break, usually 5–20 minutes</td><td>Yes</td><td>Counts as hours worked, including toward overtime</td></tr>
+      <tr><td>Meal break, usually 30 minutes or more</td><td>No</td><td>Only if you're completely relieved of duty</td></tr>
+      <tr><td>Meal break where you keep working</td><td>Yes</td><td>Eating at your desk while answering calls is work time</td></tr>
+    </tbody>
+  </table>
+  <p>
+    The Department of Labor's guidance says rest periods of 20 minutes or
+    less "are customarily paid for as working time", while bona fide meal
+    periods of typically 30 minutes or more "generally need not be
+    compensated". An employer can't call a 10-minute break a "meal" to avoid
+    paying for it.
+  </p>
+
+  <h2>California: required breaks and penalty pay</h2>
+  <p>California requires breaks for most non-exempt employees:</p>
+  <ul>
+    <li>
+      <strong>Meal period:</strong> a 30-minute unpaid meal break before the
+      end of the fifth hour of work. It can be waived by mutual consent if the
+      whole workday is 6 hours or less. A second meal break is required after
+      10 hours, with its own waiver rules.
+    </li>
+    <li>
+      <strong>Rest periods:</strong> 10 minutes of paid rest for every 4 hours
+      worked "or major fraction thereof". None is required if the workday is
+      under 3&frac12; hours.
+    </li>
+    <li>
+      <strong>Premium pay:</strong> if a required meal or rest break isn't
+      provided, the employer owes one extra hour of pay at the employee's
+      regular rate for each workday it happens (one premium for meals and one
+      for rest breaks, at most).
+    </li>
+  </ul>
+  <p>
+    "Major fraction" means more than half, so the number of paid rest
+    breaks steps up at 3&frac12;, 6, 10 and 14 hours:
+  </p>
+  <table>
+    <thead><tr><th>Hours worked in the day</th><th>Paid 10-minute rest breaks</th></tr></thead>
+    <tbody>
+      <tr><td>Under 3.5</td><td>0</td></tr>
+      <tr><td>3.5 up to 6</td><td>1</td></tr>
+      <tr><td>More than 6, up to 10</td><td>2</td></tr>
+      <tr><td>More than 10, up to 14</td><td>3</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Several other states also require meal or rest breaks, with different
+    timings and exceptions. Check your state labor department's site.
+  </p>
+
+  <h2>Canada (Ontario)</h2>
+  <p>
+    Ontario's Employment Standards Act requires a
+    <strong>30-minute eating period after every 5 hours</strong> of work. It
+    can be split into two breaks if you and your employer agree. Eating
+    periods are unpaid unless your contract says they're paid, but if you're
+    required to work or stay on call during the break, that time is work.
+    Other provinces have their own rules; federally regulated workplaces
+    follow the Canada Labour Code.
+  </p>
+
+  <h2>United Kingdom</h2>
+  <p>
+    Adult workers have the right to one uninterrupted
+    <strong>20-minute rest break</strong> during the working day if they work
+    more than 6 hours. GOV.UK notes that the break doesn't have to be paid;
+    it depends on the employment contract. The 20 minutes should be a single
+    break taken during the day, not at the start or end. Workers also get 11
+    hours' rest between working days. Young workers have stronger rights.
+  </p>
+
+  <h2>Australia</h2>
+  <p>
+    In Australia, breaks are set by the modern award or enterprise agreement
+    that covers you rather than by a single national rule. Many awards
+    include paid rest breaks and an unpaid meal break after a set number of
+    hours. Check your award on the Fair Work Ombudsman's website.
+  </p>
+
+  <h2>How breaks change your hours and pay</h2>
+  <p>
+    Only <strong>unpaid</strong> breaks are taken off your hours worked. Paid
+    rest breaks stay in.
+  </p>
+  <p>
+    <strong>Example.</strong> You work 8:30 AM to 5:30 PM with two paid
+    15-minute breaks and a 45-minute unpaid lunch. Clock time is 9 hours.
+    Subtract only the lunch: 9:00 − 0:45 = <strong>8 hours 15 minutes</strong>
+    (8.25 hours). Over a five-day week that's 41.25 hours, so in the US 1.25
+    hours are federal overtime. If the employer also deducted the two rest
+    breaks, you'd be paid for 7.75 hours a day: 2.5 hours a week less, and no
+    overtime.
+  </p>
+
+  <h3>Watch out for automatic lunch deductions</h3>
+  <p>
+    Many time clock systems take 30 minutes off every shift automatically.
+    That's fine on days you take a full, uninterrupted lunch. On days you
+    work through it, or get called back early, the deduction is wrong and the
+    time must be paid. If that happens, write it down and tell payroll, and
+    check your weekly total against your own record.
+  </p>
+
+  <h2>Calculate hours with breaks</h2>
+  <p>
+    In the <a href="/calculators/hours-worked-calculator/">Hours Worked
+    Calculator</a> and the
+    <a href="/calculators/time-card-calculator/">Time Card Calculator</a>, enter
+    only <em>unpaid</em> break minutes in the break field; leave paid rest
+    breaks out. The <a href="/calculators/time-clock-calculator/">Time Clock
+    Calculator</a> handles a lunch punch-out and punch-in directly. See also
+    <a href="/guides/how-to-calculate-hours-worked/">how to calculate hours
+    worked</a>.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/22-flsa-hours-worked" rel="noopener">US Department of Labor — Fact Sheet #22: Hours worked under the FLSA (rest and meal periods)</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/state/meal-breaks" rel="noopener">US Department of Labor — Minimum length of meal period required under state law</a></li>
+    <li><a href="https://www.law.cornell.edu/regulations/california/8-CCR-11040" rel="noopener">California Code of Regulations, Title 8, §11040 — meal periods (§11) and rest periods (§12)</a></li>
+    <li><a href="https://www.ontario.ca/document/your-guide-employment-standards-act-0/hours-work" rel="noopener">Ontario — Hours of work and eating periods</a></li>
+    <li><a href="https://www.gov.uk/rest-breaks-work" rel="noopener">GOV.UK — Rest breaks at work</a></li>
+    <li><a href="https://www.fairwork.gov.au/employment-conditions/hours-of-work-breaks-and-rosters" rel="noopener">Fair Work Ombudsman — Hours of work, breaks and rosters</a></li>
+  </ul>
+</GuideLayout>

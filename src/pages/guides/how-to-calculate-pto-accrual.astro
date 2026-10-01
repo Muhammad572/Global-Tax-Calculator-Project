@@ -1,0 +1,149 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["how-to-calculate-pto-accrual"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    PTO accrual is paid time off you earn gradually as you work, rather than
+    all at once. The usual formula is
+    <strong>annual PTO hours &divide; annual hours worked</strong>, which gives
+    an accrual rate per hour worked. Two weeks (80 hours) a year on a
+    2,080-hour full-time schedule accrues at 80 &divide; 2,080 =
+    <strong>0.0385 hours</strong> for every hour you work, or about 3.08 hours
+    per two-week pay period.
+  </p>
+
+  <h2>The two common methods</h2>
+  <h3>1. Per hour worked</h3>
+  <p>
+    <code>accrual rate = annual PTO hours &divide; annual scheduled hours</code><br />
+    <code>PTO earned = hours worked &times; accrual rate</code>
+  </p>
+  <p>
+    This method suits hourly and part-time staff, because PTO follows the
+    hours you actually work. A week of overtime earns a bit more (if your
+    policy counts overtime hours), and a short week earns less.
+  </p>
+  <h3>2. Per pay period</h3>
+  <p>
+    <code>PTO per pay period = annual PTO hours &divide; pay periods per year</code>
+  </p>
+  <p>
+    Common for salaried staff: the same amount is added every paycheck
+    regardless of hours. For 80 hours a year, that's 1.54 hours a week, 3.08
+    biweekly, 3.33 semimonthly or 6.67 monthly.
+  </p>
+
+  <h2>Accrual rates at a glance</h2>
+  <p>For a full-time schedule of 40 hours a week (2,080 hours a year):</p>
+  <table>
+    <thead><tr><th>PTO per year</th><th>Per hour worked</th><th>Per biweekly period (80 h)</th></tr></thead>
+    <tbody>
+      <tr><td>40 hours (1 week)</td><td>0.0192</td><td>1.54 hours</td></tr>
+      <tr><td>80 hours (2 weeks)</td><td>0.0385</td><td>3.08 hours</td></tr>
+      <tr><td>120 hours (3 weeks)</td><td>0.0577</td><td>4.62 hours</td></tr>
+      <tr><td>160 hours (4 weeks)</td><td>0.0769</td><td>6.15 hours</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Keep at least four decimal places in the rate. Rounding 0.03846 to 0.04
+    looks harmless, but over 2,080 hours it gives 83.2 hours instead of 80.
+  </p>
+
+  <h2>Worked examples</h2>
+  <p>
+    <strong>Part-time.</strong> An employee on the 80-hour plan works 25 hours
+    a week. Using the per-hour method: 25 &times; 52 = 1,300 hours a year
+    &times; 0.0385 = <strong>50 hours</strong> of PTO a year, the same
+    share of their schedule as a full-timer's 80 hours.
+  </p>
+  <p>
+    <strong>What it's worth.</strong> At $22.00 an hour, a full year's 80
+    hours of PTO is worth 80 &times; $22.00 = <strong>$1,760</strong>. That's
+    also the gap between your hourly rate and your effective rate if you
+    compare a job with PTO against one without; the
+    <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
+    Calculator</a> can adjust for it.
+  </p>
+  <p>
+    <strong>Accrual caps.</strong> Many policies cap your balance, for example
+    at 1.5 times the annual amount (120 hours on an 80-hour plan). Once you
+    reach the cap you stop accruing until you use some PTO, so time you
+    could have earned is lost. Taking leave regularly keeps the accrual
+    running.
+  </p>
+
+  <h2>What the law requires</h2>
+  <h3>United States</h3>
+  <p>
+    Federal law doesn't require paid vacation, sick leave or holidays: the
+    Fair Labor Standards Act "does not require payment for time not worked".
+    PTO is a matter of employer policy or contract, plus state and local
+    law. Some states and cities require paid sick leave, and rules differ on
+    what happens to unused PTO when you leave. In California, vested vacation
+    can't be forfeited: Labor Code §227.3 says unused vested vacation must be
+    paid out at your final rate when employment ends. That rules out
+    "use it or lose it" policies, though employers can stop further accrual
+    with a reasonable cap.
+  </p>
+  <h3>United Kingdom</h3>
+  <p>
+    Almost all workers are entitled to 5.6 weeks' paid holiday a year, which
+    is 28 days for someone working five days a week (the statutory maximum is
+    28 days). Part-timers get 5.6 times their working days per week: 3 days
+    a week gives 16.8 days. In the first year of employment, holiday can
+    accrue at one-twelfth of the annual entitlement each month. For
+    irregular-hours and part-year workers, in leave years starting on or
+    after 1 April 2024, holiday accrues at <strong>12.07%</strong> of hours
+    worked in each pay period: 30 hours worked earns 3.62 hours of holiday.
+  </p>
+  <h3>Canada (Ontario)</h3>
+  <p>
+    Ontario's Employment Standards Act gives at least two weeks of vacation
+    time per year, rising to three weeks after five years. Vacation
+    <em>pay</em> is a percentage of gross wages: at least 4%, or 6% after
+    five years. On $50,000 of gross wages, 4% vacation pay is $2,000.
+  </p>
+  <h3>Australia</h3>
+  <p>
+    The National Employment Standards give full-time and part-time employees
+    four weeks of paid annual leave a year, accruing progressively based on
+    ordinary hours worked. A full-time employee on 38 ordinary hours a week
+    earns 152 hours a year, or 1 hour for every 13 ordinary hours (0.0769
+    per hour). Some shift workers get five weeks. Casual employees don't get
+    paid annual leave; they receive a casual loading instead.
+  </p>
+
+  <h2>Questions to ask about your PTO policy</h2>
+  <ul>
+    <li>Does accrual count hours <em>worked</em> or hours <em>paid</em>? (Paid includes holidays and PTO itself.)</li>
+    <li>Do overtime hours earn PTO?</li>
+    <li>Is there a cap on the balance, and what happens at the cap?</li>
+    <li>Can you use PTO before it's accrued, or only after?</li>
+    <li>Is unused PTO paid out when you leave? (In some states it must be.)</li>
+  </ul>
+
+  <h2>Calculate it</h2>
+  <p>
+    Use the working-hours calculator on the
+    <a href="/calculators/hours-worked-calculator/#per-week-month-year">Hours
+    Worked page</a> to see your annual hours before and after PTO and
+    holidays. The
+    <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
+    Calculator</a> shows how PTO changes your real hourly rate. For background
+    on annual hours, see
+    <a href="/guides/how-many-work-hours-in-a-year/">how many work hours are in
+    a year?</a>
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.dol.gov/general/topic/workhours/vacation_leave" rel="noopener">US Department of Labor — Vacation leave (no FLSA requirement)</a></li>
+    <li><a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=LAB&amp;sectionNum=227.3" rel="noopener">California Labor Code §227.3 — payout of vested vacation</a></li>
+    <li><a href="https://www.gov.uk/holiday-entitlement-rights/calculate-leave-entitlement" rel="noopener">GOV.UK — Calculate leave entitlement (first-year accrual, 12.07% for irregular hours)</a></li>
+    <li><a href="https://www.ontario.ca/document/your-guide-employment-standards-act-0/vacation" rel="noopener">Ontario — Your guide to the Employment Standards Act: Vacation</a></li>
+    <li><a href="https://www.fairwork.gov.au/leave/annual-leave" rel="noopener">Fair Work Ombudsman — Annual leave</a></li>
+  </ul>
+</GuideLayout>

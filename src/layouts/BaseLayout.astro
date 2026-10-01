@@ -17,8 +17,14 @@ interface Props {
   noindex?: boolean;
   ogType?: "website" | "article";
   jsonLd?: Record<string, unknown>[];
+  /**
+   * false = this page never loads the AdSense script. Used on pages with no
+   * publisher content of their own (404, contact, legal), where Google's
+   * policies don't allow ads ("screens without publisher-content").
+   */
+  ads?: boolean;
 }
-const { title, description, path, noindex, ogType, jsonLd } = Astro.props;
+const { title, description, path, noindex, ogType, jsonLd, ads = true } = Astro.props;
 ---
 
 <!doctype html>
@@ -61,7 +67,7 @@ const { title, description, path, noindex, ogType, jsonLd } = Astro.props;
       ogType={ogType}
       jsonLd={jsonLd}
     />
-    <HeadAnalytics />
+    <HeadAnalytics ads={ads} />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>

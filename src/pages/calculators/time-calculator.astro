@@ -95,10 +95,10 @@ const faq = [
 
     <Faq items={faq} />
   </Fragment>
-</ToolLayout>
 
-<script>
-  import { init } from "@/islands/timeCalculator";
-  const root = document.querySelector<HTMLElement>("[data-calc='time-calc']");
-  if (root) init(root);
-</script>
+  <script>
+    import { init } from "@/islands/timeCalculator";
+    const root = document.querySelector<HTMLElement>("[data-calc='time-calc']");
+    if (root) init(root);
+  </script>
+</ToolLayout>

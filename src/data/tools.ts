@@ -52,13 +52,13 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "hours-worked-calculator",
     title: "Hours Worked Calculator",
-    metaTitle: "Hours Worked Calculator — Time Between Two Times",
+    metaTitle: "Hours Worked Calculator — Shifts, Weekly & Yearly Hours",
     description:
-      "Work out how many hours you worked between two times. Subtract an unpaid break, handle overnight shifts, and get hours and minutes or decimal hours.",
+      "Hours worked between two times, minus breaks, including overnight and split shifts — plus working hours per week, month and year from your schedule.",
     cluster: "work-hours",
     priority: "P1",
-    summary: "The quick one: how many hours between a start and end time, minus a break.",
-    related: ["time-card-calculator", "time-calculator", "decimal-hours-calculator", "working-hours-calculator"],
+    summary: "Hours between a start and end time minus breaks, plus hours per week, month and year from a schedule.",
+    related: ["time-card-calculator", "time-calculator", "decimal-hours-calculator", "salary-to-hourly-calculator"],
     guide: "how-to-calculate-hours-worked",
   },
   {
@@ -84,18 +84,6 @@ export const TOOLS: ToolMeta[] = [
     summary: "Clock in/out punches to decimal payroll hours.",
     related: ["time-card-calculator", "decimal-hours-calculator", "hours-worked-calculator", "overtime-calculator"],
     guide: "how-time-cards-work",
-  },
-  {
-    slug: "working-hours-calculator",
-    title: "Working Hours Calculator",
-    metaTitle: "Working Hours Calculator — Weekly, Monthly & Yearly",
-    description:
-      "Work out working hours per week, month, and year from your schedule. Adjust for paid time off and public holidays, and see full-time-equivalent (FTE).",
-    cluster: "work-hours",
-    priority: "P2",
-    summary: "Schedule-level: hours per week / month / year, PTO adjustment, and FTE.",
-    related: ["hours-worked-calculator", "salary-to-hourly-calculator", "time-card-calculator"],
-    guide: "how-many-work-hours-in-a-year",
   },
   {
     slug: "time-calculator",
@@ -129,7 +117,7 @@ export const TOOLS: ToolMeta[] = [
     cluster: "pay-salary",
     priority: "P3",
     summary: "Annual ↔ hourly ↔ every pay frequency, with schedule and PTO adjustments.",
-    related: ["hourly-pay-calculator", "working-hours-calculator", "paycheck-calculator", "take-home-pay-calculator"],
+    related: ["hourly-pay-calculator", "hours-worked-calculator", "paycheck-calculator"],
     guide: "salary-vs-hourly-pay",
   },
   {
@@ -147,25 +135,13 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "paycheck-calculator",
     title: "Paycheck Calculator",
-    metaTitle: "Paycheck Calculator 2026 — Estimate Your Take-Home Pay",
+    metaTitle: "Paycheck Calculator 2026 — Take-Home Pay After Tax",
     description:
-      "Estimate your paycheck after 2026 federal tax, Social Security, Medicare and state withholding. Covers CA, NY, IL, PA and the no-income-tax states.",
+      "Estimate take-home pay per paycheck, month and year after 2026 federal tax, FICA and state withholding, from a paycheck, hourly rate or annual salary.",
     cluster: "paycheck",
     priority: "P4",
-    summary: "Gross pay → federal + FICA + state withholding → net pay, for one pay period (US, 2026).",
-    related: ["take-home-pay-calculator", "hourly-pay-calculator", "salary-to-hourly-calculator", "overtime-calculator"],
-    guide: "gross-pay-vs-take-home-pay",
-  },
-  {
-    slug: "take-home-pay-calculator",
-    title: "Take-Home Pay Calculator",
-    metaTitle: "Take-Home Pay Calculator 2026 — Salary After Tax",
-    description:
-      "Enter an annual salary and see your estimated take-home pay per year, month, and paycheck after 2026 federal tax, FICA, and state income tax withholding.",
-    cluster: "paycheck",
-    priority: "P4",
-    summary: "Annual salary → estimated yearly, monthly, and per-paycheck take-home (US, 2026).",
-    related: ["paycheck-calculator", "salary-to-hourly-calculator", "hourly-pay-calculator"],
+    summary: "Paycheck, hourly rate or annual salary → federal + FICA + state withholding → take-home (US, 2026).",
+    related: ["hourly-pay-calculator", "salary-to-hourly-calculator", "overtime-calculator", "time-card-calculator"],
     guide: "gross-pay-vs-take-home-pay",
   },
 ];

@@ -7,7 +7,7 @@
  * A value is either the target path, or `{ to, strict }` (see below).
  */
 export const REDIRECTS = {
-  "/calculator.html": "/calculators/take-home-pay-calculator/",
+  "/calculator.html": "/calculators/paycheck-calculator/",
   // The old site's four country tax guides. There is no equivalent on the
   // refocused Work & Pay site (tax coverage is US-only; Canada/UK/AU are
   // "not yet supported"), so each points at the closest live content: the
@@ -44,6 +44,21 @@ export const REDIRECTS = {
   // Other stubs are left untouched.
   "/calculators/hourly-to-salary-calculator/": {
     to: "/calculators/salary-to-hourly-calculator/",
+    strict: true,
+  },
+  // Oct 2026 consolidation (AdSense "low value content" remediation): two
+  // calculators overlapped a sibling closely enough to be near-duplicate
+  // pages, so each was folded into that sibling. Strict form, as above.
+  //  - Working Hours (schedule -> week/month/year, PTO, FTE) now lives on the
+  //    Hours Worked page as its second calculator.
+  //  - Take-Home Pay (annual salary -> take-home) is now the Paycheck
+  //    Calculator's "An annual salary" mode.
+  "/calculators/working-hours-calculator/": {
+    to: "/calculators/hours-worked-calculator/",
+    strict: true,
+  },
+  "/calculators/take-home-pay-calculator/": {
+    to: "/calculators/paycheck-calculator/",
     strict: true,
   },
 };

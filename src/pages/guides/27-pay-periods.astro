@@ -1,0 +1,170 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["27-pay-periods"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    If you're paid every two weeks, most years have 26 paydays, but roughly
+    once every 11 years there are <strong>27</strong>. It happens because a
+    year is 365 days (366 in a leap year) and 26 two-week periods only cover
+    364. The leftover day or two slowly add up until a payday falls on
+    January 1 or 2, and then the same weekday comes around 27 times. Whether
+    that means an extra paycheck or 27 slightly smaller ones depends on how
+    you're paid.
+  </p>
+
+  <h2>Which years have 27 biweekly paydays?</h2>
+  <p>
+    It depends on your payday weekday and which of the two possible
+    "every other week" cycles your employer uses. Find your first payday of
+    January 2026 in the table to see your next 27-payday year:
+  </p>
+  <table>
+    <thead><tr><th>Payday</th><th>First payday in January 2026</th><th>Next year with 27 paydays</th></tr></thead>
+    <tbody>
+      <tr><td>Monday</td><td>Jan 5</td><td>2029</td></tr>
+      <tr><td>Monday</td><td>Jan 12</td><td>2035</td></tr>
+      <tr><td>Tuesday</td><td>Jan 6</td><td>2030</td></tr>
+      <tr><td>Tuesday</td><td>Jan 13</td><td>2036</td></tr>
+      <tr><td>Wednesday</td><td>Jan 7</td><td>2031</td></tr>
+      <tr><td>Wednesday</td><td>Jan 14</td><td>2036</td></tr>
+      <tr><td>Thursday</td><td>Jan 1</td><td>2026 (this year)</td></tr>
+      <tr><td>Thursday</td><td>Jan 8</td><td>2032</td></tr>
+      <tr><td>Friday</td><td>Jan 2</td><td>2027</td></tr>
+      <tr><td>Friday</td><td>Jan 9</td><td>2032</td></tr>
+    </tbody>
+  </table>
+  <p>
+    We worked these out by stepping each cycle forward 14 days at a time
+    through 2036 and counting the paydays in each calendar year. A 27th payday
+    happens when the cycle lands on January 1, or on January 1 or 2 in a leap
+    year.
+  </p>
+
+  <h3>Holidays can move the 27th paycheck into a different year</h3>
+  <p>
+    A payday that falls on January 1 is a bank holiday, and many employers
+    pay on the previous business day instead. That moves the paycheck into
+    December:
+  </p>
+  <ul>
+    <li>
+      <strong>Thursday cycle (January 1, 2026):</strong> if that payday was
+      brought forward to Wednesday, December 31, 2025, the 27th paycheck
+      landed in 2025, and 2026 has 26.
+    </li>
+    <li>
+      <strong>Friday cycle (January 1, 2027):</strong> if that payday is
+      brought forward to Thursday, December 31, 2026, the 27th paycheck lands
+      in <strong>2026</strong>, and 2027 has 26.
+    </li>
+  </ul>
+  <p>
+    For taxes, what matters is the date you're actually paid, so this also
+    decides which tax year the money counts in. Ask payroll how they handle
+    a January 1 payday.
+  </p>
+
+  <h2>Does a 27th payday mean extra money?</h2>
+  <p>It depends on how your pay is set:</p>
+  <table>
+    <thead><tr><th>How you're paid</th><th>What the 27th payday means</th></tr></thead>
+    <tbody>
+      <tr><td>Hourly</td><td>Nothing changes per paycheck. You're paid for the hours in each two-week period, so the year simply includes one more period's pay.</td></tr>
+      <tr><td>Salary, paid as a fixed amount per paycheck</td><td>The employer pays the usual amount 27 times, so your earnings for that calendar year are one paycheck higher.</td></tr>
+      <tr><td>Salary, annual amount divided across the paychecks in the year</td><td>The employer divides your salary by 27, so each paycheck that year is about 3.7% smaller and the annual total stays the same.</td></tr>
+    </tbody>
+  </table>
+  <p>
+    <strong>Example.</strong> On a $65,000 salary, a normal biweekly paycheck
+    is $65,000 &divide; 26 = $2,500.00 before tax. If the employer divides by
+    27 instead, each paycheck is $65,000 &divide; 27 = $2,407.41, which is
+    $92.59 less every payday. If it keeps paying $2,500.00, you receive
+    $67,500 for the year, $2,500 more than your salary.
+  </p>
+  <p>
+    Both approaches are common. Your offer letter or payroll policy should
+    say which applies; if it doesn't, ask before January so a smaller
+    paycheck isn't a surprise.
+  </p>
+
+  <h2>Deductions and benefits in a 27-paycheck year</h2>
+  <ul>
+    <li>
+      <strong>Per-paycheck deductions</strong> (health premiums, 401(k)
+      contributions set as a dollar amount) may be taken 27 times. Some
+      employers skip a deduction on one paycheck to keep the annual total
+      right. Check your stub for the extra one.
+    </li>
+    <li>
+      <strong>401(k) limits:</strong> if you contribute a fixed amount per
+      paycheck to reach the annual limit exactly, a 27th paycheck can push
+      you over. Most payroll systems stop at the limit, but it's worth
+      checking.
+    </li>
+    <li>
+      <strong>Withholding:</strong> federal withholding is calculated per
+      paycheck from your pay frequency, so it doesn't break; the extra
+      paycheck is simply withheld like the others.
+    </li>
+  </ul>
+
+  <h2>Budgeting: months with three paydays</h2>
+  <p>
+    With biweekly pay, two months of a normal year have three paydays. In a
+    27-payday year, three months do. For the Friday cycle that starts on
+    January 2, 2026:
+  </p>
+  <ul>
+    <li><strong>2026 (26 paydays):</strong> three paydays in January and July.</li>
+    <li><strong>2027 (27 paydays):</strong> three paydays in January, July and December.</li>
+  </ul>
+  <p>
+    If you budget on two paychecks a month, those months are when the extra
+    money arrives. More on this in
+    <a href="/guides/biweekly-vs-semimonthly-pay/">biweekly vs semimonthly
+    pay</a>.
+  </p>
+
+  <h2>Weekly pay: 53 paydays</h2>
+  <p>
+    Weekly pay has the same quirk: a year has 53 of a weekday when it
+    starts on that weekday; in a leap year, the following weekday gets 53 too. The next
+    53-payday years are:
+  </p>
+  <table>
+    <thead><tr><th>Weekly payday</th><th>Years with 53 paydays (2026–2036)</th></tr></thead>
+    <tbody>
+      <tr><td>Monday</td><td>2029, 2035</td></tr>
+      <tr><td>Tuesday</td><td>2030, 2036</td></tr>
+      <tr><td>Wednesday</td><td>2031, 2036</td></tr>
+      <tr><td>Thursday</td><td>2026, 2032</td></tr>
+      <tr><td>Friday</td><td>2027, 2032</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Semimonthly (24 a year) and monthly (12 a year) pay always have the same
+    number of paydays, which is one reason some employers prefer them. See
+    <a href="/guides/what-is-a-pay-period/">what is a pay period?</a>
+  </p>
+
+  <h2>Calculate your paychecks</h2>
+  <p>
+    The <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly
+    Calculator</a> converts a salary to weekly, biweekly, semimonthly and
+    monthly amounts. To see the take-home, use the
+    <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a>: choose
+    "An annual salary" and every two weeks. In a year where your employer
+    divides by 27, enter your salary &divide; 27 as a set amount per paycheck
+    instead.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li>Payday counts and three-payday months: TinyTools calculation, stepping each biweekly and weekly cycle through the calendar for 2026–2036.</li>
+    <li><a href="https://www.irs.gov/publications/p15t" rel="noopener">IRS Publication 15-T — Federal income tax withholding methods (pay-period based withholding)</a></li>
+    <li><a href="https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-topics-401k-and-profit-sharing-plan-contribution-limits" rel="noopener">IRS — 401(k) contribution limits</a></li>
+  </ul>
+</GuideLayout>

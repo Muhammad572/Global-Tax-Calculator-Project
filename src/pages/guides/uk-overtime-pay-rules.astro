@@ -1,0 +1,141 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["uk-overtime-pay-rules"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    In the UK there is <strong>no legal right to a higher rate for
+    overtime</strong>. Your employer doesn't have to pay time and a half, or
+    even pay for extra hours at all, as long as your average pay for all the
+    hours you work stays at or above the National Minimum Wage. What you
+    actually get for overtime is set by your contract. Two other rules still
+    protect you: the 48-hour average working week and, for regular overtime,
+    holiday pay.
+  </p>
+
+  <h2>Overtime pay is a contract term</h2>
+  <p>
+    GOV.UK puts it plainly: employers do not have to pay workers for overtime,
+    but average pay for the total hours worked must not fall below the
+    minimum wage. In practice, contracts handle overtime in one of these ways:
+  </p>
+  <ul>
+    <li><strong>A premium rate</strong>, such as time and a quarter, time and a half, or double time on Sundays and bank holidays. Common, but only if the contract or a collective agreement says so.</li>
+    <li><strong>Plain time</strong>: extra hours paid at the normal hourly rate.</li>
+    <li><strong>Time off in lieu (TOIL)</strong>: time off instead of pay, on terms you agree with your employer.</li>
+    <li><strong>Unpaid</strong>: common in salaried roles with a clause such as "you may be required to work additional hours without extra pay".</li>
+  </ul>
+  <p>
+    You only have to work overtime if your contract says so. If it does, you
+    can't usually be required to work more than an average of 48 hours a
+    week (see below).
+  </p>
+
+  <h2>Part-time workers</h2>
+  <p>
+    Part-time workers usually only get an overtime rate once they work more
+    than the normal hours of a comparable full-time worker. If full-time staff
+    work 37.5 hours and get time and a half after that, a part-timer
+    contracted for 20 hours who works 25 is normally paid plain time for the
+    extra 5 hours. Check your contract, which can be more generous.
+  </p>
+
+  <h2>The minimum wage check</h2>
+  <p>
+    Unpaid or plain-time overtime is legal only while your pay, averaged over
+    all the hours you work, stays at or above the minimum wage for your age.
+    From April 2026 the rates are:
+  </p>
+  <table>
+    <thead><tr><th>Age</th><th>Hourly minimum</th></tr></thead>
+    <tbody>
+      <tr><td>21 and over (National Living Wage)</td><td>&pound;12.71</td></tr>
+      <tr><td>18 to 20</td><td>&pound;10.85</td></tr>
+      <tr><td>Under 18, and apprentices</td><td>&pound;8.00</td></tr>
+    </tbody>
+  </table>
+  <p>
+    <strong>Example.</strong> A salaried worker aged 25 earns &pound;25,000 a
+    year for a 37.5-hour week. That is &pound;480.77 a week, or &pound;12.82
+    an hour, which is just above the National Living Wage. If they routinely
+    work 45 hours a week with no extra pay, their pay falls to &pound;480.77
+    &divide; 45 = <strong>&pound;10.68 an hour</strong>, which is below
+    &pound;12.71. The unpaid overtime has taken them under the minimum wage,
+    and the employer owes the difference.
+  </p>
+  <p>
+    This is a simplified check. HMRC works out minimum wage compliance over
+    each "pay reference period" (usually the pay period) and has specific
+    rules for salaried hours, so treat this as a warning sign rather than a
+    final figure.
+  </p>
+
+  <h2>The 48-hour week</h2>
+  <p>
+    The Working Time Regulations limit you to <strong>48 hours a week on
+    average</strong>, normally averaged over 17 weeks. Some points about it:
+  </p>
+  <ul>
+    <li>It is an average, so individual weeks can be longer.</li>
+    <li>You can choose to opt out in writing. Your employer can't make you, or treat you badly for refusing.</li>
+    <li>Under-18s can't opt out and can't work more than 8 hours a day or 40 hours a week.</li>
+    <li>Some jobs are excluded, such as the armed forces and emergency services in some situations, jobs that need 24-hour staffing, and managing executives who control their own working time.</li>
+    <li>It is a health-and-safety limit, not a pay rule. Working 50 hours doesn't by itself entitle you to a premium.</li>
+  </ul>
+  <p>
+    The same regulations give most adult workers a 20-minute rest break when
+    working more than 6 hours a day, 11 hours' rest between working days, and
+    a weekly rest period. See <a href="/guides/are-breaks-paid/">are breaks
+    paid?</a>
+  </p>
+
+  <h2>Overtime and holiday pay</h2>
+  <p>
+    This is the part most people miss. If you work overtime regularly, it can
+    increase your holiday pay. For workers with regular hours, the first 4
+    weeks of the 5.6-week statutory holiday must be paid at your
+    <strong>"normal" rate</strong>, which GOV.UK says includes regular overtime
+    payments, commission, and payments for length of service or professional
+    qualifications (bonuses usually don't count). The remaining 1.6 weeks can
+    be paid at your basic rate.
+  </p>
+  <p>
+    For workers with irregular hours, holiday pay is based on average pay over
+    the previous 52 weeks in which they were paid, going back up to 104 weeks
+    if necessary, so regular overtime is reflected that way.
+  </p>
+
+  <h2>Working out your overtime pay</h2>
+  <ol>
+    <li>Find the hours your contract treats as "normal" (for example 37.5 a week).</li>
+    <li>Subtract them from the hours you actually worked to get overtime hours.</li>
+    <li>Multiply the overtime hours by your hourly rate and the contract multiplier (1.0 for plain time, 1.5 for time and a half).</li>
+    <li>Check the minimum wage: total pay &divide; total hours must be at least the rate for your age.</li>
+  </ol>
+  <p>
+    <strong>Example.</strong> &pound;14.00 an hour, 37.5 normal hours, time and
+    a half after that, 42 hours worked: 37.5 &times; &pound;14.00 =
+    &pound;525.00, plus 4.5 &times; &pound;21.00 = &pound;94.50, for
+    <strong>&pound;619.50</strong>.
+  </p>
+  <p>
+    The <a href="/calculators/overtime-calculator/">Overtime Calculator</a> has a
+    UK option, which uses a common contractual default (1.5&times; after 40
+    hours). Because UK overtime is set by your contract, the custom rule is
+    usually the better fit: set the threshold to your normal hours and the
+    multiplier to your contract rate. The
+    <a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a>
+    turns the result into weekly, monthly and yearly figures.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.gov.uk/overtime-your-rights" rel="noopener">GOV.UK — Overtime: your rights</a></li>
+    <li><a href="https://www.gov.uk/national-minimum-wage-rates" rel="noopener">GOV.UK — National Minimum Wage and National Living Wage rates</a></li>
+    <li><a href="https://www.gov.uk/maximum-weekly-working-hours" rel="noopener">GOV.UK — Maximum weekly working hours</a></li>
+    <li><a href="https://www.gov.uk/holiday-entitlement-rights/holiday-pay" rel="noopener">GOV.UK — Holiday pay</a></li>
+    <li><a href="https://www.gov.uk/rest-breaks-work" rel="noopener">GOV.UK — Rest breaks at work</a></li>
+  </ul>
+</GuideLayout>

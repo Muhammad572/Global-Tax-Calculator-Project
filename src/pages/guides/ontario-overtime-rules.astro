@@ -1,0 +1,136 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["ontario-overtime-rules"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    In Ontario, most employees earn overtime after <strong>44 hours</strong> in
+    a work week, not 40. Overtime is paid at <strong>1.5 times</strong> the
+    regular rate. There is no daily overtime: a 12-hour shift is not overtime
+    by itself if the week stays at or under 44 hours. Overtime can also be
+    averaged over several weeks, or taken as paid time off, but only with a
+    written agreement.
+  </p>
+
+  <h2>The basic rule</h2>
+  <p>
+    Under the <em>Employment Standards Act, 2000</em> (ESA), an employer must
+    pay at least 1&frac12; times the employee's regular rate for each hour
+    worked over 44 in a work week. The work week is a recurring seven-day
+    period that the employer sets. Each week stands on its own unless there is
+    an averaging agreement.
+  </p>
+  <p>
+    <code>overtime pay = (hours worked − 44) &times; regular rate &times; 1.5</code>
+  </p>
+
+  <h2>Worked example</h2>
+  <p>An employee earning $20.00 an hour works 50 hours in one week:</p>
+  <ul>
+    <li>Regular: 44 &times; $20.00 = $880.00</li>
+    <li>Overtime: 6 &times; $30.00 = $180.00</li>
+    <li><strong>Gross pay: $1,060.00</strong></li>
+  </ul>
+  <p>
+    The same week under the US federal 40-hour rule would have 10 overtime
+    hours, not 6. That is why our calculators ask which rule applies instead of
+    assuming 40.
+  </p>
+
+  <h2>Long days don't create overtime</h2>
+  <p>
+    Ontario has no daily overtime threshold. Four 11-hour shifts make 44 hours,
+    so no overtime is owed, even though every shift ran past 8 hours. Daily
+    hours are still limited (see below), but the limit controls how long you
+    can be scheduled, not how you're paid.
+  </p>
+
+  <h2>Averaging agreements</h2>
+  <p>
+    An employer and employee can agree to average hours over a period of
+    <strong>two, three or four weeks</strong>. Overtime is then owed only when
+    the <em>average</em> weekly hours across the period exceed 44. The ESA
+    sets conditions:
+  </p>
+  <ul>
+    <li>The agreement must be in writing or electronic, and both sides must agree to it.</li>
+    <li>It must have an expiry date. For employees not covered by a union, the maximum length is two years.</li>
+    <li>It can't be cancelled before it expires unless both sides agree.</li>
+  </ul>
+  <p>
+    <strong>Example.</strong> Under a two-week averaging agreement, an employee
+    works 50 hours in week one and 36 in week two. That is 86 hours over two
+    weeks, an average of 43 a week, so <strong>no overtime</strong> is owed.
+    Without the agreement, week one would include 6 overtime hours.
+  </p>
+  <p>
+    If the same employee worked 50 and 42 hours, the total of 92 averages 46 a
+    week, so overtime is owed on 92 − (44 &times; 2) = <strong>4
+    hours</strong>.
+  </p>
+
+  <h2>Time off instead of overtime pay</h2>
+  <p>
+    Overtime can be "banked" as paid time off if the employer and employee
+    agree in writing or electronically. The ESA requires
+    <strong>1&frac12; hours of paid time off for each overtime hour</strong>,
+    the same ratio as the pay. The time off must be taken within three months
+    of the work week in which the overtime was earned, or within 12 months if
+    the employee agrees.
+  </p>
+  <p>
+    In the 50-hour example above, the 6 overtime hours become
+    <strong>9 hours</strong> of paid time off, not 6.
+  </p>
+
+  <h2>How many hours you can be asked to work</h2>
+  <p>
+    Separate ESA rules limit hours of work, whatever the pay:
+  </p>
+  <ul>
+    <li>Daily: no more than 8 hours, or the employer's established regular workday if longer, unless the employee agrees in writing or electronically.</li>
+    <li>Weekly: no more than 48 hours, unless the employee agrees in writing or electronically.</li>
+    <li>Rest: at least 11 consecutive hours off each day and 8 hours off between shifts (some exceptions apply), plus 24 consecutive hours off each work week or 48 in every two weeks.</li>
+    <li>Meals: a 30-minute eating period after every 5 hours of work, which can be split into two breaks if both sides agree. See <a href="/guides/are-breaks-paid/">are breaks paid?</a></li>
+  </ul>
+  <p>
+    Agreeing to work more than 48 hours does not waive overtime pay. Hours
+    over 44 are still overtime.
+  </p>
+
+  <h2>Who is not entitled to overtime</h2>
+  <p>
+    Managers and supervisors are not entitled to overtime if their work is
+    managerial or supervisory, even if they sometimes do other tasks. Some
+    jobs and industries have their own thresholds or exemptions under the
+    ESA regulations, and some workers are covered by federal law instead of
+    the ESA (for example banks, airlines and interprovincial trucking, where
+    the federal threshold is 40 hours). A salary doesn't remove overtime
+    rights in Ontario on its own; what matters is the job.
+  </p>
+
+  <h2>Calculating an Ontario overtime week</h2>
+  <ol>
+    <li>Add up the hours worked in the work week (or across the averaging period).</li>
+    <li>Subtract 44 (or 44 &times; the number of weeks being averaged).</li>
+    <li>Multiply any remaining hours by 1.5 &times; your regular rate, or by 1.5 to get banked hours.</li>
+  </ol>
+  <p>
+    The <a href="/calculators/overtime-calculator/">Overtime Calculator</a> has
+    an Ontario option that applies the 44-hour threshold, and the
+    <a href="/calculators/time-card-calculator/">Time Card Calculator</a> does
+    the same from daily start and end times. For averaging, choose the custom
+    rule in the Overtime Calculator, enter the total hours for the whole
+    period, and set the threshold to 44 &times; the number of weeks (88 for two
+    weeks, 132 for three, 176 for four).
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.ontario.ca/document/your-guide-employment-standards-act-0/overtime-pay" rel="noopener">Ontario — Your guide to the Employment Standards Act: Overtime pay</a></li>
+    <li><a href="https://www.ontario.ca/document/your-guide-employment-standards-act-0/hours-work" rel="noopener">Ontario — Your guide to the Employment Standards Act: Hours of work and eating periods</a></li>
+    <li><a href="https://laws-lois.justice.gc.ca/eng/acts/L-2/" rel="noopener">Canada Labour Code, Part III — standard hours and overtime for federally regulated workplaces</a></li>
+  </ul>
+</GuideLayout>

@@ -1,0 +1,159 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["overnight-shift-hours"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    To calculate an overnight shift, <strong>add 24 hours to the end time</strong>
+    before subtracting the start time, then subtract any unpaid break. A
+    shift from 10:00 PM to 6:30 AM with a 30-minute unpaid break is
+    (6:30 + 24:00) − 22:00 − 0:30 = <strong>8 hours</strong>. The
+    arithmetic is the easy part. The harder questions are which day and which
+    week the hours belong to, and what happens on the two nights a year when
+    the clocks change.
+  </p>
+
+  <h2>The basic calculation</h2>
+  <p>Work in the 24-hour clock so you can't mix up AM and PM:</p>
+  <ol>
+    <li>Convert both times to 24-hour format: 10:00 PM is 22:00, 6:30 AM is 06:30.</li>
+    <li>If the end time is earlier than the start time, the shift crossed midnight, so add 24 hours to the end: 06:30 becomes 30:30.</li>
+    <li>Subtract: 30:30 − 22:00 = 8 hours 30 minutes.</li>
+    <li>Subtract unpaid breaks: 8:30 − 0:30 = 8:00.</li>
+    <li>For payroll, convert minutes to decimal hours by dividing by 60 (see <a href="/guides/convert-minutes-to-decimal-hours/">minutes to decimal hours</a>).</li>
+  </ol>
+  <table>
+    <thead><tr><th>Shift</th><th>Unpaid break</th><th>Hours worked</th><th>Decimal</th></tr></thead>
+    <tbody>
+      <tr><td>10:00 PM – 6:30 AM</td><td>30 min</td><td>8 h 0 min</td><td>8.00</td></tr>
+      <tr><td>7:00 PM – 7:00 AM</td><td>45 min</td><td>11 h 15 min</td><td>11.25</td></tr>
+      <tr><td>11:00 PM – 7:00 AM</td><td>none</td><td>8 h 0 min</td><td>8.00</td></tr>
+      <tr><td>6:00 PM – 2:20 AM</td><td>20 min</td><td>8 h 0 min</td><td>8.00</td></tr>
+      <tr><td>9:45 PM – 6:15 AM</td><td>30 min</td><td>8 h 0 min</td><td>8.00</td></tr>
+    </tbody>
+  </table>
+  <p>
+    A common mistake is subtracting the clock times directly: 6:30 − 10:00
+    gives −3.5, and dropping the minus sign gives 3.5 hours instead of 8.5.
+  </p>
+
+  <h2>Which day do the hours belong to?</h2>
+  <p>
+    For a weekly total it rarely matters. But if you're paid overtime by the
+    day, or your shift crosses the end of the workweek, it does.
+  </p>
+  <h3>The workweek boundary (US federal rule)</h3>
+  <p>
+    Under the Fair Labor Standards Act a workweek is a fixed, recurring
+    period of 168 hours that can start on any day and at any hour, and each
+    workweek stands alone. Hours are generally counted in the workweek in
+    which they're worked. If your workweek starts at 12:00 AM Sunday, a
+    Saturday 10:00 PM to Sunday 6:00 AM shift puts 2 hours in the week that
+    is ending and 6 in the new one.
+  </p>
+  <p>
+    <strong>Example.</strong> You've worked 38 hours by Saturday evening and
+    then work that 8-hour overnight shift. If the whole shift counted in the
+    first week you'd have 46 hours and 6 hours of overtime. Split correctly,
+    the first week has 40 hours and no overtime, and the 6 hours start the
+    new week. That isn't your employer cheating; it's how the workweek
+    works. But it is worth knowing where yours begins (ask payroll).
+  </p>
+  <h3>The workday (California and other daily-overtime rules)</h3>
+  <p>
+    California pays overtime after 8 hours in a <em>workday</em>, defined as
+    any consecutive 24-hour period that starts at the same time each day. If
+    your employer's workday starts at midnight, a 6:00 PM to 6:00 AM shift is
+    6 hours in one workday and 6 in the next, so no daily overtime is owed
+    for a 12-hour shift. If the workday starts at 6:00 PM, the same shift is
+    12 hours in one workday: 4 hours of daily overtime. Employers are allowed
+    to set the workday start, but it has to stay fixed. See
+    <a href="/guides/california-overtime-rules/">California overtime rules</a>.
+  </p>
+  <p>
+    A shift that runs across two workdays is not a "split shift" under
+    California law: the California Court of Appeal said so in
+    <em>Securitas Security Services USA, Inc. v. Superior Court</em> (2011).
+    Split shifts are covered in <a href="/guides/split-shift-pay/">split shift
+    pay</a>.
+  </p>
+
+  <h2>When the clocks change overnight</h2>
+  <p>
+    On the nights daylight saving time starts or ends, the clock on the wall
+    and the hours you actually work differ by one hour. Pay rules are based
+    on the time actually worked:
+  </p>
+  <ul>
+    <li><strong>Clocks go back (autumn):</strong> one hour happens twice (1:00 to 2:00 AM in North America and the UK). A 10:00 PM to 6:00 AM shift is <strong>9 hours</strong> of work, not 8.</li>
+    <li><strong>Clocks go forward (spring):</strong> one hour is skipped (2:00 AM jumps to 3:00 AM in North America; 1:00 AM to 2:00 AM in the UK). A 10:00 PM to 6:00 AM shift is <strong>7 hours</strong> of work, not 8.</li>
+  </ul>
+  <p>
+    US federal law requires pay for all hours worked, so on the autumn night
+    the extra hour must be paid (and counts toward weekly overtime).
+    Whether a salaried worker or someone on a fixed shift payment gets more
+    or less pay in spring depends on the contract. Many time clocks record
+    elapsed time correctly, but a handwritten timesheet or simple "end minus
+    start" calculation, including ours, uses the clock on the wall. Add or
+    subtract the hour yourself on these dates.
+  </p>
+  <table>
+    <thead><tr><th>Region</th><th>Clocks go forward (−1 h)</th><th>Clocks go back (+1 h)</th></tr></thead>
+    <tbody>
+      <tr><td>United States &amp; Canada (most areas)</td><td>Sun 8 Mar 2026 · Sun 14 Mar 2027</td><td>Sun 1 Nov 2026 · Sun 7 Nov 2027</td></tr>
+      <tr><td>United Kingdom</td><td>Sun 29 Mar 2026 · Sun 28 Mar 2027</td><td>Sun 25 Oct 2026 · Sun 31 Oct 2027</td></tr>
+      <tr><td>Australia (NSW, Victoria, ACT, Tasmania, SA)</td><td>Sun 4 Oct 2026 · Sun 3 Oct 2027</td><td>Sun 5 Apr 2026 · Sun 4 Apr 2027</td></tr>
+    </tbody>
+  </table>
+  <p>
+    The transitions happen in the early hours of each Sunday listed, so the
+    affected shift is the one that starts on Saturday night. Arizona (except
+    the Navajo Nation), Hawaii, most of Saskatchewan, and Queensland, Western
+    Australia and the Northern Territory don't change their clocks. We
+    worked out these dates from the IANA time zone database used by
+    computers worldwide.
+  </p>
+
+  <h2>Breaks, rest and night pay</h2>
+  <ul>
+    <li>
+      <strong>Breaks</strong> follow the same rules as day shifts: in the US,
+      short rest breaks are paid and genuine meal breaks of 30 minutes or more
+      usually aren't. See <a href="/guides/are-breaks-paid/">are breaks paid?</a>
+    </li>
+    <li>
+      <strong>Rest between shifts</strong> is protected in some places: 11 hours
+      in the UK, and in Ontario 11 consecutive hours off each day and 8 hours
+      between shifts (with exceptions). The US has no general federal rule.
+    </li>
+    <li>
+      <strong>Night premiums</strong> aren't required by US federal law, but
+      many employers pay a shift differential. If yours does, it raises your
+      overtime rate too. See <a href="/guides/shift-differential-pay/">shift
+      differential pay</a>.
+    </li>
+  </ul>
+
+  <h2>Calculate an overnight shift</h2>
+  <p>
+    The <a href="/calculators/hours-worked-calculator/">Hours Worked
+    Calculator</a> spots an end time earlier than the start time and treats it
+    as an overnight shift automatically. For a full week of night shifts with
+    overtime and pay, use the
+    <a href="/calculators/time-card-calculator/">Time Card Calculator</a>, which
+    handles overnight shifts on every row.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.law.cornell.edu/cfr/text/29/778.105" rel="noopener">29 CFR §778.105 — Determining the workweek</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/22-flsa-hours-worked" rel="noopener">US Department of Labor — Fact Sheet #22: Hours worked under the FLSA</a></li>
+    <li><a href="https://www.law.cornell.edu/regulations/california/8-CCR-11040" rel="noopener">California Code of Regulations, Title 8, §11040 — definition of workday</a></li>
+    <li><a href="https://caselaw.findlaw.com/court/ca-court-of-appeal/1573627.html" rel="noopener">Securitas Security Services USA, Inc. v. Superior Court (Cal. Ct. App. 2011)</a></li>
+    <li><a href="https://www.iana.org/time-zones" rel="noopener">IANA Time Zone Database (daylight saving dates)</a></li>
+    <li><a href="https://www.gov.uk/rest-breaks-work" rel="noopener">GOV.UK — Rest breaks at work</a></li>
+    <li><a href="https://www.ontario.ca/document/your-guide-employment-standards-act-0/hours-work" rel="noopener">Ontario — Hours of work (rest periods)</a></li>
+  </ul>
+</GuideLayout>

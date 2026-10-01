@@ -156,16 +156,16 @@ const faq = [
     <h2>Related tools</h2>
     <ul>
       <li>Paid hourly and want gross pay with overtime: <a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a>.</li>
-      <li>Take-home after tax: <a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a>.</li>
-      <li>How many hours are in your work year: <a href="/calculators/working-hours-calculator/">Working Hours Calculator</a>.</li>
+      <li>Take-home after tax: <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a> (choose "An annual salary").</li>
+      <li>How many hours are in your work year: <a href="/calculators/hours-worked-calculator/#per-week-month-year">Hours Worked Calculator</a>.</li>
     </ul>
 
     <Faq items={faq} />
   </Fragment>
-</ToolLayout>
 
-<script>
-  import { init } from "@/islands/salaryToHourly";
-  const root = document.querySelector<HTMLElement>("[data-calc='salary-hourly']");
-  if (root) init(root);
-</script>
+  <script>
+    import { init } from "@/islands/salaryToHourly";
+    const root = document.querySelector<HTMLElement>("[data-calc='salary-hourly']");
+    if (root) init(root);
+  </script>
+</ToolLayout>

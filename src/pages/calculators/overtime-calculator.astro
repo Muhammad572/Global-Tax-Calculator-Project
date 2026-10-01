@@ -128,10 +128,10 @@ const faq = [
 
     <Faq items={faq} />
   </Fragment>
-</ToolLayout>
 
-<script>
-  import { init } from "@/islands/overtime";
-  const root = document.querySelector<HTMLElement>("[data-calc='overtime']");
-  if (root) init(root);
-</script>
+  <script>
+    import { init } from "@/islands/overtime";
+    const root = document.querySelector<HTMLElement>("[data-calc='overtime']");
+    if (root) init(root);
+  </script>
+</ToolLayout>

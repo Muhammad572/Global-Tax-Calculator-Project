@@ -472,3 +472,10 @@ select {
     color: #000;
   }
 }
+
+/* `hidden` must win over component display rules (e.g. `.field` is flex), so
+   mode-dependent field groups such as the Paycheck Calculator's per-paycheck /
+   annual inputs actually disappear when their mode isn't selected. */
+.calc [hidden] {
+  display: none !important;
+}

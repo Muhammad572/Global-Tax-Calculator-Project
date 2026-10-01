@@ -21,7 +21,7 @@ const set = (f: HTMLFormElement, n: string, v: string) => {
   el.value = v;
   el.dispatchEvent(new Event("input", { bubbles: true }));
 };
-beforeEach(() => history.replaceState(null, "", "/calculators/working-hours-calculator/"));
+beforeEach(() => history.replaceState(null, "", "/calculators/hours-worked-calculator/"));
 
 describe("working hours island", () => {
   it("shows a default result on load (40h/week -> 2,080/year)", () => {

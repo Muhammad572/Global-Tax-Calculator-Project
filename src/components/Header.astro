@@ -1,6 +1,6 @@
 ---
 import { SITE } from "@/data/site";
-import { CLUSTERS, toolsInCluster } from "@/data/tools";
+import { CLUSTERS, TOOLS, toolsInCluster } from "@/data/tools";
 const path = Astro.url.pathname;
 const inCalculators = path.startsWith("/calculators/");
 const isActive = (href: string) =>
@@ -81,7 +81,7 @@ const isActive = (href: string) =>
                 </div>
               ))
             }
-            <a class="site-nav__all" href="/calculators/">See all 11 calculators →</a>
+            <a class="site-nav__all" href="/calculators/">See all {TOOLS.length} calculators →</a>
           </div>
         </div>
       </details>

@@ -9,6 +9,8 @@ const SESSIONS = [
   { n: "3", opt: true },
 ];
 
+const thisYear = new Date().getUTCFullYear();
+
 const faq = [
   {
     q: "How many hours is 9 AM to 5:30 PM?",
@@ -27,6 +29,14 @@ const faq = [
     a: "Yes. Use sessions 2 and 3 for a morning and evening shift on the same day; the calculator totals them.",
   },
   {
+    q: "How many work hours are in a year?",
+    a: "A standard full-time year is 2,080 hours — 40 hours a week × 52 weeks. Subtract paid time off to get hours actually worked: with 15 vacation days and 10 holidays (25 days × 8 hours = 200 hours), that's 1,880 hours. Use the weekly, monthly and yearly calculator further down this page for your own schedule.",
+  },
+  {
+    q: "What is full-time equivalent (FTE)?",
+    a: "Your weekly hours divided by a full-time week. 30 hours against a 40-hour full-time week is 0.75 FTE. Employers use it to compare part-time roles and budget headcount.",
+  },
+  {
     q: "Does this calculate overtime?",
     a: "No — this tool is just elapsed working time. For a weekly total with an overtime split and gross pay, use the <a href='/calculators/time-card-calculator/'>Time Card Calculator</a>.",
   },
@@ -35,7 +45,7 @@ const faq = [
 
 <ToolLayout
   slug="hours-worked-calculator"
-  intro="Enter a start and end time to see exactly how many hours you worked. Subtract an unpaid break, add a second or third session for split shifts, and get the total in hours and minutes or decimal hours."
+  intro="Enter a start and end time to see exactly how many hours you worked. Subtract an unpaid break, add sessions for split shifts, and get hours and minutes or decimal hours. Need hours per week, month or year from a schedule instead? Use the second calculator below."
 >
   <CalcShell id="hours-worked" label="Hours worked">
     <fieldset>
@@ -79,6 +89,56 @@ const faq = [
     </fieldset>
   </CalcShell>
 
+  <h2 id="per-week-month-year" class="tool__second-h">Working hours per week, month and year</h2>
+  <p class="tool__second-intro">
+    Turn a weekly schedule into working hours per month and per year — before
+    and after paid time off — plus working days in the year and your
+    full-time equivalent (FTE). No clock times needed.
+  </p>
+  <CalcShell id="working-hours" label="Working hours from a schedule" submitText="Calculate">
+    <fieldset>
+      <legend>Your schedule</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="hpw">Hours per week</label>
+          <input type="number" inputmode="decimal" min="0" step="0.5" id="hpw" name="hpw" value="40" />
+        </div>
+        <div class="field">
+          <label for="dpw">Days per week</label>
+          <input type="number" inputmode="numeric" min="1" max="7" step="1" id="dpw" name="dpw" value="5" />
+        </div>
+        <div class="field">
+          <label for="wpy">Weeks per year</label>
+          <input type="number" inputmode="numeric" min="1" max="53" step="1" id="wpy" name="wpy" value="52" />
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Time off &amp; comparisons (optional)</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="pto">Vacation / PTO days a year</label>
+          <input type="number" inputmode="numeric" min="0" step="1" id="pto" name="pto" placeholder="0" />
+        </div>
+        <div class="field">
+          <label for="hol">Public holidays a year</label>
+          <input type="number" inputmode="numeric" min="0" step="1" id="hol" name="hol" placeholder="0" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="year">Year (for working days)</label>
+          <input type="number" inputmode="numeric" min="1970" max="2100" step="1" id="year" name="year" value={thisYear} />
+        </div>
+        <div class="field">
+          <label for="ft">Full-time week (for FTE)</label>
+          <input type="number" inputmode="decimal" min="1" step="0.5" id="ft" name="ft" value="40" />
+        </div>
+      </div>
+    </fieldset>
+  </CalcShell>
+
   <Fragment slot="content">
     <h2>How to calculate hours worked</h2>
     <p>
@@ -103,19 +163,58 @@ const faq = [
     </table>
     <p>Need the full chart or a bulk converter? Use the <a href="/calculators/decimal-hours-calculator/">Decimal Hours Calculator</a>.</p>
 
+    <h2>Hours per week, month and year: the formulas</h2>
+    <p>
+      <code>hours per year = hours per week × weeks per year</code><br />
+      <code>hours per month = hours per year ÷ 12</code><br />
+      <code>hours actually worked = hours per year − (PTO days + holidays) × hours per workday</code><br />
+      <code>FTE = your weekly hours ÷ full-time weekly hours</code>
+    </p>
+    <p>
+      Working days in the year are counted as Monday-to-Friday dates, not
+      adjusted for your country's public holidays (enter those in the holidays
+      field to see the hours impact).
+    </p>
+    <table>
+      <thead><tr><th>Hours/week</th><th>Per year (52 wk)</th><th>Per month</th></tr></thead>
+      <tbody>
+        <tr><td>40</td><td>2,080</td><td>173.3</td></tr>
+        <tr><td>37.5</td><td>1,950</td><td>162.5</td></tr>
+        <tr><td>35</td><td>1,820</td><td>151.7</td></tr>
+        <tr><td>30</td><td>1,560</td><td>130.0</td></tr>
+        <tr><td>20</td><td>1,040</td><td>86.7</td></tr>
+      </tbody>
+    </table>
+
     <h2>Related calculations</h2>
     <ul>
       <li>A whole week of shifts with overtime and pay: <a href="/calculators/time-card-calculator/">Time Card Calculator</a>.</li>
       <li>Clock-in / clock-out punches for payroll: <a href="/calculators/time-clock-calculator/">Time Clock Calculator</a>.</li>
       <li>Just adding and subtracting time values: <a href="/calculators/time-calculator/">Time Calculator</a>.</li>
+      <li>Turn annual hours into an hourly rate: <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly Calculator</a>.</li>
     </ul>
 
     <Faq items={faq} />
   </Fragment>
-</ToolLayout>
 
-<script>
-  import { init } from "@/islands/hoursWorked";
-  const root = document.querySelector<HTMLElement>("[data-calc='hours-worked']");
-  if (root) init(root);
-</script>
+  <style>
+    .tool__second-h {
+      margin-top: 2.5rem;
+      scroll-margin-top: 5rem;
+    }
+    .tool__second-intro {
+      margin: 0.4rem 0 1rem;
+      color: var(--ink-soft);
+      max-width: 62ch;
+    }
+  </style>
+
+  <script>
+    import { init } from "@/islands/hoursWorked";
+    import { init as initSchedule } from "@/islands/workingHours";
+    const root = document.querySelector<HTMLElement>("[data-calc='hours-worked']");
+    if (root) init(root);
+    const schedule = document.querySelector<HTMLElement>("[data-calc='working-hours']");
+    if (schedule) initSchedule(schedule);
+  </script>
+</ToolLayout>

@@ -4,7 +4,7 @@ import { TOOLS } from "@/data/tools";
 const popular = TOOLS.filter((t) => t.priority === "P1" || t.slug === "paycheck-calculator");
 ---
 
-<BaseLayout title="Page not found" description="That page doesn't exist. Try one of the TinyTools calculators instead." path="/404/" noindex>
+<BaseLayout title="Page not found" description="That page doesn't exist. Try one of the TinyTools calculators instead." path="/404/" noindex ads={false}>
   <div class="container prose nf">
     <p class="eyebrow">Error 404</p>
     <h1>Page not found</h1>

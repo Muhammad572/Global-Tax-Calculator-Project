@@ -1,0 +1,151 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["overtime-with-two-pay-rates"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    If you work two jobs for the same employer at different hourly rates (for
+    example, driving a forklift at $21 and packing at $17), overtime isn't
+    paid at either rate. Under the US Fair Labor Standards Act, your
+    <strong>regular rate is the weighted average</strong> of everything you
+    earned that week. Overtime hours get an extra half of that average on top
+    of the straight-time pay you've already earned. The only common exception
+    is a prior agreement to pay overtime at the rate of the job you were doing
+    at the time.
+  </p>
+
+  <h2>Why one hourly rate doesn't work</h2>
+  <p>
+    Overtime under the FLSA is 1.5 times the employee's <em>regular rate</em>,
+    and there is only one regular rate per workweek. Federal regulation
+    29 CFR §778.115 says that when someone works at two or more rates in a
+    single workweek, "his regular rate for that week is the weighted average
+    of such rates". Using the higher rate overpays; using the lower one, or
+    whichever job you happened to do last, can underpay.
+  </p>
+
+  <h2>The method, step by step</h2>
+  <ol>
+    <li><strong>Straight-time earnings:</strong> pay every hour worked at its own rate, including the overtime hours.</li>
+    <li><strong>Regular rate:</strong> divide straight-time earnings by total hours worked.</li>
+    <li><strong>Overtime premium:</strong> multiply overtime hours by half the regular rate.</li>
+    <li><strong>Gross pay:</strong> add the premium to the straight-time earnings.</li>
+  </ol>
+  <p>
+    <code>regular rate = total straight-time pay &divide; total hours</code><br />
+    <code>gross pay = straight-time pay + overtime hours &times; 0.5 &times; regular rate</code>
+  </p>
+  <p>
+    Step 3 uses <strong>half</strong> the rate, not 1.5 times it, because
+    step 1 has already paid the overtime hours at straight time. Adding
+    1.5&times; on top would pay those hours 2.5 times over.
+  </p>
+
+  <h2>Worked example</h2>
+  <p>A warehouse employee works 46 hours in one workweek:</p>
+  <table>
+    <thead><tr><th>Job</th><th>Hours</th><th>Rate</th><th>Straight-time pay</th></tr></thead>
+    <tbody>
+      <tr><td>Forklift operator</td><td>32</td><td>$21.00</td><td>$672.00</td></tr>
+      <tr><td>Packing</td><td>14</td><td>$17.00</td><td>$238.00</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>46</strong></td><td></td><td><strong>$910.00</strong></td></tr>
+    </tbody>
+  </table>
+  <ol>
+    <li>Regular rate: $910.00 &divide; 46 = <strong>$19.7826</strong> an hour.</li>
+    <li>Overtime hours: 46 − 40 = 6.</li>
+    <li>Overtime premium: 6 &times; 0.5 &times; $19.7826 = <strong>$59.35</strong>.</li>
+    <li>Gross pay: $910.00 + $59.35 = <strong>$969.35</strong>.</li>
+  </ol>
+  <p>
+    Keep the unrounded regular rate until the last step. Rounding it to
+    $19.78 first gives a premium of $59.34, a cent short, and those cents add
+    up across a payroll.
+  </p>
+
+  <h2>The alternative: overtime at the rate of the job performed</h2>
+  <p>
+    Section 7(g)(2) of the FLSA, explained in 29 CFR §778.419, allows a
+    different method if the employer and employee
+    <strong>agree in advance</strong>: overtime hours are paid at 1.5 times
+    the rate for the job actually being done during those hours. The rates
+    must be genuine (bona fide) rates, at or above the minimum wage, that are
+    really paid for that work in non-overtime hours.
+  </p>
+  <p>The answer then depends on which job filled the hours after the 40th:</p>
+  <table>
+    <thead><tr><th>Method</th><th>Calculation</th><th>Gross pay</th></tr></thead>
+    <tbody>
+      <tr><td>Weighted average (default)</td><td>$910.00 + 6 &times; 0.5 &times; $19.7826</td><td>$969.35</td></tr>
+      <tr><td>Agreement, last 6 hours were packing</td><td>32 &times; $21 + 8 &times; $17 + 6 &times; $25.50</td><td>$961.00</td></tr>
+      <tr><td>Agreement, last 6 hours were forklift</td><td>26 &times; $21 + 14 &times; $17 + 6 &times; $31.50</td><td>$973.00</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Without a prior agreement, paying $961.00 for this week would underpay the
+    employee by $8.35, even though the arithmetic looks reasonable. The same
+    number can be lawful under one arrangement and a violation under another,
+    which is why the agreement needs to exist before the work is done.
+  </p>
+
+  <h2>Other pay that changes the regular rate</h2>
+  <p>
+    The weighted average isn't only for two hourly jobs. Everything that goes
+    into the regular rate is added to the straight-time pay before dividing:
+  </p>
+  <ul>
+    <li><strong>Shift differentials</strong>, such as an extra $2 an hour for nights. See <a href="/guides/shift-differential-pay/">shift differential pay</a>.</li>
+    <li><strong>Non-discretionary bonuses</strong>: production, attendance and safety bonuses that were promised in advance.</li>
+    <li><strong>Commission and piece-rate earnings</strong>.</li>
+  </ul>
+  <p>
+    Discretionary bonuses, gifts, expense reimbursements and pay for time not
+    worked (such as holiday or vacation pay) are generally excluded. The
+    <a href="/guides/how-to-calculate-overtime-pay/">overtime pay guide</a>
+    covers the full list.
+  </p>
+
+  <h2>Checking your pay stub</h2>
+  <p>
+    Many pay stubs show this as two lines: straight time for every hour at
+    each rate, and a separate "OT premium" or "half-time" line. To check it:
+  </p>
+  <ol>
+    <li>Add the straight-time lines for all jobs (including any differential or bonus for the week).</li>
+    <li>Divide by your total hours for the workweek.</li>
+    <li>Halve that rate and multiply by your hours over 40. That should match the premium line.</li>
+  </ol>
+  <p>
+    If the stub instead shows overtime hours at 1.5&times; one of your rates,
+    your employer is either using the job-performed method (ask whether you
+    signed an agreement) or applying the wrong rate.
+  </p>
+
+  <h2>Outside the federal rule</h2>
+  <p>
+    State laws can add to this. California, for example, also pays daily
+    overtime, so the overtime hours may be counted per day. See
+    <a href="/guides/california-overtime-rules/">California overtime
+    rules</a>. In the UK, overtime rates are set by contract, so the contract
+    decides which rate applies. See
+    <a href="/guides/uk-overtime-pay-rules/">UK overtime pay rules</a>.
+  </p>
+
+  <h2>Calculate it</h2>
+  <p>
+    Use the <a href="/calculators/overtime-calculator/">Overtime Calculator</a>
+    with the weighted regular rate from step 2 as your hourly rate to get the
+    regular and overtime split. The
+    <a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a>
+    projects a typical week over a month or a year.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.law.cornell.edu/cfr/text/29/778.115" rel="noopener">29 CFR §778.115 — Employees working at two or more rates</a></li>
+    <li><a href="https://www.law.cornell.edu/cfr/text/29/778.419" rel="noopener">29 CFR §778.419 — Hourly workers employed at two or more jobs</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/23-flsa-overtime-pay" rel="noopener">US Department of Labor — Fact Sheet #23: Overtime pay requirements of the FLSA</a></li>
+  </ul>
+</GuideLayout>

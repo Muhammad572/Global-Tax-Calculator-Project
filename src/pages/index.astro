@@ -20,6 +20,13 @@ const popularGuides = [
 ]
   .map((s) => GUIDES_BY_SLUG[s])
   .filter((g): g is NonNullable<typeof g> => Boolean(g));
+
+// Most recently published/updated guides (not already shown above), so new
+// content is linked from the homepage as soon as it ships.
+const newestGuides = [...GUIDES]
+  .filter((g) => !popularGuides.includes(g))
+  .sort((a, b) => b.updated.localeCompare(a.updated))
+  .slice(0, 6);
 ---
 
 <BaseLayout
@@ -45,7 +52,7 @@ const popularGuides = [
           <a class="btn btn--primary btn--lg" href="/calculators/time-card-calculator/">
             Start with the Time Card Calculator
           </a>
-          <a class="btn btn--lg" href="/calculators/">Browse all 11 →</a>
+          <a class="btn btn--lg" href="/calculators/">Browse all {TOOLS.length} →</a>
         </div>
         <ul class="hero__trust">
           <li>No sign-up</li>
@@ -130,6 +137,16 @@ const popularGuides = [
           ))
         }
       </ul>
+      <h3 class="home-guides__new-h">New and updated</h3>
+      <ul class="home-guides__new">
+        {
+          newestGuides.map((g) => (
+            <li>
+              <a href={`/guides/${g.slug}/`}>{g.title}</a> — {g.summary}
+            </li>
+          ))
+        }
+      </ul>
       <p class="home-guides__all">
         <a href="/guides/">All {GUIDES.length} guides &rarr;</a>
       </p>
@@ -151,7 +168,6 @@ const popularGuides = [
           <a href="/calculators/time-card-calculator/">Time Card</a>,
           <a href="/calculators/hours-worked-calculator/">Hours Worked</a>,
           <a href="/calculators/time-clock-calculator/">Time Clock</a>,
-          <a href="/calculators/working-hours-calculator/">Working Hours</a>,
           <a href="/calculators/time-calculator/">Time</a>, and
           <a href="/calculators/decimal-hours-calculator/">Decimal Hours</a>
           calculators add up shifts, subtract breaks, handle overnight hours,
@@ -173,9 +189,9 @@ const popularGuides = [
         </li>
         <li>
           <strong>Paycheck.</strong> The
-          <a href="/calculators/paycheck-calculator/">Paycheck</a> and
-          <a href="/calculators/take-home-pay-calculator/">Take-Home Pay</a>
-          calculators estimate US federal income tax, Social Security, Medicare,
+          <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a>
+          works from one paycheck, an hourly rate, or an annual salary and
+          estimates US federal income tax, Social Security, Medicare,
           and state withholding for 2026.
         </li>
       </ul>
@@ -549,6 +565,18 @@ const popularGuides = [
   .home-guides__blurb {
     margin-top: 0.15rem;
     color: var(--ink-faint);
+  }
+  .home-guides__new-h {
+    margin-top: 1.75rem;
+    font-size: 1.05rem;
+  }
+  .home-guides__new {
+    margin: 0.5rem 0 0;
+    padding-left: 1.1rem;
+    color: var(--ink-soft);
+  }
+  .home-guides__new li + li {
+    margin-top: 0.3rem;
   }
   .home-guides__all {
     margin-top: 1rem;

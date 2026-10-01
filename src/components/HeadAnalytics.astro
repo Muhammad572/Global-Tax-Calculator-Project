@@ -21,8 +21,14 @@
  * advice — see /privacy/.
  */
 import { SITE } from "@/data/site";
+
+interface Props {
+  /** false on pages without publisher content (404, contact, legal). */
+  ads?: boolean;
+}
+const { ads = true } = Astro.props;
 const { ga4Id, adsensePublisherId } = SITE;
-const loadAdSense = SITE.adsenseVerification || SITE.adsenseEnabled;
+const loadAdSense = ads && (SITE.adsenseVerification || SITE.adsenseEnabled);
 ---
 
 <script is:inline define:vars={{ ga4Id }}>

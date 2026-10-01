@@ -1,0 +1,153 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["split-shift-pay"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    A split shift is a working day broken into two or more parts by a long
+    unpaid gap the employer sets, like a restaurant shift of 11:00 AM to
+    2:00 PM and then 5:00 PM to 10:00 PM. To get your hours,
+    <strong>add up the working parts and leave out the gap</strong>. In most
+    places that's all there is to it. In <strong>California</strong>,
+    lower-paid employees are also owed a split shift premium of up to one
+    hour's pay at minimum wage.
+  </p>
+
+  <h2>Calculating hours on a split shift</h2>
+  <p>Work out each part of the day on its own, then add them up:</p>
+  <table>
+    <thead><tr><th>Part</th><th>Times</th><th>Hours</th></tr></thead>
+    <tbody>
+      <tr><td>Lunch service</td><td>11:00 AM – 2:00 PM</td><td>3.00</td></tr>
+      <tr><td>Dinner service</td><td>5:00 PM – 10:00 PM</td><td>5.00</td></tr>
+      <tr><td><strong>Total worked</strong></td><td></td><td><strong>8.00</strong></td></tr>
+    </tbody>
+  </table>
+  <p>
+    The 3-hour gap is unpaid and doesn't count toward your hours. Any paid
+    rest breaks inside the working parts do count. Overtime rules use the
+    total for the day or week as usual, so in California two parts of 5 and
+    6 hours make an 11-hour workday with 3 hours of daily overtime, even
+    though neither part was longer than 8 hours.
+  </p>
+
+  <h2>California's split shift premium</h2>
+  <p>
+    California's wage orders define a split shift as "a work schedule which
+    is interrupted by non-paid non-working periods established by the
+    employer, other than bona fide rest or meal periods". When an employee
+    works one, the wage orders require "one (1) hour's pay at the minimum wage"
+    in addition to the minimum wage for that workday, unless the employee
+    lives at the place of employment.
+  </p>
+  <p>
+    The California Division of Labor Standards Enforcement applies this as a
+    minimum for the day, not a flat bonus. Wages you earn above the minimum
+    wage count toward the premium:
+  </p>
+  <p>
+    <code>minimum for the day = (minimum wage &times; hours worked) + (1 &times; minimum wage)</code><br />
+    <code>premium owed = minimum for the day − wages actually earned (if positive)</code>
+  </p>
+  <p>
+    Use the minimum wage that applies where you work. The 2026 statewide rate
+    is $16.90 an hour, and many cities and counties set higher local rates;
+    the DLSE uses whichever is higher.
+  </p>
+
+  <h3>Example 1: premium owed</h3>
+  <p>
+    An employee earning $17.00 an hour works 7:00 to 11:00 AM and 4:00 to
+    8:00 PM, 8 hours in total, where the minimum wage is $16.90:
+  </p>
+  <ol>
+    <li>Minimum for the day: 8 &times; $16.90 + $16.90 = $135.20 + $16.90 = <strong>$152.10</strong></li>
+    <li>Wages earned: 8 &times; $17.00 = <strong>$136.00</strong></li>
+    <li>Premium owed: $152.10 − $136.00 = <strong>$16.10</strong></li>
+  </ol>
+  <p>
+    Another way to see it: the full premium is $16.90, and the employee
+    already earns $0.10 an hour above minimum wage, or $0.80 over 8 hours, so
+    $16.90 − $0.80 = $16.10 is still owed.
+  </p>
+
+  <h3>Example 2: no premium owed</h3>
+  <p>
+    The same split shift at $20.00 an hour earns $160.00, which is more than
+    the $152.10 minimum for the day. The $3.10 an hour above minimum wage
+    (&times; 8 = $24.80) more than covers the $16.90 premium, so nothing
+    extra is owed.
+  </p>
+
+  <h3>When does the premium stop applying?</h3>
+  <p>
+    Because the premium is offset by pay above minimum wage, it only matters
+    below a break-even hourly rate, which depends on how many hours you work
+    that day. At the $16.90 statewide minimum:
+  </p>
+  <table>
+    <thead><tr><th>Hours worked on the split-shift day</th><th>Premium owed if paid less than</th></tr></thead>
+    <tbody>
+      <tr><td>4</td><td>$21.13 an hour</td></tr>
+      <tr><td>6</td><td>$19.72 an hour</td></tr>
+      <tr><td>8</td><td>$19.02 an hour</td></tr>
+      <tr><td>10</td><td>$18.59 an hour</td></tr>
+    </tbody>
+  </table>
+  <p>
+    The break-even rate is the minimum wage &times; (1 + 1 &divide; hours
+    worked), rounded up to the cent. With a higher local minimum wage, the
+    break-even rates are higher too.
+  </p>
+
+  <h2>What isn't a split shift</h2>
+  <ul>
+    <li>
+      <strong>A normal meal break.</strong> A bona fide unpaid meal period
+      doesn't make a split shift, even if it's long-ish.
+    </li>
+    <li>
+      <strong>A shift that crosses into the next workday.</strong> In
+      <em>Securitas Security Services USA, Inc. v. Superior Court</em> (2011),
+      the California Court of Appeal held that a shift spanning two workdays
+      isn't a split shift. See <a href="/guides/overnight-shift-hours/">overnight
+      shift hours</a>.
+    </li>
+    <li>
+      <strong>A gap you chose.</strong> The definition covers non-working
+      periods "established by the employer".
+    </li>
+    <li>
+      <strong>Two separate jobs</strong> with different employers on the same day.
+    </li>
+  </ul>
+
+  <h2>Outside California</h2>
+  <p>
+    US federal law has no split shift premium. You're paid for the hours you
+    work, and the unpaid gap in the middle isn't work time as long as you're
+    genuinely free to use it for yourself. If you're required to stay on the
+    premises or on call, that time may count as hours worked. Elsewhere,
+    split shift allowances usually come from union contracts or, in
+    Australia, from the relevant modern award.
+  </p>
+
+  <h2>Calculate it</h2>
+  <p>
+    The <a href="/calculators/hours-worked-calculator/">Hours Worked
+    Calculator</a> takes up to three sessions in a day and adds them up. For a
+    full week of split shifts with overtime, use the
+    <a href="/calculators/time-card-calculator/">Time Card Calculator</a>; then
+    check the California premium by hand with the formula above.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.law.cornell.edu/regulations/california/8-CCR-11040" rel="noopener">California Code of Regulations, Title 8, §11040 — split shift definition and premium (§2, §4(C))</a></li>
+    <li><a href="https://www.dir.ca.gov/dlse/minimum_wage.htm" rel="noopener">California DIR — Minimum wage</a></li>
+    <li><a href="https://caselaw.findlaw.com/court/ca-court-of-appeal/1573627.html" rel="noopener">Securitas Security Services USA, Inc. v. Superior Court (Cal. Ct. App. 2011)</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/22-flsa-hours-worked" rel="noopener">US Department of Labor — Fact Sheet #22: Hours worked (on-call and waiting time)</a></li>
+  </ul>
+</GuideLayout>

@@ -15,19 +15,21 @@ import {
   onLiveInput,
   renderErrors,
   renderResult,
+  type ResultRow,
   track,
   wireActions,
   writeUrl,
 } from "./_shared";
 import { deductionRows, filingStatus, stateCode, unsupportedNote } from "./_paycheck";
 
-const URL_KEYS = ["mode", "gross", "rate", "reghrs", "othrs", "otmult", "freq", "filing", "state", "step2", "dep", "extra", "pretax"];
+const URL_KEYS = ["mode", "gross", "salary", "rate", "reghrs", "othrs", "otmult", "freq", "filing", "state", "step2", "dep", "extra", "pretax"];
 const FREQ_LABEL: Record<string, string> = {
   weekly: "week",
   biweekly: "2 weeks",
   semimonthly: "half-month",
   monthly: "month",
 };
+const PERIODS: Record<string, number> = { weekly: 52, biweekly: 26, semimonthly: 24, monthly: 12 };
 
 export function init(root: HTMLElement): void {
   const form = must<HTMLFormElement>(root, "form");
@@ -36,6 +38,7 @@ export function init(root: HTMLElement): void {
   const resultActions = maybe(root, "[data-result-actions]");
   const hourlyFields = maybe(root, "[data-hourly-fields]");
   const salaryFields = maybe(root, "[data-salary-fields]");
+  const annualFields = maybe(root, "[data-annual-fields]");
   const notice = maybe(root, "[data-notice]");
   let shareText = "";
 
@@ -46,6 +49,7 @@ export function init(root: HTMLElement): void {
     const mode = (formValues(form).mode || "salary");
     if (hourlyFields) hourlyFields.hidden = mode !== "hourly";
     if (salaryFields) salaryFields.hidden = mode !== "salary";
+    if (annualFields) annualFields.hidden = mode !== "annual";
   }
 
   function calculate(): void {
@@ -72,6 +76,12 @@ export function init(root: HTMLElement): void {
         });
         grossPerPeriodCents = pay.grossPayCents;
       }
+    } else if (mode === "annual") {
+      // Annual salary mode (merged in from the former Take-Home Pay Calculator):
+      // one period's gross is the salary spread evenly over the year's paychecks.
+      const salary = num(v.salary, NaN);
+      if (v.salary?.trim() === "" || !Number.isFinite(salary) || salary < 0) issues.push("Enter your annual salary.");
+      grossPerPeriodCents = toCents((salary || 0) / (PERIODS[freq] ?? 26));
     } else {
       const gross = num(v.gross, NaN);
       if (v.gross?.trim() === "" || !Number.isFinite(gross) || gross < 0) issues.push("Enter your gross pay for one pay period.");
@@ -113,13 +123,28 @@ export function init(root: HTMLElement): void {
       }
     }
 
+    // Annual mode also answers the budgeting question: per year and per month.
+    const periods = PERIODS[freq] ?? 26;
+    const netAnnual = r.netPerPeriodCents * periods;
+    const annualRows: ResultRow[] =
+      mode === "annual"
+        ? [
+            { label: "Take-home per year", value: formatMoney(netAnnual), emphasis: "total" },
+            { label: "Take-home per month", value: formatMoney(Math.round(netAnnual / 12)), emphasis: "positive" },
+            { label: `— per paycheck (${periods} a year) —`, value: "", emphasis: "muted" },
+          ]
+        : [];
+
     renderResult(result, {
       headline: { label: `Estimated take-home pay per ${unit}`, value: formatMoney(r.netPerPeriodCents) },
-      rows,
+      rows: [...annualRows, ...rows],
       notes: [`Effective withholding rate: ${(r.effectiveRate * 100).toFixed(1)}% of gross.`, ...r.disclaimers],
     });
     if (resultActions) resultActions.hidden = false;
-    shareText = `Estimated take-home: ${formatMoney(r.netPerPeriodCents)} per ${unit} on ${formatMoney(grossPerPeriodCents)} gross — ${location.href}`;
+    shareText =
+      mode === "annual"
+        ? `${formatMoney(toCents(num(v.salary, 0)))}/year is about ${formatMoney(netAnnual)} take-home (${formatMoney(r.netPerPeriodCents)} per ${unit}) — ${location.href}`
+        : `Estimated take-home: ${formatMoney(r.netPerPeriodCents)} per ${unit} on ${formatMoney(grossPerPeriodCents)} gross — ${location.href}`;
     writeUrl(form, URL_KEYS);
     track("calc_run", { tool: "paycheck-calculator", mode, state: st, filing: input.filingStatus, supported: r.supported });
   }

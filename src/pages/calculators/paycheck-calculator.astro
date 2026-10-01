@@ -18,8 +18,12 @@ const faq = [
     a: "Local city and county income taxes are not included. If you live in NYC, Yonkers, or a city with a wage tax, your actual paycheck will be lower than the estimate.",
   },
   {
-    q: "How is this different from the Take-Home Pay Calculator?",
-    a: "This tool calculates one paycheck from your pay per period (or your rate and hours). The <a href='/calculators/take-home-pay-calculator/'>Take-Home Pay Calculator</a> starts from an annual salary and shows your take-home per year, per month, and per paycheck for budgeting and comparing offers.",
+    q: "Can I start from my annual salary instead?",
+    a: "Yes. Choose 'An annual salary' and pick how often you're paid. The calculator spreads the salary across the year's paychecks and shows take-home per paycheck, per month, and per year — the view you want for budgeting or comparing a job offer.",
+  },
+  {
+    q: "$90,000 a year — what's the take-home?",
+    a: "It depends on your state and filing status. As a rough guide for a single filer in 2026 in a state with no income tax, expect somewhere around $66,000–$70,000 after federal tax and FICA, and less in a state with income tax. Choose 'An annual salary' above for your own estimate.",
   },
   {
     q: "What are the W-4 boxes for?",
@@ -30,7 +34,7 @@ const faq = [
 
 <ToolLayout
   slug="paycheck-calculator"
-  intro="Estimate one paycheck after federal income tax, Social Security, Medicare, and state income tax withholding, using 2026 rates. Enter your pay per period or your hourly rate and hours."
+  intro="Estimate your take-home pay after federal income tax, Social Security, Medicare, and state income tax withholding, using 2026 rates. Start from your pay per paycheck, your hourly rate and hours, or your annual salary."
 >
   <CalcShell id="paycheck" label="Paycheck estimate">
     <fieldset>
@@ -40,6 +44,7 @@ const faq = [
         <div role="radiogroup" aria-labelledby="mode-l" class="field-row">
           <label class="field" style="flex-direction:row;align-items:center;gap:.4rem"><input type="radio" name="mode" value="salary" checked /> A set amount per paycheck</label>
           <label class="field" style="flex-direction:row;align-items:center;gap:.4rem"><input type="radio" name="mode" value="hourly" /> An hourly rate</label>
+          <label class="field" style="flex-direction:row;align-items:center;gap:.4rem"><input type="radio" name="mode" value="annual" /> An annual salary</label>
         </div>
       </div>
 
@@ -56,6 +61,10 @@ const faq = [
         <div class="field" data-salary-fields>
           <label for="gross">Gross pay this paycheck</label>
           <input type="number" inputmode="decimal" min="0" step="0.01" id="gross" name="gross" placeholder="2500" />
+        </div>
+        <div class="field" data-annual-fields hidden>
+          <label for="salary">Annual salary</label>
+          <input type="number" inputmode="decimal" min="0" step="100" id="salary" name="salary" placeholder="90000" />
         </div>
       </div>
 
@@ -129,6 +138,15 @@ const faq = [
       page.
     </p>
 
+    <h2>Per paycheck, per month, or per year</h2>
+    <p>
+      The three views answer different questions: per paycheck for what
+      actually lands each payday, per month for budgeting rent and bills, and
+      per year for comparing a job offer. Choose "An annual salary" to see all
+      three. They are consistent — the per-paycheck figure times the number of
+      paychecks in the year (52, 26, 24 or 12) equals the annual figure.
+    </p>
+
     <h2>Why this is an estimate</h2>
     <p>
       Withholding is a running prepayment of your tax, not the final bill. Your
@@ -147,16 +165,16 @@ const faq = [
 
     <h2>Related tools</h2>
     <ul>
-      <li>Annual salary → yearly and monthly take-home: <a href="/calculators/take-home-pay-calculator/">Take-Home Pay Calculator</a>.</li>
+      <li>Convert a salary to an hourly rate first: <a href="/calculators/salary-to-hourly-calculator/">Salary to Hourly Calculator</a>.</li>
       <li>Work out gross pay and overtime first: <a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a>, <a href="/calculators/time-card-calculator/">Time Card Calculator</a>.</li>
     </ul>
 
     <Faq items={faq} />
   </Fragment>
-</ToolLayout>
 
-<script>
-  import { init } from "@/islands/paycheck";
-  const root = document.querySelector<HTMLElement>("[data-calc='paycheck']");
-  if (root) init(root);
-</script>
+  <script>
+    import { init } from "@/islands/paycheck";
+    const root = document.querySelector<HTMLElement>("[data-calc='paycheck']");
+    if (root) init(root);
+  </script>
+</ToolLayout>

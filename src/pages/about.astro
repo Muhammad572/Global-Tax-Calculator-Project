@@ -35,6 +35,49 @@ import { SITE, AUTHOR, authorPerson } from "@/data/site";
       adviser.
     </p>
 
+    <h2 id="why">Why I built this</h2>
+    <p>
+      I'm a software engineer, and the calculations behind a paycheck are the
+      kind of problem I like: simple on the surface, full of edge cases
+      underneath. Working out "how many hours did I work this week" sounds
+      trivial until the shift crosses midnight, the clocks change overnight,
+      a lunch break is split in two, or someone writes 7 hours 45 minutes as
+      7.45 instead of 7.75 and loses pay without noticing.
+    </p>
+    <p>
+      The same goes for overtime. The rule people quote — time and a half after
+      40 hours — is only the US federal rule. California adds daily overtime
+      and double time, Ontario starts at 44 hours, the UK has no legal overtime
+      premium at all, and in Australia it depends on your award. Most free
+      calculators pick one rule and quietly apply it to everyone.
+    </p>
+    <p>
+      So I built TinyTools the way I would build any production software:
+    </p>
+    <ul>
+      <li>
+        <strong>One tested engine.</strong> Every calculator runs on the same
+        calculation library, which has its own automated test suite with worked
+        examples; the paycheck engine is also spot-checked by hand against the
+        published 2026 IRS and state tables.
+      </li>
+      <li>
+        <strong>The rule is chosen, not assumed.</strong> Where the law differs
+        by place, the calculator asks which rule applies and the guides explain
+        each one, with links to the official source.
+      </li>
+      <li>
+        <strong>Honest limits.</strong> If a state or country isn't supported,
+        the tool says so instead of producing a number that looks right but
+        isn't.
+      </li>
+    </ul>
+    <p>
+      If a result doesn't match your payslip, or a rule here is out of date,
+      please <a href="/contact/">tell me</a> — I'd rather fix it than have
+      anyone rely on a wrong number.
+    </p>
+
     <h2>What we're trying to do</h2>
     <p>
       Most "work hours" and "pay" searches are answered by pages that bury a thin

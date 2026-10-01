@@ -1,0 +1,121 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["shift-differential-pay"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    A <strong>shift differential</strong> is extra pay for working a less
+    popular shift, such as evenings, nights, weekends or rotating schedules.
+    It's usually a fixed amount per hour (for example +$2.00) or a percentage
+    of the base rate (for example +10%). No US federal law requires it, but
+    when it's paid, federal law <strong>does</strong> require it to be included
+    in your regular rate, so it raises your overtime pay as well.
+  </p>
+
+  <h2>Common types of differential</h2>
+  <table>
+    <thead><tr><th>Type</th><th>Example</th><th>On a $20.00 base</th></tr></thead>
+    <tbody>
+      <tr><td>Flat amount per hour</td><td>+$2.00 for hours after 6:00 PM</td><td>$22.00 an hour</td></tr>
+      <tr><td>Percentage of base rate</td><td>+10% on night shifts</td><td>$22.00 an hour</td></tr>
+      <tr><td>Flat amount per shift</td><td>+$25 per overnight shift</td><td>$25 extra for that shift</td></tr>
+      <tr><td>Weekend or holiday premium</td><td>+$3.00 on Saturday and Sunday</td><td>$23.00 an hour</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Which hours qualify depends on the employer's policy or union contract.
+    Some pay the differential for every hour of a qualifying shift; others
+    only for the hours that fall inside a set window, such as 11:00 PM to
+    7:00 AM. Check the wording, as it changes the number of hours you get it
+    for.
+  </p>
+
+  <h2>Calculating the pay</h2>
+  <p>
+    <code>differential pay = qualifying hours &times; differential per hour</code><br />
+    <code>percentage differential per hour = base rate &times; percentage</code>
+  </p>
+  <p>
+    <strong>Example.</strong> A night-shift worker earns $20.00 an hour plus a
+    $2.00 differential for 24 qualifying hours a week: 24 &times; $2.00 =
+    $48.00 a week. Over a year that's 24 &times; $2.00 &times; 52 =
+    <strong>$2,496</strong> on top of base pay, which is worth knowing when
+    you compare a night job with a day job.
+  </p>
+
+  <h2>Differentials and overtime</h2>
+  <p>
+    This is where pay stubs often go wrong. Under the Fair Labor Standards
+    Act, the regular rate used for overtime must include "such extra premiums
+    as nightshift differentials (whether they take the form of a percent of
+    the base rate or an addition of so many cents per hour)" (29 CFR
+    §778.207(b)). So in any week with overtime, the overtime rate isn't just
+    1.5 &times; your base rate.
+  </p>
+  <p>Use the same method as for <a href="/guides/overtime-with-two-pay-rates/">overtime with two pay rates</a>:</p>
+  <ol>
+    <li>Add all straight-time pay for the week: base pay for every hour, plus all differential pay.</li>
+    <li>Divide by total hours worked to get the regular rate.</li>
+    <li>Pay half the regular rate on top for each overtime hour.</li>
+  </ol>
+
+  <h3>Worked example</h3>
+  <p>
+    The worker above puts in 46 hours one week, 24 of them qualifying for the
+    $2.00 night differential:
+  </p>
+  <ol>
+    <li>Straight-time pay: 46 &times; $20.00 + 24 &times; $2.00 = $920.00 + $48.00 = <strong>$968.00</strong></li>
+    <li>Regular rate: $968.00 &divide; 46 = <strong>$21.0435</strong> an hour</li>
+    <li>Overtime premium: 6 &times; 0.5 &times; $21.0435 = <strong>$63.13</strong></li>
+    <li>Gross pay: $968.00 + $63.13 = <strong>$1,031.13</strong></li>
+  </ol>
+  <p>
+    If the employer leaves the differential out of the overtime rate, the
+    premium is 6 &times; 0.5 &times; $20.00 = $60.00 and gross pay is
+    $1,028.00, which is <strong>$3.13 short</strong>. That's a small amount
+    for one week, but it adds up over a year of regular overtime.
+  </p>
+  <p>
+    The overtime premium in this method is based on the
+    <em>average</em> rate for the week, not on whether the overtime hours
+    themselves were night or day hours.
+  </p>
+
+  <h2>What the law requires, by country</h2>
+  <ul>
+    <li><strong>United States:</strong> no federal requirement to pay a differential; if one is paid, it goes into the regular rate. Some states and many union contracts have their own rules, especially in healthcare and public-sector work.</li>
+    <li><strong>Canada (Ontario):</strong> no general shift-premium requirement in the Employment Standards Act; differentials come from contracts and collective agreements.</li>
+    <li><strong>United Kingdom:</strong> no legal requirement to pay more for nights or weekends; any premium is contractual. Regular premiums can count toward holiday pay (see <a href="/guides/uk-overtime-pay-rules/">UK overtime pay rules</a>).</li>
+    <li><strong>Australia:</strong> modern awards commonly set penalty rates for evenings, nights, weekends and public holidays. Check the award that covers your job.</li>
+  </ul>
+
+  <h2>Is a differential taxed differently?</h2>
+  <p>
+    No. In the US, differential pay is ordinary wages, subject to the same
+    income tax withholding and FICA as base pay. A bigger paycheck can look
+    over-withheld, for the same reason overtime does; see
+    <a href="/guides/is-overtime-taxed-more/">is overtime taxed more?</a>
+  </p>
+
+  <h2>Calculate it</h2>
+  <p>
+    Work out your regular rate with the steps above, then enter it in the
+    <a href="/calculators/overtime-calculator/">Overtime Calculator</a> to split
+    regular and overtime pay. The
+    <a href="/calculators/hourly-pay-calculator/">Hourly Pay Calculator</a>
+    shows what a differential is worth per month and per year, and the
+    <a href="/calculators/paycheck-calculator/">Paycheck Calculator</a>
+    estimates the take-home.
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.law.cornell.edu/cfr/text/29/778.207" rel="noopener">29 CFR §778.207 — Other types of contract premiums (shift differentials in the regular rate)</a></li>
+    <li><a href="https://www.law.cornell.edu/cfr/text/29/778.115" rel="noopener">29 CFR §778.115 — Weighted average regular rate</a></li>
+    <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/23-flsa-overtime-pay" rel="noopener">US Department of Labor — Fact Sheet #23: Overtime pay</a></li>
+    <li><a href="https://www.fairwork.gov.au/pay-and-wages/overtime-and-penalty-rates" rel="noopener">Fair Work Ombudsman — Overtime and penalty rates</a></li>
+  </ul>
+</GuideLayout>

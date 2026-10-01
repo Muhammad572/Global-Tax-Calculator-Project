@@ -1,0 +1,196 @@
+---
+import GuideLayout from "@/layouts/GuideLayout.astro";
+import { GUIDES_BY_SLUG } from "@/data/guides";
+const g = GUIDES_BY_SLUG["california-overtime-rules"]!;
+---
+
+<GuideLayout title={g.title} metaTitle={g.metaTitle} description={g.description} slug={g.slug} updated={g.updated}>
+  <p>
+    California is the strictest overtime state in the US. Non-exempt employees
+    earn overtime by the <strong>day</strong> as well as by the week:
+    time and a half after 8 hours in a workday, double time after 12, and
+    special rates on the seventh consecutive day of a workweek. Federal law
+    only looks at the week, so a California paycheck can include overtime even
+    in a week of fewer than 40 hours.
+  </p>
+
+  <h2>The rules in one table</h2>
+  <p>California Labor Code §510 sets these minimums for non-exempt employees:</p>
+  <table>
+    <thead><tr><th>Hours worked</th><th>Minimum rate</th></tr></thead>
+    <tbody>
+      <tr><td>Up to 8 in a workday (and up to 40 in the workweek)</td><td>Regular rate</td></tr>
+      <tr><td>Over 8 and up to 12 in a workday</td><td>1.5&times; regular rate</td></tr>
+      <tr><td>Over 12 in a workday</td><td>2&times; regular rate</td></tr>
+      <tr><td>Over 40 in the workweek (hours not already paid as daily overtime)</td><td>1.5&times; regular rate</td></tr>
+      <tr><td>First 8 hours on the 7th consecutive workday of the workweek</td><td>1.5&times; regular rate</td></tr>
+      <tr><td>Over 8 hours on that 7th consecutive day</td><td>2&times; regular rate</td></tr>
+    </tbody>
+  </table>
+  <p>
+    "Regular rate" here means the same thing it does under federal law: your
+    hourly wage plus most other pay for the week, such as shift differentials
+    and non-discretionary bonuses. See
+    <a href="/guides/how-to-calculate-overtime-pay/">how to calculate overtime pay</a>
+    for what goes into it.
+  </p>
+
+  <h2>What counts as a "workday"</h2>
+  <p>
+    The daily thresholds apply to a <em>workday</em>, which the California wage
+    orders define as any consecutive 24-hour period beginning at the same time
+    each calendar day. It does not have to start at midnight. If your
+    employer's workday runs from 6:00 AM to 6:00 AM, a shift from 10:00 PM to
+    7:00 AM is split across two workdays: 8 hours fall in the first workday and
+    1 hour in the next. That matters for night workers, and it is covered in
+    more depth in <a href="/guides/overnight-shift-hours/">how to calculate
+    hours for overnight shifts</a>.
+  </p>
+  <p>
+    The <em>workweek</em> is a fixed, regularly recurring period of seven
+    consecutive workdays. Your employer chooses when it starts, but it can't be
+    moved around to avoid overtime.
+  </p>
+
+  <h2>Daily and weekly overtime are not added together</h2>
+  <p>
+    California counts overtime in two passes, and an hour is never paid as
+    overtime twice:
+  </p>
+  <ol>
+    <li>
+      <strong>Daily pass.</strong> For each workday, hours 8 to 12 are paid at
+      1.5&times; and hours beyond 12 at 2&times;.
+    </li>
+    <li>
+      <strong>Weekly pass.</strong> Add up the hours that were <em>not</em>
+      already paid as daily overtime. If that total is over 40, the excess is
+      paid at 1.5&times;.
+    </li>
+  </ol>
+  <p>
+    Daily overtime hours are left out of the weekly count so they aren't
+    "pyramided" into a second premium. This is the order the
+    <a href="/calculators/time-card-calculator/">Time Card Calculator</a> uses
+    when you choose the California rule.
+  </p>
+
+  <h2>Worked example: a 50-hour week</h2>
+  <p>
+    A warehouse employee earns $24.00 an hour and works six days in one
+    workweek:
+  </p>
+  <table>
+    <thead><tr><th>Day</th><th>Hours</th><th>Regular</th><th>1.5&times;</th><th>2&times;</th></tr></thead>
+    <tbody>
+      <tr><td>Monday</td><td>10</td><td>8</td><td>2</td><td>0</td></tr>
+      <tr><td>Tuesday</td><td>9</td><td>8</td><td>1</td><td>0</td></tr>
+      <tr><td>Wednesday</td><td>8</td><td>8</td><td>0</td><td>0</td></tr>
+      <tr><td>Thursday</td><td>13</td><td>8</td><td>4</td><td>1</td></tr>
+      <tr><td>Friday</td><td>6</td><td>6</td><td>0</td><td>0</td></tr>
+      <tr><td>Saturday</td><td>4</td><td>4</td><td>0</td><td>0</td></tr>
+      <tr><td><strong>Daily totals</strong></td><td><strong>50</strong></td><td><strong>42</strong></td><td><strong>7</strong></td><td><strong>1</strong></td></tr>
+    </tbody>
+  </table>
+  <p>
+    After the daily pass there are 42 regular hours. That is 2 more than 40,
+    so the weekly pass moves 2 of them (the last ones worked, on Saturday)
+    to 1.5&times;. The final split is <strong>40 regular, 9 overtime and 1
+    double-time hour</strong>:
+  </p>
+  <ul>
+    <li>Regular: 40 &times; $24.00 = $960.00</li>
+    <li>Overtime: 9 &times; $36.00 = $324.00</li>
+    <li>Double time: 1 &times; $48.00 = $48.00</li>
+    <li><strong>Gross pay: $1,332.00</strong></li>
+  </ul>
+  <p>
+    Under the federal rule alone the same 50 hours would be 40 regular and 10
+    overtime hours, or $1,320.00. The $12 difference is the one hour past 12
+    on Thursday being paid at double time instead of time and a half. In a
+    week with several long days and fewer total hours, the gap is much bigger:
+    four 11-hour days (44 hours) earn 12 daily overtime hours in California
+    but only 4 under the federal rule.
+  </p>
+
+  <h2>The seventh-day rule</h2>
+  <p>
+    If you work all seven days of a workweek, the seventh day is treated
+    differently: its first 8 hours are paid at 1.5&times; even if you haven't
+    reached 40 hours, and any hours beyond 8 on that day are paid at 2&times;.
+    For example, someone who works 5 hours on each of the first six days (30
+    hours) and 9 hours on the seventh is owed 8 hours at 1.5&times; and 1 hour
+    at 2&times; for that last day.
+  </p>
+  <p>
+    The rule depends on the <em>workweek</em>, not any seven days in a row.
+    Seven consecutive days that straddle two workweeks don't trigger it. Our
+    calculators apply California's daily and weekly thresholds but
+    <strong>not</strong> the seventh-day rule, so if it applies to you, add
+    those hours separately.
+  </p>
+
+  <h2>Alternative workweek schedules</h2>
+  <p>
+    An employer can adopt an "alternative workweek schedule", such as four
+    10-hour days, if it follows the secret-ballot election procedure in the
+    wage orders. Under a valid schedule, hours up to the agreed daily length
+    (10 hours in a 4/10 schedule) are paid at the regular rate, and daily
+    overtime starts after that. Without a valid election, a 4/10 schedule
+    owes 2 hours of overtime every day. If you work a compressed schedule, ask
+    whether it was adopted by an election.
+  </p>
+
+  <h2>Who isn't covered</h2>
+  <p>
+    Overtime rules apply to <strong>non-exempt</strong> employees. Most
+    executive, administrative and professional employees are exempt if they
+    pass a duties test <em>and</em> earn a salary of at least twice the state
+    minimum wage for full-time work. With the 2026 statewide minimum wage of
+    $16.90 an hour, that threshold is $70,304 a year. Some jobs, such as
+    certain computer professionals, physicians and outside salespeople, have
+    their own rules. Job titles don't decide exemption; the duties and pay do.
+    See <a href="/guides/exempt-vs-non-exempt-employees/">exempt vs non-exempt
+    employees</a>.
+  </p>
+
+  <h2>Common mistakes on California timesheets</h2>
+  <ul>
+    <li>
+      <strong>Only checking the weekly total.</strong> A 38-hour week can still
+      include overtime if any day ran past 8 hours.
+    </li>
+    <li>
+      <strong>Counting daily overtime twice.</strong> The weekly pass uses only
+      the hours not already paid as daily overtime.
+    </li>
+    <li>
+      <strong>Using the base wage for the overtime rate</strong> when a shift
+      differential or production bonus was earned that week. Both raise the
+      regular rate.
+    </li>
+    <li>
+      <strong>Forgetting that a workday may not start at midnight.</strong>
+      Night-shift hours are assigned to the workday your employer defines.
+    </li>
+  </ul>
+
+  <h2>Calculate a California week</h2>
+  <p>
+    Enter each day's start and end times in the
+    <a href="/calculators/time-card-calculator/">Time Card Calculator</a> and
+    choose the California rule to get the daily and weekly split and your
+    gross pay. For a quick check from total hours, the
+    <a href="/calculators/overtime-calculator/">Overtime Calculator</a> also has
+    a California option. Double time is explained further in
+    <a href="/guides/what-is-double-time-pay/">what is double-time pay?</a>
+  </p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=LAB&amp;sectionNum=510" rel="noopener">California Labor Code §510 — daily, weekly and seventh-day overtime</a></li>
+    <li><a href="https://www.dir.ca.gov/dlse/faq_overtime.htm" rel="noopener">California Department of Industrial Relations — Overtime FAQ</a></li>
+    <li><a href="https://www.law.cornell.edu/regulations/california/8-CCR-11040" rel="noopener">California Code of Regulations, Title 8, §11040 (Wage Order 4) — definition of workday</a></li>
+    <li><a href="https://www.dir.ca.gov/dlse/minimum_wage.htm" rel="noopener">California DIR — Minimum wage ($16.90 statewide from January 1, 2026)</a></li>
+  </ul>
+</GuideLayout>
