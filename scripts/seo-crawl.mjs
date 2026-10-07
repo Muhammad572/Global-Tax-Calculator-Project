@@ -52,7 +52,9 @@ const pages = files.map((f) => {
 // meta — redirecting pages deliberately no longer carry noindex (see
 // scripts/gen-redirects.mjs). Everything that is neither /404 nor a redirect
 // stub is an indexable content page.
-const isRedirectStub = (p) => /http-equiv="refresh" content="0;\s*url=/.test(p.html);
+// Soft stubs (see gen-redirects.mjs) have no meta refresh; they carry a
+// <meta name="tt-redirect"> marker with the target instead.
+const isRedirectStub = (p) => /http-equiv="refresh" content="0;\s*url=/.test(p.html) || /<meta name="tt-redirect"/.test(p.html);
 const indexable = pages.filter((p) => p.url !== "/404" && !isRedirectStub(p));
 const problems = [];
 const warn = [];
@@ -87,7 +89,7 @@ for (const p of pages) {
   // redirect stub
   // The refresh target may be a path (legacy stubs) or an absolute same-site URL
   // (strict stubs); normalise to a path so it can be compared with the canonical.
-  const refresh = ((p.html.match(/http-equiv="refresh" content="0;\s*url=([^"]+)"/) || [])[1] || "").replace(SITE, "") || undefined;
+  const refresh = ((p.html.match(/http-equiv="refresh" content="0;\s*url=([^"]+)"/) || p.html.match(/<meta name="tt-redirect" content="([^"]+)"/) || [])[1] || "").replace(SITE, "") || undefined;
   const target = (p.canonical || "").replace(SITE, "");
   if (!refresh) problems.push(`${p.url}: non-indexable page with no meta-refresh (unexpected stub)`);
   if ((p.robots || "").includes("noindex")) problems.push(`${p.url}: redirect stub must not carry a noindex meta (it blocks signal consolidation)`);

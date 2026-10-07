@@ -4,7 +4,7 @@
  * into public/) and by scripts/seo-crawl.mjs (validates the targets resolve).
  * GitHub Pages has no server 301s; Google treats a meta-refresh + canonical
  * stub as a soft redirect and passes most signal. No blanket redirect to `/`.
- * A value is either the target path, or `{ to, strict }` (see below).
+ * A value is either the target path, or `{ to, strict }` / `{ to, soft }` (see below).
  */
 export const REDIRECTS = {
   "/calculator.html": "/calculators/paycheck-calculator/",
@@ -42,9 +42,15 @@ export const REDIRECTS = {
   // crawled by Googlebot (Sep 20) while serving the relative/spaced form and
   // Search Console reported "Redirect error", so it gets the strictest form.
   // Other stubs are left untouched.
+  //
+  // Update (Oct 2026): even the strict form kept failing Search Console
+  // validation ("Redirect error", crawled Oct 1, validation failed Oct 5), so
+  // this one URL is now `soft`: an ordinary 200 page with a canonical to the
+  // target, a visible link and a script redirect — no meta refresh for Google
+  // to mis-classify.
   "/calculators/hourly-to-salary-calculator/": {
     to: "/calculators/salary-to-hourly-calculator/",
-    strict: true,
+    soft: true,
   },
   // Oct 2026 consolidation (AdSense "low value content" remediation): two
   // calculators overlapped a sibling closely enough to be near-duplicate

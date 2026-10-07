@@ -32,6 +32,29 @@ if (existsSync(MARKER)) {
 // the new page. Do NOT add `<meta name="robots" content="noindex">` here: on a
 // redirecting page it is a contradictory signal that makes Search Console list
 // the URL under "Excluded by 'noindex' tag" and can stop equity from passing.
+// soft: a normal 200 page instead of a refresh redirect. It keeps the canonical
+// to the new page (so signals consolidate), shows a visible link, and sends
+// visitors across with a script. Used where Search Console kept reporting
+// "Redirect error" for a correct strict meta-refresh stub (hourly-to-salary).
+// No meta refresh and no noindex: Google files it as an ordinary canonicalised
+// alternate page, which is not an error state.
+const softStub = (to) => `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page moved — TinyTools</title>
+<link rel="canonical" href="${SITE}${to}">
+<meta name="tt-redirect" content="${SITE}${to}">
+<script>window.location.replace(${JSON.stringify(to)});</script>
+</head>
+<body>
+<p>This calculator has moved. Use the
+<a href="${SITE}${to}">updated calculator</a>.</p>
+</body>
+</html>
+`;
+
 const stub = (to, strict = false) => {
   // strict: the form Google documents for meta-refresh redirects — an absolute
   // URL and no whitespace after the semicolon — with an absolute fallback link.
@@ -54,16 +77,16 @@ const stub = (to, strict = false) => {
 };
 
 // A REDIRECTS value is either a target path or { to, strict }.
-const normalise = (v) => (typeof v === "string" ? { to: v, strict: false } : v);
+const normalise = (v) => (typeof v === "string" ? { to: v, strict: false, soft: false } : v);
 
 const written = [];
 for (const [from, value] of Object.entries(REDIRECTS)) {
-  const { to, strict } = normalise(value);
+  const { to, strict, soft } = normalise(value);
   const dest = filePath(from);
   mkdirSync(dirname(dest), { recursive: true });
-  writeFileSync(dest, stub(to, strict));
+  writeFileSync(dest, soft ? softStub(to) : stub(to, strict));
   written.push(from);
 }
 writeFileSync(MARKER, JSON.stringify(written, null, 2));
 console.log(`Generated ${written.length} redirect stubs in public/:`);
-for (const w of written) console.log(`  ${w} -> ${normalise(REDIRECTS[w]).to}${normalise(REDIRECTS[w]).strict ? "  [strict]" : ""}`);
+for (const w of written) console.log(`  ${w} -> ${normalise(REDIRECTS[w]).to}${normalise(REDIRECTS[w]).soft ? "  [soft]" : normalise(REDIRECTS[w]).strict ? "  [strict]" : ""}`);
