@@ -167,7 +167,7 @@ export const GUIDES: GuideMeta[] = [
     updated: "2026-09-07",
     targets: ["hourly to salary", "how much is 25 an hour annually", "convert hourly to yearly", "hourly wage to salary"],
     supports: ["salary-to-hourly-calculator", "hourly-pay-calculator", "hours-worked-calculator"],
-    related: ["how-many-work-hours-in-a-year", "salary-vs-hourly-pay", "gross-pay-vs-take-home-pay"],
+    related: ["how-many-work-hours-in-a-year", "salary-vs-hourly-pay", "gross-pay-vs-take-home-pay", "what-is-full-time-equivalent"],
     summary: "The × hours × 52 method, the 2,080 shortcut, and what it leaves out.",
   },
   {
