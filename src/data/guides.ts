@@ -175,12 +175,12 @@ export const GUIDES: GuideMeta[] = [
     title: "What Is a Full-Time Equivalent (FTE)?",
     metaTitle: "What Is Full-Time Equivalent (FTE)? How to Calculate It",
     description:
-      "An FTE expresses headcount as a share of a full-time schedule: two people at 20 hours each are 1.0 FTE. How to calculate it for a team and why it matters.",
-    updated: "2026-09-07",
-    targets: ["what is FTE", "full time equivalent", "how to calculate FTE", "FTE meaning"],
+      "FTE turns part-time hours into full-time units: two people at 20 hours = 1.0 FTE. Formula, hours table, partial-FTE pay and the ACA's different method.",
+    updated: "2026-10-22",
+    targets: ["what is FTE", "full time equivalent", "how to calculate FTE", "FTE meaning", "FTE hours per week", "ACA FTE calculation"],
     supports: ["hours-worked-calculator", "salary-to-hourly-calculator"],
     related: ["how-many-work-hours-in-a-year", "convert-hourly-wage-to-annual-salary", "salary-vs-hourly-pay"],
-    summary: "The definition, the formula, a worked team example, and common uses.",
+    summary: "The formula, an hours table, partial-FTE pay, and how the ACA counts FTE.",
   },
   {
     slug: "exempt-vs-non-exempt-employees",

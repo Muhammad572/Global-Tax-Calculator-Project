@@ -21,10 +21,13 @@ const popularGuides = [
   .map((s) => GUIDES_BY_SLUG[s])
   .filter((g): g is NonNullable<typeof g> => Boolean(g));
 
-// Every guide from the most recent content update (not already shown above), so
-// new content is linked from the homepage as soon as it ships.
-const latestUpdate = GUIDES.reduce((m, g) => (g.updated > m ? g.updated : m), "");
-const newestGuides = GUIDES.filter((g) => g.updated === latestUpdate && !popularGuides.includes(g)).slice(0, 12);
+// The 12 most recently published or updated guides (not already shown above),
+// newest first, so new and refreshed content is linked from the homepage as
+// soon as it ships and older entries roll off as newer ones arrive.
+const newestGuides = [...GUIDES]
+  .filter((g) => !popularGuides.includes(g))
+  .sort((a, b) => b.updated.localeCompare(a.updated))
+  .slice(0, 12);
 ---
 
 <BaseLayout
