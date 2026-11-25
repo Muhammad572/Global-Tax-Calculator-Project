@@ -6,7 +6,7 @@ import { SITE, AUTHOR, authorPerson } from "@/data/site";
 
 <BaseLayout
   title="About"
-  description="TinyTools builds free, accurate work-hours, overtime and pay calculators for the US, Canada, UK and Australia — how they work and how they stay accurate."
+  description="TinyTools builds free, accurate work-hours, overtime and pay calculators (US take-home pay; overtime rules for the US, Ontario, UK and Australia) — how they work and how they stay accurate."
   path="/about/"
   jsonLd={[{ "@context": "https://schema.org", ...authorPerson() }]}
 >
@@ -17,8 +17,8 @@ import { SITE, AUTHOR, authorPerson } from "@/data/site";
     <p>
       {SITE.name} is a small, focused collection of calculators for one topic:
       turning work hours into pay. Time cards, hours worked, overtime, salary and
-      hourly conversions, and take-home pay estimates for the United States,
-      Canada, the United Kingdom, and Australia.
+      hourly conversions, and take-home pay estimates for the United States.
+      Overtime rules cover the US, Ontario, the United Kingdom, and Australia.
     </p>
 
     <h2 id="author">Who builds {SITE.name}</h2>
@@ -121,9 +121,10 @@ import { SITE, AUTHOR, authorPerson } from "@/data/site";
 
     <h2>How the site is funded</h2>
     <p>
-      {SITE.name} is free and supported by advertising. Ads are clearly labelled
-      and kept away from the calculator controls and results so they can't be
-      mistaken for part of a tool. See our
+      {SITE.name} is free and plans to be supported by advertising (Google
+      AdSense). No ads are shown yet. When they are, they will be clearly
+      labelled and kept away from the calculator controls and results so they
+      can't be mistaken for part of a tool. See our
       <a href="/privacy/">Privacy Policy</a> for how analytics and advertising
       cookies are handled.
     </p>
