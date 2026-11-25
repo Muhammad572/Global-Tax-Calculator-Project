@@ -46,7 +46,7 @@ export const TOOLS: ToolMeta[] = [
     cluster: "work-hours",
     priority: "P1",
     summary: "A full weekly timesheet: daily start/end times, breaks, overnight shifts, overtime, and gross pay.",
-    related: ["hours-worked-calculator", "overtime-calculator", "time-clock-calculator", "paycheck-calculator"],
+    related: ["hours-worked-calculator", "overtime-calculator", "time-clock-calculator", "paycheck-calculator", "time-calculator"],
     guide: "how-time-cards-work",
   },
   {
@@ -82,7 +82,7 @@ export const TOOLS: ToolMeta[] = [
     cluster: "work-hours",
     priority: "P2",
     summary: "Clock in/out punches to decimal payroll hours.",
-    related: ["time-card-calculator", "decimal-hours-calculator", "hours-worked-calculator", "overtime-calculator"],
+    related: ["time-card-calculator", "decimal-hours-calculator", "hours-worked-calculator", "overtime-calculator", "time-calculator"],
     guide: "how-time-cards-work",
   },
   {
