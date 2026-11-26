@@ -23,22 +23,25 @@ import { SITE, AUTHOR, authorPerson } from "@/data/site";
 
     <h2 id="author">Who builds {SITE.name}</h2>
     <p>
+      {SITE.name} is built and maintained by the team at
+      <strong>{AUTHOR.employer.name}</strong>
+      (<a href={AUTHOR.url} rel="noopener">{AUTHOR.url.replace("https://", "")}</a>),
+      a small software company. The project is led by
       <strong>{AUTHOR.name}</strong> — {AUTHOR.jobTitle}. {AUTHOR.bio}
-      ({AUTHOR.employer.name}: <a href={AUTHOR.url} rel="noopener">{AUTHOR.url.replace("https://", "")}</a>)
     </p>
     <p>
-      He is responsible for every calculator and guide here. He is a software
-      engineer, not a payroll, tax, or legal professional: the tools apply
+      Our team is responsible for every calculator and guide here. We are
+      software engineers, not payroll, tax, or legal professionals: the tools apply
       published rules and rates, each one is cited to the statute or agency
       publication it comes from, and the results are estimates. For your own
       situation, confirm with your employer's payroll team or a qualified
       adviser.
     </p>
 
-    <h2 id="why">Why I built this</h2>
+    <h2 id="why">Why we built this</h2>
     <p>
-      I'm a software engineer, and the calculations behind a paycheck are the
-      kind of problem I like: simple on the surface, full of edge cases
+      We are software engineers, and the calculations behind a paycheck are the
+      kind of problem we like: simple on the surface, full of edge cases
       underneath. Working out "how many hours did I work this week" sounds
       trivial until the shift crosses midnight, the clocks change overnight,
       a lunch break is split in two, or someone writes 7 hours 45 minutes as
@@ -52,7 +55,7 @@ import { SITE, AUTHOR, authorPerson } from "@/data/site";
       calculators pick one rule and quietly apply it to everyone.
     </p>
     <p>
-      So I built TinyTools the way I would build any production software:
+      So we built TinyTools the way we would build any production software:
     </p>
     <ul>
       <li>
@@ -74,7 +77,7 @@ import { SITE, AUTHOR, authorPerson } from "@/data/site";
     </ul>
     <p>
       If a result doesn't match your payslip, or a rule here is out of date,
-      please <a href="/contact/">tell me</a> — I'd rather fix it than have
+      please <a href="/contact/">tell us</a> — we'd rather fix it than have
       anyone rely on a wrong number.
     </p>
 

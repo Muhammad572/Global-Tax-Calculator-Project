@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
-import { SITE } from "@/data/site";
+import { SITE, AUTHOR } from "@/data/site";
 ---
 
 <BaseLayout
@@ -15,7 +15,7 @@ import { SITE } from "@/data/site";
     <h1>Contact</h1>
 
     <p>
-      {SITE.name} is built and run by one independent developer (see
+      {SITE.name} is built and run by the {AUTHOR.employer.name} team (see
       <a href="/about/#author">About</a>). Every message is read, especially:
     </p>
     <ul>
